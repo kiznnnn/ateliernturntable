@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>atelier⁰¹ // Morning Analog Listening Room & 1:1 Vinyl Turntable</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@200;300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-chassis="obsidian" data-disc-style="picture">
+
+  <!-- ========================================================================
+       HERO STAGE: RIFT-INSPIRED BURNT ESPRESSO / SUNRISE LIGHT STAGE
+       ======================================================================== -->
+  <section id="heroStage" class="hero-stage">
+    <div class="hero-sunbeam-orb"></div>
+    <div id="heroWatermarkText" class="hero-watermark-text">blonde</div>
+
+    <!-- Floating Glass Pill Navigation Bar -->
+    <header class="rift-nav">
+      <a href="#heroStage" class="rift-wordmark">
+        atelier<sup>01</sup>
+      </a>
+
+      <nav class="rift-center-pills" aria-label="Studio Navigation">
+        <a href="#heroStage" class="rift-nav-pill active">Turntable</a>
+        <a href="#ritualSection" class="rift-nav-pill">Acoustics</a>
+        <a href="#configureSection" class="rift-nav-pill">Finish</a>
+        <a href="#crateSection" class="rift-nav-pill">Record Crate (<span id="navCrateCount">11</span>)</a>
+      </nav>
+
+      <button id="topDropNeedleCta" class="rift-top-cta" title="Drop or lift stylus (Spacebar)">
+        <span>Drop the needle</span>
+        <span class="rift-top-cta-circle">→</span>
+      </button>
+    </header>
+
+    <!-- Main Hero Grid: Whisper-Quiet Left Editorial + Dominant 1:1 Turntable -->
+    <div class="hero-main-grid">
+
+      <!-- Left Column: Morning Jazz Coffee Shop Editorial & Groove Tracklist -->
+      <div class="hero-editorial-panel">
+        <div class="eyebrow-tag">
+          <span id="eyebrowDot" class="eyebrow-dot"></span>
+          <span id="eyebrowStatusText">PLATTER READY // DRAG TONEARM ONTO RECORD TO PLAY</span>
+        </div>
+
+        <h1 id="heroDisplayTitle" class="hero-display-title">Blonde</h1>
+
+        <p id="heroAlbumSubtitle" class="hero-album-subtitle">
+          Frank Ocean • 2016 • 17 tracks pressed on 180g audiophile vinyl. Drag the tonearm onto the wax to listen.
+        </p>
+
+        <div class="rift-pill-row">
+          <button id="dropNeedlePillBtn" class="rift-primary-pill">
+            <span id="dropNeedlePillText">Drop Needle on Wax</span>
+            <span class="rift-pill-icon-circle">→</span>
+          </button>
+          <span class="kbd-hint-tag">[SPACE] or drag cartridge</span>
+        </div>
+
+        <!-- Minimal Tracklist Groove Selector -->
+        <div class="minimal-groove-list">
+          <div class="groove-list-header">
+            <span id="grooveSideLabel">SIDE A • TRACK 01 — Nikes</span>
+            <span>GROOVE RADIUS</span>
+          </div>
+          <div id="grooveTracksContainer" class="groove-tracks-container"></div>
+        </div>
+      </div>
+
+      <!-- Right Column: 1:1 Photorealistic Turntable Hardware Deck -->
+      <div class="turntable-hero-stage">
+        <div class="turntable-unit-frame">
+
+          <!-- Rear Gold-Plated Phono RCA Terminals & Isolation Feet -->
+          <div class="rear-hardware-edge">
+            <div class="rca-ground-screw"></div>
+            <div class="rca-terminal"></div>
+            <div class="rca-terminal"></div>
+          </div>
+          <div class="isolation-foot fl"></div>
+          <div class="isolation-foot fr"></div>
+
+          <!-- 1:1 MACHINED TURNTABLE PLINTH (Zero Digital Play/Pause Buttons!) -->
+          <div class="turntable-plinth">
+
+            <!-- Top-Left Engraved Model Plate -->
+            <div class="plinth-model-plate">
+              <span class="model-plate-title">ATELIER // PC-4G</span>
+              <span class="model-plate-sub">DIRECT QUARTZ &amp; BELT REFERENCE SYSTEM</span>
+            </div>
+
+            <!-- Exposed Brass Belt-Drive Pulley & Rubber Tension Belt -->
+            <svg class="belt-rubber-svg" viewBox="0 0 165 210" fill="none">
+              <line x1="18" y1="84" x2="148" y2="10" stroke="#09090A" stroke-width="2.8" />
+              <line x1="18" y1="126" x2="148" y2="200" stroke="#09090A" stroke-width="2.8" />
+            </svg>
+            <div class="belt-drive-assembly" title="Exposed Brass Belt-Drive Motor Pulley">
+              <div class="motor-pulley-well">
+                <div id="brassMotorSpindle" class="brass-motor-spindle"></div>
+              </div>
+            </div>
+
+            <!-- Bottom-Left Real Turntable Hardware: Rotary Power Switch + Strobe Prism + 33/45/78 Buttons -->
+            <div class="bottom-left-hardware-cluster">
+              <div class="power-strobe-turret">
+                <button
+                  id="rotaryPowerKnob"
+                  class="rotary-power-knob power-on"
+                  title="Mechanical Rotary Power Switch (ON / OFF)"
+                  aria-label="Toggle Turntable Motor Power"
+                >
+                  <div class="rotary-fin"></div>
+                </button>
+                <div class="strobe-prism-housing" title="Quartz Strobe Illuminator Tower">
+                  <div id="strobeLedWindow" class="strobe-led-window lit"></div>
+                </div>
+                <span class="power-label-caption">POWER<br/>ON•OFF</span>
+              </div>
+
+              <div class="speed-buttons-bank" role="group" aria-label="Platter RPM Selector">
+                <button class="hardware-speed-btn active" data-rpm="33.3" title="33⅓ RPM Standard LP Speed">
+                  <span class="speed-led-slit"></span>
+                  <span>33</span>
+                </button>
+                <button class="hardware-speed-btn" data-rpm="45" title="45 RPM EP Single Speed">
+                  <span class="speed-led-slit"></span>
+                  <span>45</span>
+                </button>
+                <button class="hardware-speed-btn" data-rpm="78" title="78 RPM Shellac Speed">
+                  <span class="speed-led-slit"></span>
+                  <span>78</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- DIE-CAST PLATTER WITH STROBE DOTS & 180G VINYL RECORD -->
+            <div class="platter-assembly">
+              <!-- Rotating Die-Cast Strobe Dots Bevel -->
+              <div id="platterStrobeRim" class="platter-strobe-rim"></div>
+
+              <!-- Subtle Rim Progress Arc -->
+              <svg class="rim-progress-svg" viewBox="0 0 320 320">
+                <circle class="rim-progress-track" cx="160" cy="160" r="150" />
+                <circle id="rimProgressFill" class="rim-progress-fill" cx="160" cy="160" r="150" />
+              </svg>
+
+              <!-- Interactive Draggable Vinyl Record -->
+              <div id="vinylDisc" class="vinyl-disc" title="Grab and drag the record to scrub or scratch!">
+                <div id="vinylFullbleedArt" class="vinyl-fullbleed-art"></div>
+                <div class="vinyl-grooves-overlay"></div>
+                <div id="vinylTrackBands" class="vinyl-track-bands"></div>
+                <div id="vinylRimEngraving" class="vinyl-rim-engraving">• FRANK OCEAN •</div>
+
+                <!-- Center Vinyl Label -->
+                <div id="vinylCenterLabel" class="vinyl-center-label">
+                  <div id="labelArtRing" class="label-art-ring"></div>
+                  <span id="labelTextTop" class="label-text-top">FRANK OCEAN</span>
+                  <span id="labelTextBottom" class="label-text-bottom">BLONDE</span>
+                </div>
+              </div>
+
+              <!-- Fixed Anisotropic Specular Sheen & Center Spindle -->
+              <div class="vinyl-anisotropic-sheen"></div>
+              <div class="center-spindle-pin"></div>
+            </div>
+
+            <!-- 1:1 PRECISION GIMBAL TONEARM ASSEMBLY -->
+            <div id="tonearmPivotCenter" class="tonearm-pivot-center">
+              <div class="tonearm-base-plate"></div>
+              <div class="anti-skate-dial" title="Calibrated Anti-Skate Force (1.75g)"></div>
+
+              <!-- Physical Hydraulic Cueing Lever Wand -->
+              <div id="hydraulicCueAssembly" class="hydraulic-cue-assembly" title="Hydraulic Cueing Lever (Flip to lift/lower stylus)">
+                <div class="cue-cylinder-body"></div>
+                <div class="cue-wand-lever"></div>
+                <div class="cue-rubber-tip"></div>
+              </div>
+
+              <div class="tonearm-rest-cradle"></div>
+
+              <!-- Rotating Tonearm Rig -->
+              <div id="tonearmRig" class="tonearm-rotating-rig">
+                <div class="tonearm-counterweight" title="Calibrated Tracking Force Counterweight">
+                  <div class="counterweight-scale-ring">
+                    <span>1.0</span><span>1.5</span><span>2.0</span>
+                  </div>
+                </div>
+                <div class="tonearm-rear-stub"></div>
+                <div class="tonearm-main-rod"></div>
+                <div class="headshell-collar-nut"></div>
+                <div class="tonearm-gimbal-bridge">
+                  <div class="gimbal-pivot-screw"></div>
+                </div>
+
+                <!-- Slotted Die-Cast Headshell with 4 Cartridge Lead Wires (Drag onto record!) -->
+                <div id="tonearmHeadshell" class="tonearm-headshell" title="Drag cartridge onto the vinyl grooves to play!">
+                  <div class="cartridge-lead-wires">
+                    <span class="lead-wire lw-r"></span>
+                    <span class="lead-wire lw-w"></span>
+                    <span class="lead-wire lw-g"></span>
+                    <span class="lead-wire lw-b"></span>
+                  </div>
+                  <div class="headshell-slots">
+                    <span class="mounting-bolt"></span>
+                    <span class="mounting-bolt"></span>
+                  </div>
+                  <div class="headshell-finger-lift"></div>
+                  <div class="stylus-indicator-triangle"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- RECESSED GRADUATED PITCH FADER (-8% ... 0 ... +8%) WITH QUARTZ LOCK -->
+            <div class="recessed-pitch-assembly">
+              <div class="pitch-header-row">
+                <span id="quartzLockLed" class="quartz-lock-led locked"></span>
+                <span>PITCH</span>
+              </div>
+
+              <div class="pitch-fader-track-housing" style="position:relative;display:flex;align-items:center;">
+                <div class="pitch-scale-ticks">
+                  <span>-8</span>
+                  <span>-4</span>
+                  <span>0</span>
+                  <span>+4</span>
+                  <span>+8</span>
+                </div>
+                <div id="pitchSlotWell" class="pitch-slot-well" title="Slide or click to adjust turntable pitch (±8%)">
+                  <div id="pitchFaderCap" class="pitch-fader-cap">
+                    <div class="pitch-fader-index-line"></div>
+                  </div>
+                </div>
+              </div>
+
+              <button id="pitchResetBtn" class="pitch-reset-mini-btn" title="Reset to 0.0% Quartz Lock">
+                RESET
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Subtle Hardware Telemetry & Tactile Gesture Strip -->
+        <div class="turntable-gesture-strip">
+          <span><strong>TACTILE RITUAL:</strong> Drag cartridge onto record to play • Grab spinning wax to scratch</span>
+          <div class="telemetry-pills-inline">
+            <span>SPEED <strong id="teleRpm">0.0 RPM</strong></span>
+            <span>RADIUS <strong id="teleRadius">150 mm</strong></span>
+            <span>PITCH <strong id="telePitch">0.0%</strong></span>
+            <span>TIME <strong id="teleTime">0:00</strong></span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom Hero Scroll Bar -->
+    <div class="hero-bottom-bar">
+      <a href="#crateSection" class="scroll-discover-link">Scroll to explore the listening room &amp; record crate ↓</a>
+      <span>MORNING ESPRESSO &amp; ANALOG WAX</span>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       SECTION 01: ANALOG RITUAL (RIFT 3-COLUMN MINIMALIST ARCHITECTURE)
+       ======================================================================== -->
+  <section id="ritualSection" class="rift-section">
+    <div class="section-eyebrow">01 / DESIGNED AROUND THE RITUAL</div>
+
+    <div class="section-header-split">
+      <h2 class="section-display-heading">
+        Made to breathe.<br />
+        Designed to feel tactile.
+      </h2>
+      <p class="section-aside-blurb">
+        No digital play buttons on the deck. Like a quiet morning at a Tokyo jazz kissaten, music begins only when your hand lifts the headshell and lowers the diamond stylus onto spinning wax.
+      </p>
+    </div>
+
+    <div class="rift-three-columns">
+      <div class="rift-feature-col">
+        <span class="feature-col-num">01</span>
+        <svg class="feature-col-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="24" cy="24" r="18" />
+          <circle cx="24" cy="24" r="5" />
+          <path d="M38 10L27 21" />
+        </svg>
+        <h3 class="feature-col-title">Physical needle drop.</h3>
+        <p class="feature-col-desc">
+          Drag the die-cast headshell across the vinyl radius from 146mm to 60mm. Wherever you release the cartridge, the stylus lands with a resonant phono thump and plays that exact track groove.
+        </p>
+      </div>
+
+      <div class="rift-feature-col">
+        <span class="feature-col-num">02</span>
+        <svg class="feature-col-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M6 26C12 10 18 10 24 26C30 42 36 42 42 26" />
+        </svg>
+        <h3 class="feature-col-title">True varispeed &amp; scratch.</h3>
+        <p class="feature-col-desc">
+          Hold the record with your cursor to slow the belt, scrub backward through a horn solo, or whip-scratch across the grooves. The recessed pitch fader bends motor speed ±8% with a center quartz lock detent.
+        </p>
+      </div>
+
+      <div class="rift-feature-col">
+        <span class="feature-col-num">03</span>
+        <svg class="feature-col-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="20" cy="20" r="11" />
+          <circle cx="28" cy="28" r="11" />
+        </svg>
+        <h3 class="feature-col-title">Morning coffee patina.</h3>
+        <p class="feature-col-desc">
+          Synthesizes real-time analog surface dust, stylus static impulses, hydraulic cue lever damping, and warm jazz cafe room tone entirely through Web Audio DSP.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       SECTION 02: "YOUR DECK. YOUR FINISH." INTERACTIVE CONFIGURATOR CARD
+       ======================================================================== -->
+  <section id="configureSection" class="rift-section">
+    <div class="section-eyebrow">02 / MAKE IT YOURS</div>
+
+    <div class="configurator-grid">
+      <div>
+        <h2 class="section-display-heading">
+          Your deck.<br />
+          Your room tone.
+        </h2>
+        <p class="section-aside-blurb" style="margin-top:16px;">
+          Tailor the plinth finish, vinyl pressing style, and morning cafe acoustics in real time.
+        </p>
+      </div>
+
+      <div class="configurator-card">
+        <div class="config-card-header">
+          <span>ATELIER ONE</span>
+          <span>01 / Configure</span>
+        </div>
+
+        <!-- Plinth Finish Swatches -->
+        <div class="config-group">
+          <div class="config-group-label">
+            <span>Choose your plinth finish</span>
+          </div>
+          <div class="config-swatches-row">
+            <button class="finish-swatch-btn active" data-chassis="obsidian">
+              <span class="swatch-circle" style="background:#161514;"></span>
+              <span>Matte obsidian</span>
+            </button>
+            <button class="finish-swatch-btn" data-chassis="espresso">
+              <span class="swatch-circle" style="background:#5A2310;"></span>
+              <span>Sunburst espresso</span>
+            </button>
+            <button class="finish-swatch-btn" data-chassis="silver">
+              <span class="swatch-circle" style="background:#DCD9D0;"></span>
+              <span>Brushed silver</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Wax Pressing Style Pills -->
+        <div class="config-group">
+          <div class="config-group-label">
+            <span>Select vinyl pressing style</span>
+          </div>
+          <div class="config-pills-grid">
+            <button class="wax-mode-pill active" data-disc="picture">Picture Disc</button>
+            <button class="wax-mode-pill" data-disc="classic">180g Black Wax</button>
+            <button class="wax-mode-pill" data-disc="amber">Amber Wax</button>
+          </div>
+        </div>
+
+        <!-- Morning Cafe & Analog Patina Mixers -->
+        <div class="config-group" style="border-bottom:none;padding-bottom:4px;">
+          <div class="config-group-label">
+            <span>Room acoustics &amp; patina mix</span>
+          </div>
+          <div class="acoustic-sliders-row">
+            <div class="acoustic-slider-item">
+              <label for="crackleRange">VINYL DUST</label>
+              <input id="crackleRange" type="range" min="0" max="1" step="0.02" value="0.36" />
+            </div>
+            <div class="acoustic-slider-item">
+              <label for="cafeRange">CAFE AMBIENCE</label>
+              <input id="cafeRange" type="range" min="0" max="1" step="0.02" value="0.22" />
+            </div>
+            <div class="acoustic-slider-item">
+              <label for="gainRange">OUTPUT GAIN</label>
+              <input id="gainRange" type="range" min="0" max="1" step="0.02" value="0.85" />
+            </div>
+          </div>
+        </div>
+
+        <div class="config-card-footer">
+          <span id="configSummaryText">Atelier One / Matte Obsidian / Full-Bleed Picture Disc</span>
+          <a href="#heroStage" class="rift-primary-pill" style="text-decoration:none;padding:5px 6px 5px 16px;">
+            <span>Back to deck</span>
+            <span class="rift-pill-icon-circle">↑</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       SECTION 03: THE RECORD CRATE & LIVE VINYL LATHE
+       ======================================================================== -->
+  <section id="crateSection" class="crate-sunset-section">
+    <div class="crate-inner-container">
+      <div class="section-eyebrow">03 / THE RECORD CRATE &amp; CUSTOM LATHE</div>
+
+      <div class="lathe-press-grid">
+        <div>
+          <h2 class="section-display-heading">
+            Your crate.<br />
+            Your rotation.
+          </h2>
+          <p class="section-aside-blurb" style="margin-top:14px;">
+            Pre-stocked with <em>Blonde</em>, <em>Love Deluxe</em>, <em>All I Have</em>, <em>Louder Than Bombs</em>, <em>Faith</em>, and jazz essentials—or cut any album in the world onto custom wax below.
+          </p>
+        </div>
+
+        <!-- Rift-Styled Glassmorphic Custom Vinyl Lathe Form -->
+        <form id="latheSearchForm" class="lathe-form-stack">
+          <div class="lathe-glass-field">
+            <span class="lathe-field-label">Artist name</span>
+            <input id="latheArtistInput" class="lathe-text-input" type="text" placeholder="e.g. Erykah Badu, Bill Evans, Radiohead" />
+          </div>
+          <div class="lathe-glass-field">
+            <span class="lathe-field-label">Album title</span>
+            <input id="latheAlbumInput" class="lathe-text-input" type="text" placeholder="e.g. Mama's Gun, Waltz for Debby, In Rainbows" />
+          </div>
+          <button id="latheSubmitBtn" type="submit" class="lathe-submit-pill">
+            <span>Press album onto 180g vinyl</span>
+            <span class="rift-pill-icon-circle">→</span>
+          </button>
+        </form>
+      </div>
+
+      <!-- 9-Album Starting Crate Sleeves Grid -->
+      
+      <!-- KOMBAI CAROUSEL-WEB-111 INSPIRED 3D RECORD SLEEVE CAROUSEL -->
+      <div id="sleeveCarouselStage" class="kombai-carousel-stage">
+        <div class="kombai-carousel-header">
+          <div class="kombai-carousel-title-cluster">
+            <span class="kombai-carousel-eyebrow">INTERACTIVE 3D RECORD SLEEVE CAROUSEL // DRAG, SCROLL OR USE ← → KEYS</span>
+            <p class="kombai-carousel-sub">Inspect each 12&quot; jacket in 3D space — click any sleeve to center, or click the center record to mount &amp; drop the needle</p>
+          </div>
+          <div class="kombai-carousel-controls">
+            <button id="carouselPrevBtn" type="button" class="kombai-carousel-nav-btn" aria-label="Previous Record">←</button>
+            <span id="carouselCounterText" class="kombai-carousel-counter">01 / 11</span>
+            <button id="carouselNextBtn" type="button" class="kombai-carousel-nav-btn" aria-label="Next Record">→</button>
+          </div>
+        </div>
+
+        <div id="sleeveCarouselViewport" class="kombai-carousel-viewport">
+          <div id="sleeveCarouselTrack" class="kombai-carousel-track"></div>
+        </div>
+
+        <div class="kombai-carousel-footer-bar">
+          <div class="kombai-focused-info">
+            <span id="carouselFocusedNote" class="kombai-focused-note">01 // AVANT-SOUL • FRANK OCEAN (2016)</span>
+            <h3 id="carouselFocusedTitle" class="kombai-focused-title">Blonde — Frank Ocean</h3>
+            <span id="carouselFocusedMeta" class="kombai-focused-meta">17 tracks pressed on 180g audiophile wax</span>
+          </div>
+          <div class="kombai-focused-actions">
+            <button id="carouselMountOnlyBtn" type="button" class="kombai-secondary-pill">
+              <span>Mount on Platter</span>
+            </button>
+            <button id="carouselDropNeedleBtn" type="button" class="rift-primary-pill">
+              <span>Mount &amp; Drop Needle</span>
+              <span class="rift-pill-icon-circle">→</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="crate-grid-divider-label">
+        <span>FULL 11-ALBUM RECORD CRATE ARCHIVE</span>
+        <span>CLICK ANY RECORD SLEEVE TO SPIN</span>
+      </div>
+
+      <div id="crateSleevesGrid" class="crate-sleeves-grid"></div>
+    </div>
+  </section>
+
+  <div id="studioToast" class="studio-toast"></div>
+
+  <script src="catalog.js"></script>
+  <script src="audio-engine.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

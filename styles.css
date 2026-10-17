@@ -1,0 +1,2199 @@
+/* ==========================================================================
+   RIFT // ATELIER ONE — MORNING JAZZ COFFEE SHOP & 1:1 TURNTABLE STUDIO
+   Inspired by Rift editorial dark-to-amber lighting, Technics SL-1200G /
+   Braun PC 4 1:1 industrial hardware, and Fons Mans' grooved vinyl craft.
+   ========================================================================== */
+
+:root {
+  --bg-obsidian: #090807;
+  --bg-surface: #12100E;
+  --glow-primary: #D9531E;
+  --glow-secondary: #6E230B;
+  --ink-cream: #F6F1E9;
+  --ink-warm-muted: rgba(246, 241, 233, 0.62);
+  --ink-warm-subtle: rgba(246, 241, 233, 0.36);
+  --hairline: rgba(246, 241, 233, 0.11);
+  --hairline-strong: rgba(246, 241, 233, 0.22);
+  --accent-flame: #FF5924;
+  --quartz-green: #34D399;
+
+  /* Turntable Plinth Defaults: Matte Obsidian Anodized Aluminum */
+  --plinth-bg: linear-gradient(145deg, #211F1E 0%, #151413 55%, #0D0C0B 100%);
+  --plinth-bevel: rgba(255, 245, 235, 0.12);
+  --plinth-shadow:
+    0 50px 110px -15px rgba(0, 0, 0, 0.85),
+    0 25px 45px -10px rgba(0, 0, 0, 0.7),
+    0 0 85px -20px rgba(217, 83, 30, 0.28),
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.14),
+    inset 0 -4px 10px rgba(0, 0, 0, 0.8);
+  --plinth-silkscreen: rgba(246, 241, 233, 0.72);
+  --plinth-silkscreen-dim: rgba(246, 241, 233, 0.38);
+  --metal-knob: linear-gradient(145deg, #383533, #1B1918);
+  --arm-tube: linear-gradient(90deg, #272523 0%, #D6D3CE 42%, #57534E 78%, #1C1917 100%);
+}
+
+/* Finish Option 2: Sunburst Espresso / Roasted Walnut Plinth */
+body[data-chassis="espresso"] {
+  --plinth-bg: linear-gradient(145deg, #3B2316 0%, #24140C 58%, #140B06 100%);
+  --plinth-bevel: rgba(255, 210, 175, 0.18);
+  --metal-knob: linear-gradient(145deg, #C8A97E, #8C6D46);
+}
+
+/* Finish Option 3: Braun PC-4 Brushed Silver Aluminum Plinth */
+body[data-chassis="silver"] {
+  --plinth-bg: linear-gradient(145deg, #ECEAE5 0%, #D4D1CA 55%, #B8B4AC 100%);
+  --plinth-bevel: rgba(255, 255, 255, 0.88);
+  --plinth-silkscreen: #1C1917;
+  --plinth-silkscreen-dim: rgba(28, 25, 23, 0.52);
+  --metal-knob: linear-gradient(145deg, #F5F4F0, #C7C4BC);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--bg-obsidian);
+  color: var(--ink-cream);
+  font-family: 'Plus Jakarta Sans', 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Subtle film grain texture for warm analog depth */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 999;
+  opacity: 0.035;
+  background-image: radial-gradient(rgba(255, 245, 230, 0.8) 0.6px, transparent 0.6px);
+  background-size: 3px 3px;
+}
+
+/* ==========================================================================
+   HERO SECTION: RIFT-INSPIRED ATMOSPHERIC SUNRISE ESPRESSO STAGE
+   ========================================================================== */
+.hero-stage {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background:
+    radial-gradient(circle at 76% 42%, var(--glow-primary) 0%, var(--glow-secondary) 32%, rgba(24, 12, 7, 0.92) 60%, var(--bg-obsidian) 92%);
+  transition: background 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  overflow: hidden;
+  border-bottom: 1px solid var(--hairline);
+}
+
+/* Ambient warm morning sunbeam glow orb on right edge */
+.hero-sunbeam-orb {
+  position: absolute;
+  right: -8%;
+  top: 8%;
+  width: 680px;
+  height: 680px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 118, 48, 0.36) 0%, rgba(217, 78, 31, 0.12) 48%, transparent 72%);
+  filter: blur(45px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Giant Ghosted Watermark Typography ("atelier one" like "rift one" in reference) */
+.hero-watermark-text {
+  position: absolute;
+  left: 4%;
+  bottom: 3%;
+  font-size: clamp(5.5rem, 14.5vw, 13.5rem);
+  font-weight: 200;
+  letter-spacing: -0.045em;
+  line-height: 0.86;
+  color: rgba(255, 243, 230, 0.11);
+  -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.05) 95%);
+  mask-image: linear-gradient(180deg, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.05) 95%);
+  pointer-events: none;
+  user-select: none;
+  z-index: 1;
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   FLOATING TOP NAVIGATION (RIFT PILL BAR)
+   ========================================================================== */
+.rift-nav {
+  position: relative;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 26px 48px;
+  max-width: 1540px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.rift-wordmark {
+  font-size: 1.45rem;
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  color: var(--ink-cream);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.rift-wordmark sup {
+  font-size: 0.62rem;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--ink-warm-muted);
+  letter-spacing: 0.08em;
+}
+
+.rift-center-pills {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255, 248, 240, 0.07);
+  border: 1px solid rgba(255, 248, 240, 0.14);
+  border-radius: 999px;
+  padding: 4px;
+  backdrop-filter: blur(16px);
+}
+
+.rift-nav-pill {
+  border: none;
+  background: transparent;
+  color: var(--ink-warm-muted);
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 400;
+  padding: 8px 20px;
+  border-radius: 999px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.rift-nav-pill.active,
+.rift-nav-pill:hover {
+  background: var(--ink-cream);
+  color: #120E0C;
+  font-weight: 500;
+}
+
+.rift-top-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: transparent;
+  border: none;
+  color: var(--ink-cream);
+  font-family: inherit;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+
+.rift-top-cta-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 248, 240, 0.28);
+  display: grid;
+  place-items: center;
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+
+.rift-top-cta:hover .rift-top-cta-circle {
+  background: var(--ink-cream);
+  color: #120E0C;
+  transform: translateX(2px);
+}
+
+/* ==========================================================================
+   HERO MAIN GRID: WHISPER-QUIET LEFT COPY + MASSIVE 1:1 TURNTABLE HERO
+   ========================================================================== */
+.hero-main-grid {
+  position: relative;
+  z-index: 10;
+  max-width: 1540px;
+  width: 100%;
+  margin: auto;
+  padding: 10px 48px 28px;
+  display: grid;
+  grid-template-columns: minmax(300px, 410px) 1fr;
+  gap: 36px;
+  align-items: center;
+}
+
+@media (max-width: 1120px) {
+  .hero-main-grid {
+    grid-template-columns: 1fr;
+    padding: 16px 24px 36px;
+  }
+  .turntable-hero-stage {
+    order: -1;
+  }
+}
+
+/* Left Column: Clean, Uncluttered Morning Jazz Editorial Panel */
+.hero-editorial-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.eyebrow-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-warm-muted);
+}
+
+.eyebrow-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-flame);
+  box-shadow: 0 0 8px var(--accent-flame);
+}
+
+.eyebrow-dot.playing {
+  background: var(--quartz-green);
+  box-shadow: 0 0 10px var(--quartz-green);
+}
+
+.hero-display-title {
+  font-size: clamp(2.6rem, 4.2vw, 4.15rem);
+  font-weight: 300;
+  line-height: 1.03;
+  letter-spacing: -0.035em;
+  color: var(--ink-cream);
+}
+
+.hero-album-subtitle {
+  font-size: 0.92rem;
+  font-weight: 400;
+  color: var(--ink-warm-muted);
+  line-height: 1.55;
+  max-width: 36ch;
+}
+
+/* Signature Rift White Pill CTA with Dark Circle Icon (Triggers Tonearm Drop / Lift) */
+.rift-pill-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.rift-primary-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--ink-cream);
+  color: #120E0C;
+  border: none;
+  border-radius: 999px;
+  padding: 7px 8px 7px 20px;
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.rift-primary-pill:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+}
+
+.rift-pill-icon-circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #120E0C;
+  color: var(--ink-cream);
+  display: grid;
+  place-items: center;
+}
+
+.kbd-hint-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  color: var(--ink-warm-subtle);
+}
+
+/* Minimal Tracklist Groove Drawer on Left */
+.minimal-groove-list {
+  margin-top: 4px;
+  border-top: 1px solid var(--hairline);
+  padding-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.groove-list-header {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--ink-warm-subtle);
+  text-transform: uppercase;
+}
+
+.groove-tracks-container {
+  max-height: 175px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-right: 4px;
+}
+
+.groove-tracks-container::-webkit-scrollbar {
+  width: 3px;
+}
+.groove-tracks-container::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.16);
+  border-radius: 3px;
+}
+
+.groove-track-item {
+  display: grid;
+  grid-template-columns: 24px 1fr auto;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  color: var(--ink-warm-muted);
+  cursor: pointer;
+  transition: all 0.16s ease;
+}
+
+.groove-track-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--ink-cream);
+}
+
+.groove-track-item.active {
+  background: rgba(255, 248, 240, 0.12);
+  color: var(--ink-cream);
+  font-weight: 500;
+}
+
+.groove-track-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  color: var(--ink-warm-subtle);
+}
+
+.groove-track-item.active .groove-track-num {
+  color: var(--accent-flame);
+}
+
+.groove-track-mm {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--ink-warm-subtle);
+}
+
+/* ==========================================================================
+   RIGHT COLUMN: 1:1 PHOTOREALISTIC TURNTABLE HARDWARE STAGE
+   ========================================================================== */
+.turntable-hero-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.turntable-unit-frame {
+  position: relative;
+  width: min(100%, 730px);
+  aspect-ratio: 1.18 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Rear Gold-Plated Phono RCA Jacks & Ground Post (Top Edge) */
+.rear-hardware-edge {
+  position: absolute;
+  top: -10px;
+  right: 155px;
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.rca-terminal {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px 2px 0 0;
+  background: linear-gradient(90deg, #9E7C2F, #FCE5A2, #8B691E);
+  border: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+.rca-ground-screw {
+  width: 9px;
+  height: 8px;
+  background: linear-gradient(90deg, #777, #DDD, #555);
+}
+
+/* Four Shock-Absorbing Elastomer Isolation Feet peeking slightly under corners */
+.isolation-foot {
+  position: absolute;
+  width: 54px;
+  height: 12px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #111, #333, #111);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.8);
+  z-index: 0;
+}
+.isolation-foot.fl { bottom: -5px; left: 38px; }
+.isolation-foot.fr { bottom: -5px; right: 38px; }
+
+/* Main Machined Plinth Chassis */
+.turntable-plinth {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 28px;
+  background: var(--plinth-bg);
+  border: 1.5px solid var(--plinth-bevel);
+  box-shadow: var(--plinth-shadow);
+  z-index: 2;
+  user-select: none;
+  overflow: hidden;
+  transition: background 0.5s ease, box-shadow 0.5s ease;
+}
+
+/* Brushed Anodized Metallic Sheen Across Plinth */
+.turntable-plinth::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(125deg, rgba(255,255,255,0.05) 0%, transparent 40%, rgba(0,0,0,0.2) 100%);
+  pointer-events: none;
+}
+
+/* Top-Left Engraved Model Plate */
+.plinth-model-plate {
+  position: absolute;
+  top: 24px;
+  left: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  z-index: 12;
+  pointer-events: none;
+}
+
+.model-plate-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--plinth-silkscreen);
+  text-transform: uppercase;
+}
+
+.model-plate-sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.54rem;
+  letter-spacing: 0.1em;
+  color: var(--plinth-silkscreen-dim);
+}
+
+/* Exposed Belt-Drive Brass Motor Pulley & Tension Belt (Upper-Left) */
+.belt-drive-assembly {
+  position: absolute;
+  left: 30px;
+  top: 45%;
+  transform: translateY(-50%);
+  width: 60px;
+  height: 60px;
+  z-index: 5;
+}
+
+.belt-rubber-svg {
+  position: absolute;
+  left: 24px;
+  top: -74px;
+  width: 165px;
+  height: 210px;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.motor-pulley-well {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #3A3836, #141312 75%);
+  box-shadow:
+    inset 0 3px 8px rgba(0, 0, 0, 0.8),
+    0 1px 1px rgba(255, 255, 255, 0.12);
+  display: grid;
+  place-items: center;
+}
+
+.brass-motor-spindle {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    #C5A869,
+    #F7E7BE,
+    #967A3E,
+    #EFE0B4,
+    #876C32,
+    #E6D29E,
+    #C5A869
+  );
+  box-shadow:
+    0 3px 8px rgba(0, 0, 0, 0.55),
+    inset 0 1px 2px rgba(255, 255, 255, 0.85);
+  will-change: transform;
+  display: grid;
+  place-items: center;
+}
+
+.brass-motor-spindle::after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #FFF, #777);
+}
+
+/* ==========================================================================
+   BOTTOM-LEFT REAL HARDWARE CLUSTER:
+   ROTARY POWER TURRET + ILLUMINATED STROBE PRISM + 33 / 45 / 78 SPEED BUTTONS
+   (NO PLAY/PAUSE BUTTONS ON VINYL — DROP NEEDLE OR SPACEBAR TO PLAY!)
+   ========================================================================== */
+.bottom-left-hardware-cluster {
+  position: absolute;
+  bottom: 22px;
+  left: 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 15;
+}
+
+/* Strobe Illuminator Tower + Rotary Power Switch */
+.power-strobe-turret {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.rotary-power-knob {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--metal-knob);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow:
+    0 6px 14px rgba(0, 0, 0, 0.55),
+    inset 0 1px 2px rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+  position: relative;
+  display: grid;
+  place-items: center;
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.rotary-power-knob.power-on {
+  transform: rotate(42deg);
+}
+
+.rotary-fin {
+  width: 6px;
+  height: 28px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #555, #CCC, #444);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.strobe-prism-housing {
+  position: relative;
+  width: 24px;
+  height: 18px;
+  border-radius: 3px;
+  background: #1B1A19;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+}
+
+.strobe-led-window {
+  width: 14px;
+  height: 7px;
+  border-radius: 1.5px;
+  background: #3A190E;
+  transition: all 0.25s ease;
+}
+
+.strobe-led-window.lit {
+  background: #FF5520;
+  box-shadow:
+    0 0 12px #FF5520,
+    8px -8px 22px 4px rgba(255, 85, 32, 0.55);
+}
+
+.power-label-caption {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.52rem;
+  letter-spacing: 0.08em;
+  color: var(--plinth-silkscreen-dim);
+}
+
+/* Tactile Rectangular Machined Speed Selector Buttons (33 / 45 / 78) */
+.speed-buttons-bank {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(0, 0, 0, 0.35);
+  padding: 4px;
+  border-radius: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.hardware-speed-btn {
+  position: relative;
+  min-width: 36px;
+  height: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 3px;
+  background: var(--metal-knob);
+  color: var(--plinth-silkscreen);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 0 6px;
+  box-shadow:
+    0 2px 5px rgba(0, 0, 0, 0.45),
+    inset 0 1px 1px rgba(255, 255, 255, 0.18);
+  transition: transform 0.1s ease;
+}
+
+.hardware-speed-btn:active {
+  transform: translateY(1px);
+}
+
+.speed-led-slit {
+  width: 4px;
+  height: 8px;
+  border-radius: 1px;
+  background: rgba(255, 255, 255, 0.15);
+  transition: all 0.2s ease;
+}
+
+.hardware-speed-btn.active .speed-led-slit {
+  background: var(--accent-flame);
+  box-shadow: 0 0 6px var(--accent-flame);
+}
+
+/* ==========================================================================
+   DIE-CAST ALUMINUM PLATTER WITH STROBE DOTS & SPINNING 180G VINYL RECORD
+   ========================================================================== */
+.platter-assembly {
+  position: absolute;
+  left: 41.5%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 72.5%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, #09090A 0%, #151517 88%, #2E2D2B 95%, #8C8982 98.5%, #222 100%);
+  box-shadow:
+    0 18px 42px rgba(0, 0, 0, 0.68),
+    inset 0 2px 8px rgba(0, 0, 0, 0.85);
+  display: grid;
+  place-items: center;
+  z-index: 6;
+}
+
+/* Rotating Strobe Dots Ring on the Machined Platter Bevel */
+.platter-strobe-rim {
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  background:
+    repeating-conic-gradient(
+      from 0deg,
+      rgba(245, 240, 232, 0.78) 0deg 0.85deg,
+      transparent 0.85deg 2.5deg
+    );
+  -webkit-mask-image: radial-gradient(circle, transparent 96.4%, #000 96.8%, #000 99.4%, transparent 99.8%);
+  mask-image: radial-gradient(circle, transparent 96.4%, #000 96.8%, #000 99.4%, transparent 99.8%);
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* Subtle Circular Rim Progress Arc (Reference Image 1) */
+.rim-progress-svg {
+  position: absolute;
+  inset: -9px;
+  width: calc(100% + 18px);
+  height: calc(100% + 18px);
+  transform: rotate(-90deg);
+  pointer-events: none;
+  z-index: 9;
+}
+
+.rim-progress-track {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.06);
+  stroke-width: 1.8;
+}
+
+.rim-progress-fill {
+  fill: none;
+  stroke: var(--ink-cream);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-dasharray: 942;
+  stroke-dashoffset: 942;
+  opacity: 0.82;
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.35));
+}
+
+/* The Interactive 180g Vinyl Record Disc (GPU-Accelerated 60/120fps Rotation) */
+.vinyl-disc {
+  position: relative;
+  width: 93.8%;
+  height: 93.8%;
+  border-radius: 50%;
+  background: #0D0D0F;
+  box-shadow:
+    0 4px 16px rgba(0, 0, 0, 0.8),
+    inset 0 0 0 2px rgba(255, 255, 255, 0.06);
+  cursor: grab;
+  overflow: hidden;
+  touch-action: none;
+  will-change: transform;
+  transform: translate3d(0, 0, 0) rotate(0deg);
+  backface-visibility: hidden;
+}
+
+.vinyl-disc:active {
+  cursor: grabbing;
+}
+
+/* Optional Amber Translucent Wax Variant */
+body[data-disc-style="amber"] .vinyl-disc {
+  background: radial-gradient(circle, #381808 0%, #7C2D12 58%, #431407 95%, #1F0903 100%);
+}
+
+/* Full-Bleed Grooved Picture-Disc Layer (Reference Image 1) */
+.vinyl-fullbleed-art {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.45s ease;
+  filter: contrast(1.06) brightness(0.84) saturate(1.05);
+}
+
+body[data-disc-style="picture"] .vinyl-fullbleed-art {
+  opacity: 0.86;
+}
+
+/* High-Resolution Concentric Micro-Grooves */
+.vinyl-grooves-overlay {
+  position: absolute;
+  inset: 1.8%;
+  border-radius: 50%;
+  background:
+    repeating-radial-gradient(
+      circle at 50% 50%,
+      rgba(255, 255, 255, 0.036) 0px,
+      rgba(255, 255, 255, 0.036) 1px,
+      rgba(0, 0, 0, 0.36) 1.3px,
+      rgba(0, 0, 0, 0.36) 2.5px
+    );
+  pointer-events: none;
+}
+
+/* Physical Track Band Separators */
+.vinyl-track-bands {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Top Rim Artist Engraving (like "• FLUME •" in Reference Image 1) */
+.vinyl-rim-engraving {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.78);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Center Vinyl Paper Label */
+.vinyl-center-label {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 33.5%;
+  height: 33.5%;
+  border-radius: 50%;
+  background: #F4EFE6;
+  box-shadow:
+    0 0 0 9px rgba(10, 10, 12, 0.85),
+    inset 0 0 10px rgba(0, 0, 0, 0.22);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 13px 10px;
+  text-align: center;
+  transition: all 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+  overflow: hidden;
+}
+
+body[data-disc-style="picture"] .vinyl-center-label {
+  width: 13.5%;
+  height: 13.5%;
+  background: rgba(15, 15, 17, 0.72);
+  padding: 0;
+}
+
+body[data-disc-style="picture"] .label-art-ring,
+body[data-disc-style="picture"] .label-text-top,
+body[data-disc-style="picture"] .label-text-bottom {
+  opacity: 0;
+}
+
+.label-art-ring {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.25;
+}
+
+.label-text-top,
+.label-text-bottom {
+  position: relative;
+  z-index: 2;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.5rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  max-width: 86%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Fixed Anisotropic Butterfly Specular Light Reflection across Grooves */
+.vinyl-anisotropic-sheen {
+  position: absolute;
+  inset: 3.5%;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 32deg at 50% 50%,
+    transparent 0deg,
+    rgba(255, 248, 240, 0.11) 24deg,
+    rgba(255, 248, 240, 0.23) 40deg,
+    rgba(255, 248, 240, 0.10) 56deg,
+    transparent 82deg,
+    transparent 180deg,
+    rgba(255, 248, 240, 0.10) 204deg,
+    rgba(255, 248, 240, 0.21) 220deg,
+    rgba(255, 248, 240, 0.09) 236deg,
+    transparent 262deg,
+    transparent 360deg
+  );
+  pointer-events: none;
+  z-index: 7;
+  mix-blend-mode: screen;
+}
+
+/* Machined Stainless Center Spindle */
+.center-spindle-pin {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 32%, #FFFFFF, #C2C0B8 58%, #3A3835 100%);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.75);
+  z-index: 11;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   1:1 GIMBAL TONEARM ASSEMBLY WITH COUNTERWEIGHT SCALE, ANTI-SKATE,
+   HYDRAULIC CUE LEVER WAND, ARMREST CLAMP & CARTRIDGE LEAD WIRES
+   ========================================================================== */
+.tonearm-pivot-center {
+  position: absolute;
+  right: 92px;
+  top: 136px;
+  width: 0;
+  height: 0;
+  z-index: 22;
+}
+
+/* Outer Machined Gimbal Base Plate */
+.tonearm-base-plate {
+  position: absolute;
+  left: -54px;
+  top: -54px;
+  width: 108px;
+  height: 108px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 36% 36%, #444240 0%, #211F1E 66%, #11100F 100%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow:
+    0 14px 28px rgba(0, 0, 0, 0.65),
+    inset 0 2px 4px rgba(255, 255, 255, 0.2);
+  pointer-events: none;
+}
+
+/* Calibrated Anti-Skate Dial on Gimbal Base */
+.anti-skate-dial {
+  position: absolute;
+  right: -46px;
+  top: -14px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #D6D3CD, #6E6A64);
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+
+.anti-skate-dial::after {
+  content: "1.75";
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.36rem;
+  font-weight: 700;
+  color: #111;
+}
+
+/* Physical Hydraulic Cueing Lever Wand (Interactive!) */
+.hydraulic-cue-assembly {
+  position: absolute;
+  left: -58px;
+  top: 38px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  z-index: 25;
+  cursor: pointer;
+}
+
+.cue-cylinder-body {
+  width: 14px;
+  height: 26px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #555, #CCC, #444);
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+.cue-wand-lever {
+  width: 22px;
+  height: 4px;
+  background: linear-gradient(180deg, #EEE, #777);
+  border-radius: 2px;
+  transform-origin: left center;
+  transform: rotate(18deg);
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hydraulic-cue-assembly.cued-up .cue-wand-lever {
+  transform: rotate(-26deg);
+}
+
+.cue-rubber-tip {
+  width: 7px;
+  height: 6px;
+  border-radius: 2px;
+  background: var(--accent-flame);
+}
+
+/* Armrest Locking Cradle along Tonearm Shaft */
+.tonearm-rest-cradle {
+  position: absolute;
+  left: -11px;
+  top: 98px;
+  width: 22px;
+  height: 16px;
+  border: 2px solid #52504C;
+  border-top: none;
+  border-radius: 0 0 5px 5px;
+  pointer-events: none;
+}
+
+/* Rotating Tonearm Rig (rotates around (0,0) gimbal center) */
+.tonearm-rotating-rig {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  transform-origin: 0 0;
+  transform: translate3d(0, 0, 0) rotate(0deg);
+  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.tonearm-rotating-rig.dragging {
+  transition: none !important;
+}
+
+/* Calibrated Counterweight with Numbered Tracking-Force Gauge Ring */
+.tonearm-counterweight {
+  position: absolute;
+  left: -15px;
+  top: -78px;
+  width: 30px;
+  height: 40px;
+  border-radius: 5px;
+  background: linear-gradient(90deg, #1E1D1B, #6E6B65, #181715);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.65);
+  overflow: hidden;
+}
+
+.counterweight-scale-ring {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 11px;
+  background: linear-gradient(90deg, #999, #F5F5F4, #888);
+  color: #111;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.38rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.tonearm-rear-stub {
+  position: absolute;
+  left: -5.5px;
+  top: -42px;
+  width: 11px;
+  height: 42px;
+  background: var(--arm-tube);
+}
+
+/* Gimbal Bridge Housing */
+.tonearm-gimbal-bridge {
+  position: absolute;
+  left: -24px;
+  top: -24px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--metal-knob);
+  border: 1.5px solid rgba(255, 255, 255, 0.22);
+  box-shadow:
+    0 8px 16px rgba(0, 0, 0, 0.6),
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.35);
+  display: grid;
+  place-items: center;
+}
+
+.gimbal-pivot-screw {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #E5E5E5, #555);
+}
+
+/* Main Tubular Tonearm Rod */
+.tonearm-main-rod {
+  position: absolute;
+  left: -6px;
+  top: 0;
+  width: 12px;
+  height: 242px;
+  border-radius: 6px;
+  background: var(--arm-tube);
+  box-shadow: -10px 16px 20px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+
+/* Locking Collar Ring between Tonearm Tube & Headshell */
+.headshell-collar-nut {
+  position: absolute;
+  left: -8px;
+  top: 224px;
+  width: 16px;
+  height: 10px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #555, #EEE, #444);
+  pointer-events: none;
+}
+
+/* Die-Cast Slotted Headshell + 4 Color-Coded Cartridge Lead Wires (Draggable!) */
+.tonearm-headshell {
+  position: absolute;
+  left: -14px;
+  top: 230px;
+  width: 28px;
+  height: 60px;
+  transform-origin: 50% 0%;
+  transform: rotate(23deg);
+  background: linear-gradient(145deg, #3A3835, #181715);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px 4px 7px 7px;
+  box-shadow: -8px 14px 18px rgba(0, 0, 0, 0.65);
+  cursor: grab;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 3px 5px;
+}
+
+.tonearm-headshell:active {
+  cursor: grabbing;
+}
+
+/* 4 Color-Coded Phono Lead Wires (Red/White/Green/Blue) visible at top of headshell */
+.cartridge-lead-wires {
+  display: flex;
+  gap: 2px;
+  width: 14px;
+  height: 7px;
+}
+.lead-wire {
+  flex: 1;
+  border-radius: 1px;
+}
+.lead-wire.lw-r { background: #EF4444; }
+.lead-wire.lw-w { background: #F5F5F4; }
+.lead-wire.lw-g { background: #22C55E; }
+.lead-wire.lw-b { background: #3B82F6; }
+
+/* Machined Weight-Reduction Slots & Dual Cartridge Mounting Bolts */
+.headshell-slots {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+.mounting-bolt {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #D6D3CD;
+}
+
+/* Curved Metal Finger Lift */
+.headshell-finger-lift {
+  position: absolute;
+  right: -15px;
+  top: 20px;
+  width: 16px;
+  height: 4px;
+  background: linear-gradient(90deg, #D6D3CD, #FFF);
+  border-radius: 2px;
+  transform: rotate(-18deg);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Glowing Diamond Stylus Cantilever Tip Indicator */
+.stylus-indicator-triangle {
+  width: 0;
+  height: 0;
+  border-left: 4.5px solid transparent;
+  border-right: 4.5px solid transparent;
+  border-bottom: 8px solid var(--accent-flame);
+  filter: drop-shadow(0 0 4px var(--accent-flame));
+}
+
+/* ==========================================================================
+   RECESSED GRADUATED PITCH ADJUSTMENT SLIDER (-8% ... 0 ... +8%)
+   WITH QUARTZ LOCK LED & ANIMATED 3D FADER CAP (Right Plinth Edge)
+   ========================================================================== */
+.recessed-pitch-assembly {
+  position: absolute;
+  right: 20px;
+  bottom: 26px;
+  width: 58px;
+  height: 178px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 16;
+}
+
+.pitch-header-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.48rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--plinth-silkscreen-dim);
+}
+
+.quartz-lock-led {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(52, 211, 153, 0.2);
+  transition: all 0.2s ease;
+}
+
+.quartz-lock-led.locked {
+  background: var(--quartz-green);
+  box-shadow: 0 0 8px var(--quartz-green);
+}
+
+.pitch-fader-track- housing {
+  position: relative;
+  width: 48px;
+  height: 136px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pitch-scale-ticks {
+  position: absolute;
+  left: 2px;
+  top: 8px;
+  bottom: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.44rem;
+  color: var(--plinth-silkscreen-dim);
+  pointer-events: none;
+  text-align: right;
+  width: 14px;
+}
+
+.pitch-slot-well {
+  position: relative;
+  margin-left: 14px;
+  width: 12px;
+  height: 124px;
+  border-radius: 4px;
+  background: #070708;
+  box-shadow:
+    inset 0 2px 6px rgba(0, 0, 0, 0.95),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+  cursor: ns-resize;
+  touch-action: none;
+}
+
+/* Center Slot Slit */
+.pitch-slot-well::before {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 6px;
+  bottom: 6px;
+  width: 2px;
+  background: #000;
+}
+
+/* Physical 3D Sliding Fader Knob Cap (Smooth Animated Position!) */
+.pitch-fader-cap {
+  position: absolute;
+  left: -9px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 30px;
+  height: 18px;
+  border-radius: 3px;
+  background: linear-gradient(180deg, #52504D 0%, #D6D3CD 45%, #272523 55%, #78746E 100%);
+  box-shadow:
+    0 5px 10px rgba(0, 0, 0, 0.65),
+    inset 0 1px 1px rgba(255, 255, 255, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  transition: top 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.pitch-fader-cap.dragging {
+  transition: none !important;
+  cursor: grabbing;
+}
+
+.pitch-fader-index-line {
+  width: 100%;
+  height: 1.5px;
+  background: #FFFFFF;
+}
+
+.pitch-reset-mini-btn {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(0, 0, 0, 0.35);
+  color: var(--plinth-silkscreen-dim);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.45rem;
+  padding: 2px 6px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.pitch-reset-mini-btn:hover {
+  color: var(--ink-cream);
+  border-color: var(--ink-cream);
+}
+
+/* Subtle Instruction Strip Below Turntable */
+.turntable-gesture-strip {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: min(100%, 730px);
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: rgba(255, 248, 240, 0.05);
+  border: 1px solid var(--hairline);
+  backdrop-filter: blur(12px);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.67rem;
+  color: var(--ink-warm-muted);
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.telemetry-pills-inline {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.telemetry-pills-inline strong {
+  color: var(--ink-cream);
+}
+
+/* Hero Bottom Scroll Cue */
+.hero-bottom-bar {
+  position: relative;
+  z-index: 15;
+  max-width: 1540px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 48px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--ink-warm-muted);
+}
+
+.scroll-discover-link {
+  color: var(--ink-warm-muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.scroll-discover-link:hover {
+  color: var(--ink-cream);
+}
+
+/* ==========================================================================
+   SECTION 01: "MADE TO SPIN. DESIGNED TO FEEL RIGHT." (RIFT 3-COLUMN ARCHITECTURE)
+   ========================================================================== */
+.rift-section {
+  position: relative;
+  max-width: 1540px;
+  margin: 0 auto;
+  padding: 88px 48px;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-warm-muted);
+  margin-bottom: 18px;
+}
+
+.section-eyebrow::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-flame);
+}
+
+.section-header-split {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+  margin-bottom: 56px;
+  flex-wrap: wrap;
+}
+
+.section-display-heading {
+  font-size: clamp(2.2rem, 3.8vw, 3.6rem);
+  font-weight: 300;
+  line-height: 1.06;
+  letter-spacing: -0.03em;
+}
+
+.section-aside-blurb {
+  max-width: 34ch;
+  font-size: 0.86rem;
+  line-height: 1.6;
+  color: var(--ink-warm-muted);
+}
+
+/* 3-Column Feature Strip with Hairline Top Rules */
+.rift-three-columns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 36px;
+}
+
+@media (max-width: 900px) {
+  .rift-three-columns {
+    grid-template-columns: 1fr;
+  }
+}
+
+.rift-feature-col {
+  border-top: 1px solid var(--hairline-strong);
+  padding-top: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.feature-col-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.76rem;
+  color: var(--ink-warm-muted);
+}
+
+.feature-col-icon {
+  width: 44px;
+  height: 44px;
+  color: var(--ink-cream);
+  opacity: 0.88;
+}
+
+.feature-col-title {
+  font-size: 1.25rem;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+.feature-col-desc {
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--ink-warm-muted);
+}
+
+/* ==========================================================================
+   SECTION 02: "YOUR DECK. YOUR FINISH." INTERACTIVE CONFIGURATOR CARD
+   (Directly inspired by RIFT ONE "02 / MAKE IT YOURS" configurator!)
+   ========================================================================== */
+.configurator-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr minmax(380px, 560px);
+  gap: 48px;
+  align-items: center;
+}
+
+@media (max-width: 980px) {
+  .configurator-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.configurator-card {
+  background: rgba(255, 248, 240, 0.03);
+  border: 1px solid var(--hairline-strong);
+  border-radius: 20px;
+  padding: 28px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  backdrop-filter: blur(18px);
+}
+
+.config-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--hairline);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--ink-warm-muted);
+}
+
+.config-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.config-group-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.84rem;
+  color: var(--ink-cream);
+}
+
+.config-swatches-row {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  flex-wrap: wrap;
+}
+
+.finish-swatch-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  border: none;
+  color: var(--ink-warm-muted);
+  font-family: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.swatch-circle {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.22);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.finish-swatch-btn.active {
+  color: var(--ink-cream);
+  font-weight: 500;
+}
+
+.finish-swatch-btn.active .swatch-circle {
+  border-color: var(--ink-cream);
+  box-shadow: 0 0 0 3px rgba(255, 248, 240, 0.16);
+}
+
+/* Pill Selector Row (like S / M / L / XL in Rift reference) */
+.config-pills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.wax-mode-pill {
+  height: 42px;
+  border-radius: 999px;
+  border: 1px solid var(--hairline-strong);
+  background: transparent;
+  color: var(--ink-cream);
+  font-family: inherit;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.wax-mode-pill.active {
+  background: var(--ink-cream);
+  color: #120E0C;
+  font-weight: 600;
+}
+
+/* Acoustic Cafe Ambience Sliders inside Configurator */
+.acoustic-sliders-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.acoustic-slider-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.acoustic-slider-item label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--ink-warm-muted);
+  letter-spacing: 0.06em;
+}
+
+.acoustic-slider-item input[type="range"] {
+  width: 100%;
+  accent-color: var(--accent-flame);
+  cursor: pointer;
+}
+
+.config-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  color: var(--ink-warm-muted);
+}
+
+/* ==========================================================================
+   SECTION 03: WARM SUNSET CRATE & LIVE GLOBAL VINYL LATHE
+   ========================================================================== */
+.crate-sunset-section {
+  position: relative;
+  width: 100%;
+  background:
+    radial-gradient(circle at 82% 65%, rgba(217, 78, 31, 0.45) 0%, rgba(124, 38, 12, 0.28) 42%, var(--bg-obsidian) 85%);
+  padding: 88px 0 64px;
+}
+
+.crate-inner-container {
+  max-width: 1540px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+
+.lathe-press-grid {
+  display: grid;
+  grid-template-columns: 1fr minmax(340px, 520px);
+  gap: 44px;
+  align-items: end;
+  margin-bottom: 52px;
+}
+
+@media (max-width: 960px) {
+  .lathe-press-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.lathe-form-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.lathe-glass-field {
+  background: rgba(255, 248, 240, 0.08);
+  border: 1px solid rgba(255, 248, 240, 0.18);
+  border-radius: 12px;
+  padding: 12px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  backdrop-filter: blur(12px);
+}
+
+.lathe-field-label {
+  font-size: 0.68rem;
+  color: var(--ink-warm-muted);
+}
+
+.lathe-text-input {
+  border: none;
+  background: transparent;
+  color: var(--ink-cream);
+  font-family: inherit;
+  font-size: 0.92rem;
+  outline: none;
+}
+
+.lathe-text-input::placeholder {
+  color: rgba(246, 241, 233, 0.38);
+}
+
+.lathe-submit-pill {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--ink-cream);
+  color: #120E0C;
+  border: none;
+  border-radius: 999px;
+  padding: 8px 8px 8px 22px;
+  font-family: inherit;
+  font-size: 0.84rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.lathe-submit-pill:hover {
+  transform: translateY(-1px);
+}
+
+/* Vinyl Crate Sleeves Grid */
+.crate-sleeves-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 24px;
+}
+
+.vinyl-sleeve-card {
+  position: relative;
+  background: rgba(255, 248, 240, 0.04);
+  border: 1px solid var(--hairline);
+  border-radius: 14px;
+  padding: 14px;
+  cursor: pointer;
+  transition: all 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+  backdrop-filter: blur(12px);
+}
+
+.vinyl-sleeve-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(255, 248, 240, 0.38);
+  background: rgba(255, 248, 240, 0.08);
+  box-shadow: 0 22px 44px rgba(0, 0, 0, 0.45);
+}
+
+.vinyl-sleeve-card.active-sleeve {
+  border-color: var(--accent-flame);
+  box-shadow: 0 0 0 1px var(--accent-flame), 0 18px 36px rgba(0, 0, 0, 0.4);
+}
+
+.sleeve-art-stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  margin-bottom: 12px;
+}
+
+.sleeve-peeking-disc {
+  position: absolute;
+  top: 6%;
+  right: 4%;
+  width: 88%;
+  height: 88%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, #F4EFE6 0%, #F4EFE6 16%, #111 17%, #222 58%, #0B0B0C 100%);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+  transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 1;
+}
+
+.vinyl-sleeve-card:hover .sleeve-peeking-disc,
+.vinyl-sleeve-card.active-sleeve .sleeve-peeking-disc {
+  transform: translateX(18px) rotate(28deg);
+}
+
+.sleeve-cover-img {
+  position: relative;
+  width: 88%;
+  height: 88%;
+  object-fit: cover;
+  border-radius: 6px;
+  box-shadow: 4px 8px 20px rgba(0, 0, 0, 0.5);
+  z-index: 2;
+  background: #1A1817;
+}
+
+.sleeve-meta-title {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--ink-cream);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sleeve-meta-artist {
+  font-size: 0.78rem;
+  color: var(--ink-warm-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 2px;
+}
+
+.sleeve-meta-year {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--ink-warm-subtle);
+  margin-top: 4px;
+}
+
+/* Toast Notification */
+.studio-toast {
+  position: fixed;
+  bottom: 26px;
+  right: 32px;
+  background: var(--ink-cream);
+  color: #120E0C;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.74rem;
+  font-weight: 500;
+  padding: 12px 20px;
+  border-radius: 999px;
+  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  transform: translateY(12px);
+  pointer-events: none;
+  transition: all 0.25s ease;
+  z-index: 1000;
+}
+
+.studio-toast.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* ==========================================================================
+   KOMBAI CAROUSEL-WEB-111 3D RECORD SLEEVE CAROUSEL & KOMBAI SELECTS MOTION
+   ========================================================================== */
+.kombai-carousel-stage {
+  position: relative;
+  margin-bottom: 48px;
+  padding: 28px 32px;
+  border-radius: 22px;
+  background: linear-gradient(165deg, rgba(255, 248, 240, 0.06) 0%, rgba(18, 12, 9, 0.78) 100%);
+  border: 1px solid var(--hairline-strong);
+  box-shadow:
+    0 32px 72px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(18px);
+}
+
+.kombai-carousel-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.kombai-carousel-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  color: var(--accent-flame);
+  text-transform: uppercase;
+  display: block;
+}
+
+.kombai-carousel-sub {
+  font-size: 0.82rem;
+  color: var(--ink-warm-muted);
+  margin-top: 4px;
+}
+
+.kombai-carousel-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.kombai-carousel-nav-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--hairline-strong);
+  background: rgba(255, 248, 240, 0.06);
+  color: var(--ink-cream);
+  font-size: 0.95rem;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), background 0.25s ease, border-color 0.25s ease;
+}
+
+.kombai-carousel-nav-btn:hover {
+  background: var(--ink-cream);
+  color: #120E0C;
+  border-color: var(--ink-cream);
+  transform: scale(1.07);
+}
+
+.kombai-carousel-counter {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.76rem;
+  color: var(--ink-cream);
+  min-width: 58px;
+  text-align: center;
+}
+
+.kombai-carousel-viewport {
+  position: relative;
+  width: 100%;
+  height: 350px;
+  perspective: 1500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  user-select: none;
+  cursor: grab;
+  touch-action: pan-y;
+}
+
+.kombai-carousel-viewport:active {
+  cursor: grabbing;
+}
+
+.kombai-carousel-track {
+  position: relative;
+  width: 248px;
+  height: 248px;
+  transform-style: preserve-3d;
+}
+
+.carousel-sleeve-3d-card {
+  position: absolute;
+  inset: 0;
+  width: 248px;
+  height: 248px;
+  transform-style: preserve-3d;
+  transition:
+    transform 0.68s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.52s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.52s ease;
+  cursor: pointer;
+  will-change: transform, opacity;
+}
+
+/* Grooved 180g Vinyl Record Disc Peeking from the 12-inch Sleeve */
+.carousel-peeking-vinyl {
+  position: absolute;
+  top: 4%;
+  right: -12%;
+  width: 92%;
+  height: 92%;
+  border-radius: 50%;
+  background:
+    repeating-radial-gradient(
+      circle at 50% 50%,
+      rgba(255, 255, 255, 0.04) 0px,
+      rgba(255, 255, 255, 0.04) 1px,
+      rgba(10, 10, 12, 0.92) 1.5px,
+      rgba(10, 10, 12, 0.92) 3px
+    ),
+    radial-gradient(circle at 50% 50%, #18181B 0%, #09090B 100%);
+  box-shadow: 10px 16px 34px rgba(0, 0, 0, 0.78);
+  display: grid;
+  place-items: center;
+  transition: transform 0.58s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 1;
+}
+
+.carousel-sleeve-3d-card.is-focused .carousel-peeking-vinyl,
+.carousel-sleeve-3d-card:hover .carousel-peeking-vinyl {
+  transform: translateX(46px) rotate(32deg);
+}
+
+.carousel-peeking-label {
+  width: 34%;
+  height: 34%;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 0 0 5px rgba(12, 12, 14, 0.88);
+  position: relative;
+}
+
+.carousel-peeking-label::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: #12100E;
+}
+
+/* Physical 12-inch Cardboard Record Jacket */
+.carousel-jacket-cover {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #181412;
+  box-shadow:
+    -12px 22px 44px rgba(0, 0, 0, 0.78),
+    inset 2px 0 4px rgba(255, 255, 255, 0.25),
+    inset 0 1px 1px rgba(255, 255, 255, 0.22);
+  z-index: 2;
+}
+
+.carousel-jacket-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Shrink-wrap gloss & cardboard spine crease */
+.carousel-jacket-cover::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(255,255,255,0.22) 0px, rgba(0,0,0,0.35) 5px, transparent 10px),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.16) 0%, transparent 44%, rgba(0, 0, 0, 0.36) 100%);
+  pointer-events: none;
+}
+
+.carousel-now-spinning-pill {
+  position: absolute;
+  top: 10px;
+  left: 12px;
+  z-index: 4;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(15, 10, 8, 0.86);
+  border: 1px solid var(--accent-flame);
+  color: var(--ink-cream);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.56rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  backdrop-filter: blur(8px);
+}
+
+.kombai-carousel-footer-bar {
+  margin-top: 16px;
+  padding-top: 18px;
+  border-top: 1px solid var(--hairline);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.kombai-focused-note {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  color: var(--accent-flame);
+  display: block;
+}
+
+.kombai-focused-title {
+  font-size: 1.35rem;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: var(--ink-cream);
+  margin-top: 2px;
+}
+
+.kombai-focused-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--ink-warm-muted);
+  display: block;
+  margin-top: 3px;
+}
+
+.kombai-focused-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.kombai-secondary-pill {
+  border: 1px solid var(--hairline-strong);
+  background: rgba(255, 248, 240, 0.06);
+  color: var(--ink-cream);
+  border-radius: 999px;
+  padding: 9px 18px;
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.24s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.kombai-secondary-pill:hover {
+  background: rgba(255, 248, 240, 0.15);
+  transform: translateY(-1px);
+}
+
+.crate-grid-divider-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+  color: var(--ink-warm-subtle);
+  margin-bottom: 18px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--hairline);
+}

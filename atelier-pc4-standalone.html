@@ -1,0 +1,5447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>atelier⁰¹ // Morning Analog Listening Room & 1:1 Vinyl Turntable</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@200;300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+/* ==========================================================================
+   RIFT // ATELIER ONE — MORNING JAZZ COFFEE SHOP & 1:1 TURNTABLE STUDIO
+   Inspired by Rift editorial dark-to-amber lighting, Technics SL-1200G /
+   Braun PC 4 1:1 industrial hardware, and Fons Mans' grooved vinyl craft.
+   ========================================================================== */
+
+:root {
+  --bg-obsidian: #090807;
+  --bg-surface: #12100E;
+  --glow-primary: #D9531E;
+  --glow-secondary: #6E230B;
+  --ink-cream: #F6F1E9;
+  --ink-warm-muted: rgba(246, 241, 233, 0.62);
+  --ink-warm-subtle: rgba(246, 241, 233, 0.36);
+  --hairline: rgba(246, 241, 233, 0.11);
+  --hairline-strong: rgba(246, 241, 233, 0.22);
+  --accent-flame: #FF5924;
+  --quartz-green: #34D399;
+
+  /* Turntable Plinth Defaults: Matte Obsidian Anodized Aluminum */
+  --plinth-bg: linear-gradient(145deg, #211F1E 0%, #151413 55%, #0D0C0B 100%);
+  --plinth-bevel: rgba(255, 245, 235, 0.12);
+  --plinth-shadow:
+    0 50px 110px -15px rgba(0, 0, 0, 0.85),
+    0 25px 45px -10px rgba(0, 0, 0, 0.7),
+    0 0 85px -20px rgba(217, 83, 30, 0.28),
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.14),
+    inset 0 -4px 10px rgba(0, 0, 0, 0.8);
+  --plinth-silkscreen: rgba(246, 241, 233, 0.72);
+  --plinth-silkscreen-dim: rgba(246, 241, 233, 0.38);
+  --metal-knob: linear-gradient(145deg, #383533, #1B1918);
+  --arm-tube: linear-gradient(90deg, #272523 0%, #D6D3CE 42%, #57534E 78%, #1C1917 100%);
+}
+
+/* Finish Option 2: Sunburst Espresso / Roasted Walnut Plinth */
+body[data-chassis="espresso"] {
+  --plinth-bg: linear-gradient(145deg, #3B2316 0%, #24140C 58%, #140B06 100%);
+  --plinth-bevel: rgba(255, 210, 175, 0.18);
+  --metal-knob: linear-gradient(145deg, #C8A97E, #8C6D46);
+}
+
+/* Finish Option 3: Braun PC-4 Brushed Silver Aluminum Plinth */
+body[data-chassis="silver"] {
+  --plinth-bg: linear-gradient(145deg, #ECEAE5 0%, #D4D1CA 55%, #B8B4AC 100%);
+  --plinth-bevel: rgba(255, 255, 255, 0.88);
+  --plinth-silkscreen: #1C1917;
+  --plinth-silkscreen-dim: rgba(28, 25, 23, 0.52);
+  --metal-knob: linear-gradient(145deg, #F5F4F0, #C7C4BC);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--bg-obsidian);
+  color: var(--ink-cream);
+  font-family: 'Plus Jakarta Sans', 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Subtle film grain texture for warm analog depth */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 999;
+  opacity: 0.035;
+  background-image: radial-gradient(rgba(255, 245, 230, 0.8) 0.6px, transparent 0.6px);
+  background-size: 3px 3px;
+}
+
+/* ==========================================================================
+   HERO SECTION: RIFT-INSPIRED ATMOSPHERIC SUNRISE ESPRESSO STAGE
+   ========================================================================== */
+.hero-stage {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background:
+    radial-gradient(circle at 76% 42%, var(--glow-primary) 0%, var(--glow-secondary) 32%, rgba(24, 12, 7, 0.92) 60%, var(--bg-obsidian) 92%);
+  transition: background 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  overflow: hidden;
+  border-bottom: 1px solid var(--hairline);
+}
+
+/* Ambient warm morning sunbeam glow orb on right edge */
+.hero-sunbeam-orb {
+  position: absolute;
+  right: -8%;
+  top: 8%;
+  width: 680px;
+  height: 680px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 118, 48, 0.36) 0%, rgba(217, 78, 31, 0.12) 48%, transparent 72%);
+  filter: blur(45px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Giant Ghosted Watermark Typography ("atelier one" like "rift one" in reference) */
+.hero-watermark-text {
+  position: absolute;
+  left: 4%;
+  bottom: 3%;
+  font-size: clamp(5.5rem, 14.5vw, 13.5rem);
+  font-weight: 200;
+  letter-spacing: -0.045em;
+  line-height: 0.86;
+  color: rgba(255, 243, 230, 0.11);
+  -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.05) 95%);
+  mask-image: linear-gradient(180deg, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.05) 95%);
+  pointer-events: none;
+  user-select: none;
+  z-index: 1;
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   FLOATING TOP NAVIGATION (RIFT PILL BAR)
+   ========================================================================== */
+.rift-nav {
+  position: relative;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 26px 48px;
+  max-width: 1540px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.rift-wordmark {
+  font-size: 1.45rem;
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  color: var(--ink-cream);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.rift-wordmark sup {
+  font-size: 0.62rem;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--ink-warm-muted);
+  letter-spacing: 0.08em;
+}
+
+.rift-center-pills {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255, 248, 240, 0.07);
+  border: 1px solid rgba(255, 248, 240, 0.14);
+  border-radius: 999px;
+  padding: 4px;
+  backdrop-filter: blur(16px);
+}
+
+.rift-nav-pill {
+  border: none;
+  background: transparent;
+  color: var(--ink-warm-muted);
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 400;
+  padding: 8px 20px;
+  border-radius: 999px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.rift-nav-pill.active,
+.rift-nav-pill:hover {
+  background: var(--ink-cream);
+  color: #120E0C;
+  font-weight: 500;
+}
+
+.rift-top-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: transparent;
+  border: none;
+  color: var(--ink-cream);
+  font-family: inherit;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+
+.rift-top-cta-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 248, 240, 0.28);
+  display: grid;
+  place-items: center;
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+
+.rift-top-cta:hover .rift-top-cta-circle {
+  background: var(--ink-cream);
+  color: #120E0C;
+  transform: translateX(2px);
+}
+
+/* ==========================================================================
+   HERO MAIN GRID: WHISPER-QUIET LEFT COPY + MASSIVE 1:1 TURNTABLE HERO
+   ========================================================================== */
+.hero-main-grid {
+  position: relative;
+  z-index: 10;
+  max-width: 1540px;
+  width: 100%;
+  margin: auto;
+  padding: 10px 48px 28px;
+  display: grid;
+  grid-template-columns: minmax(300px, 410px) 1fr;
+  gap: 36px;
+  align-items: center;
+}
+
+@media (max-width: 1120px) {
+  .hero-main-grid {
+    grid-template-columns: 1fr;
+    padding: 16px 24px 36px;
+  }
+  .turntable-hero-stage {
+    order: -1;
+  }
+}
+
+/* Left Column: Clean, Uncluttered Morning Jazz Editorial Panel */
+.hero-editorial-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.eyebrow-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-warm-muted);
+}
+
+.eyebrow-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-flame);
+  box-shadow: 0 0 8px var(--accent-flame);
+}
+
+.eyebrow-dot.playing {
+  background: var(--quartz-green);
+  box-shadow: 0 0 10px var(--quartz-green);
+}
+
+.hero-display-title {
+  font-size: clamp(2.6rem, 4.2vw, 4.15rem);
+  font-weight: 300;
+  line-height: 1.03;
+  letter-spacing: -0.035em;
+  color: var(--ink-cream);
+}
+
+.hero-album-subtitle {
+  font-size: 0.92rem;
+  font-weight: 400;
+  color: var(--ink-warm-muted);
+  line-height: 1.55;
+  max-width: 36ch;
+}
+
+/* Signature Rift White Pill CTA with Dark Circle Icon (Triggers Tonearm Drop / Lift) */
+.rift-pill-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.rift-primary-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--ink-cream);
+  color: #120E0C;
+  border: none;
+  border-radius: 999px;
+  padding: 7px 8px 7px 20px;
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.rift-primary-pill:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+}
+
+.rift-pill-icon-circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #120E0C;
+  color: var(--ink-cream);
+  display: grid;
+  place-items: center;
+}
+
+.kbd-hint-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  color: var(--ink-warm-subtle);
+}
+
+/* Minimal Tracklist Groove Drawer on Left */
+.minimal-groove-list {
+  margin-top: 4px;
+  border-top: 1px solid var(--hairline);
+  padding-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.groove-list-header {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--ink-warm-subtle);
+  text-transform: uppercase;
+}
+
+.groove-tracks-container {
+  max-height: 175px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-right: 4px;
+}
+
+.groove-tracks-container::-webkit-scrollbar {
+  width: 3px;
+}
+.groove-tracks-container::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.16);
+  border-radius: 3px;
+}
+
+.groove-track-item {
+  display: grid;
+  grid-template-columns: 24px 1fr auto;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  color: var(--ink-warm-muted);
+  cursor: pointer;
+  transition: all 0.16s ease;
+}
+
+.groove-track-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--ink-cream);
+}
+
+.groove-track-item.active {
+  background: rgba(255, 248, 240, 0.12);
+  color: var(--ink-cream);
+  font-weight: 500;
+}
+
+.groove-track-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  color: var(--ink-warm-subtle);
+}
+
+.groove-track-item.active .groove-track-num {
+  color: var(--accent-flame);
+}
+
+.groove-track-mm {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--ink-warm-subtle);
+}
+
+/* ==========================================================================
+   RIGHT COLUMN: 1:1 PHOTOREALISTIC TURNTABLE HARDWARE STAGE
+   ========================================================================== */
+.turntable-hero-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.turntable-unit-frame {
+  position: relative;
+  width: min(100%, 730px);
+  aspect-ratio: 1.18 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Rear Gold-Plated Phono RCA Jacks & Ground Post (Top Edge) */
+.rear-hardware-edge {
+  position: absolute;
+  top: -10px;
+  right: 155px;
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.rca-terminal {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px 2px 0 0;
+  background: linear-gradient(90deg, #9E7C2F, #FCE5A2, #8B691E);
+  border: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+.rca-ground-screw {
+  width: 9px;
+  height: 8px;
+  background: linear-gradient(90deg, #777, #DDD, #555);
+}
+
+/* Four Shock-Absorbing Elastomer Isolation Feet peeking slightly under corners */
+.isolation-foot {
+  position: absolute;
+  width: 54px;
+  height: 12px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #111, #333, #111);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.8);
+  z-index: 0;
+}
+.isolation-foot.fl { bottom: -5px; left: 38px; }
+.isolation-foot.fr { bottom: -5px; right: 38px; }
+
+/* Main Machined Plinth Chassis */
+.turntable-plinth {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 28px;
+  background: var(--plinth-bg);
+  border: 1.5px solid var(--plinth-bevel);
+  box-shadow: var(--plinth-shadow);
+  z-index: 2;
+  user-select: none;
+  overflow: hidden;
+  transition: background 0.5s ease, box-shadow 0.5s ease;
+}
+
+/* Brushed Anodized Metallic Sheen Across Plinth */
+.turntable-plinth::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(125deg, rgba(255,255,255,0.05) 0%, transparent 40%, rgba(0,0,0,0.2) 100%);
+  pointer-events: none;
+}
+
+/* Top-Left Engraved Model Plate */
+.plinth-model-plate {
+  position: absolute;
+  top: 24px;
+  left: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  z-index: 12;
+  pointer-events: none;
+}
+
+.model-plate-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--plinth-silkscreen);
+  text-transform: uppercase;
+}
+
+.model-plate-sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.54rem;
+  letter-spacing: 0.1em;
+  color: var(--plinth-silkscreen-dim);
+}
+
+/* Exposed Belt-Drive Brass Motor Pulley & Tension Belt (Upper-Left) */
+.belt-drive-assembly {
+  position: absolute;
+  left: 30px;
+  top: 45%;
+  transform: translateY(-50%);
+  width: 60px;
+  height: 60px;
+  z-index: 5;
+}
+
+.belt-rubber-svg {
+  position: absolute;
+  left: 24px;
+  top: -74px;
+  width: 165px;
+  height: 210px;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.motor-pulley-well {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #3A3836, #141312 75%);
+  box-shadow:
+    inset 0 3px 8px rgba(0, 0, 0, 0.8),
+    0 1px 1px rgba(255, 255, 255, 0.12);
+  display: grid;
+  place-items: center;
+}
+
+.brass-motor-spindle {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    #C5A869,
+    #F7E7BE,
+    #967A3E,
+    #EFE0B4,
+    #876C32,
+    #E6D29E,
+    #C5A869
+  );
+  box-shadow:
+    0 3px 8px rgba(0, 0, 0, 0.55),
+    inset 0 1px 2px rgba(255, 255, 255, 0.85);
+  will-change: transform;
+  display: grid;
+  place-items: center;
+}
+
+.brass-motor-spindle::after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #FFF, #777);
+}
+
+/* ==========================================================================
+   BOTTOM-LEFT REAL HARDWARE CLUSTER:
+   ROTARY POWER TURRET + ILLUMINATED STROBE PRISM + 33 / 45 / 78 SPEED BUTTONS
+   (NO PLAY/PAUSE BUTTONS ON VINYL — DROP NEEDLE OR SPACEBAR TO PLAY!)
+   ========================================================================== */
+.bottom-left-hardware-cluster {
+  position: absolute;
+  bottom: 22px;
+  left: 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 15;
+}
+
+/* Strobe Illuminator Tower + Rotary Power Switch */
+.power-strobe-turret {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.rotary-power-knob {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--metal-knob);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow:
+    0 6px 14px rgba(0, 0, 0, 0.55),
+    inset 0 1px 2px rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+  position: relative;
+  display: grid;
+  place-items: center;
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.rotary-power-knob.power-on {
+  transform: rotate(42deg);
+}
+
+.rotary-fin {
+  width: 6px;
+  height: 28px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #555, #CCC, #444);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.strobe-prism-housing {
+  position: relative;
+  width: 24px;
+  height: 18px;
+  border-radius: 3px;
+  background: #1B1A19;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+}
+
+.strobe-led-window {
+  width: 14px;
+  height: 7px;
+  border-radius: 1.5px;
+  background: #3A190E;
+  transition: all 0.25s ease;
+}
+
+.strobe-led-window.lit {
+  background: #FF5520;
+  box-shadow:
+    0 0 12px #FF5520,
+    8px -8px 22px 4px rgba(255, 85, 32, 0.55);
+}
+
+.power-label-caption {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.52rem;
+  letter-spacing: 0.08em;
+  color: var(--plinth-silkscreen-dim);
+}
+
+/* Tactile Rectangular Machined Speed Selector Buttons (33 / 45 / 78) */
+.speed-buttons-bank {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(0, 0, 0, 0.35);
+  padding: 4px;
+  border-radius: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.hardware-speed-btn {
+  position: relative;
+  min-width: 36px;
+  height: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 3px;
+  background: var(--metal-knob);
+  color: var(--plinth-silkscreen);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 0 6px;
+  box-shadow:
+    0 2px 5px rgba(0, 0, 0, 0.45),
+    inset 0 1px 1px rgba(255, 255, 255, 0.18);
+  transition: transform 0.1s ease;
+}
+
+.hardware-speed-btn:active {
+  transform: translateY(1px);
+}
+
+.speed-led-slit {
+  width: 4px;
+  height: 8px;
+  border-radius: 1px;
+  background: rgba(255, 255, 255, 0.15);
+  transition: all 0.2s ease;
+}
+
+.hardware-speed-btn.active .speed-led-slit {
+  background: var(--accent-flame);
+  box-shadow: 0 0 6px var(--accent-flame);
+}
+
+/* ==========================================================================
+   DIE-CAST ALUMINUM PLATTER WITH STROBE DOTS & SPINNING 180G VINYL RECORD
+   ========================================================================== */
+.platter-assembly {
+  position: absolute;
+  left: 41.5%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 72.5%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, #09090A 0%, #151517 88%, #2E2D2B 95%, #8C8982 98.5%, #222 100%);
+  box-shadow:
+    0 18px 42px rgba(0, 0, 0, 0.68),
+    inset 0 2px 8px rgba(0, 0, 0, 0.85);
+  display: grid;
+  place-items: center;
+  z-index: 6;
+}
+
+/* Rotating Strobe Dots Ring on the Machined Platter Bevel */
+.platter-strobe-rim {
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  background:
+    repeating-conic-gradient(
+      from 0deg,
+      rgba(245, 240, 232, 0.78) 0deg 0.85deg,
+      transparent 0.85deg 2.5deg
+    );
+  -webkit-mask-image: radial-gradient(circle, transparent 96.4%, #000 96.8%, #000 99.4%, transparent 99.8%);
+  mask-image: radial-gradient(circle, transparent 96.4%, #000 96.8%, #000 99.4%, transparent 99.8%);
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* Subtle Circular Rim Progress Arc (Reference Image 1) */
+.rim-progress-svg {
+  position: absolute;
+  inset: -9px;
+  width: calc(100% + 18px);
+  height: calc(100% + 18px);
+  transform: rotate(-90deg);
+  pointer-events: none;
+  z-index: 9;
+}
+
+.rim-progress-track {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.06);
+  stroke-width: 1.8;
+}
+
+.rim-progress-fill {
+  fill: none;
+  stroke: var(--ink-cream);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-dasharray: 942;
+  stroke-dashoffset: 942;
+  opacity: 0.82;
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.35));
+}
+
+/* The Interactive 180g Vinyl Record Disc (GPU-Accelerated 60/120fps Rotation) */
+.vinyl-disc {
+  position: relative;
+  width: 93.8%;
+  height: 93.8%;
+  border-radius: 50%;
+  background: #0D0D0F;
+  box-shadow:
+    0 4px 16px rgba(0, 0, 0, 0.8),
+    inset 0 0 0 2px rgba(255, 255, 255, 0.06);
+  cursor: grab;
+  overflow: hidden;
+  touch-action: none;
+  will-change: transform;
+  transform: translate3d(0, 0, 0) rotate(0deg);
+  backface-visibility: hidden;
+}
+
+.vinyl-disc:active {
+  cursor: grabbing;
+}
+
+/* Optional Amber Translucent Wax Variant */
+body[data-disc-style="amber"] .vinyl-disc {
+  background: radial-gradient(circle, #381808 0%, #7C2D12 58%, #431407 95%, #1F0903 100%);
+}
+
+/* Full-Bleed Grooved Picture-Disc Layer (Reference Image 1) */
+.vinyl-fullbleed-art {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.45s ease;
+  filter: contrast(1.06) brightness(0.84) saturate(1.05);
+}
+
+body[data-disc-style="picture"] .vinyl-fullbleed-art {
+  opacity: 0.86;
+}
+
+/* High-Resolution Concentric Micro-Grooves */
+.vinyl-grooves-overlay {
+  position: absolute;
+  inset: 1.8%;
+  border-radius: 50%;
+  background:
+    repeating-radial-gradient(
+      circle at 50% 50%,
+      rgba(255, 255, 255, 0.036) 0px,
+      rgba(255, 255, 255, 0.036) 1px,
+      rgba(0, 0, 0, 0.36) 1.3px,
+      rgba(0, 0, 0, 0.36) 2.5px
+    );
+  pointer-events: none;
+}
+
+/* Physical Track Band Separators */
+.vinyl-track-bands {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Top Rim Artist Engraving (like "• FLUME •" in Reference Image 1) */
+.vinyl-rim-engraving {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.78);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Center Vinyl Paper Label */
+.vinyl-center-label {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 33.5%;
+  height: 33.5%;
+  border-radius: 50%;
+  background: #F4EFE6;
+  box-shadow:
+    0 0 0 9px rgba(10, 10, 12, 0.85),
+    inset 0 0 10px rgba(0, 0, 0, 0.22);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 13px 10px;
+  text-align: center;
+  transition: all 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+  overflow: hidden;
+}
+
+body[data-disc-style="picture"] .vinyl-center-label {
+  width: 13.5%;
+  height: 13.5%;
+  background: rgba(15, 15, 17, 0.72);
+  padding: 0;
+}
+
+body[data-disc-style="picture"] .label-art-ring,
+body[data-disc-style="picture"] .label-text-top,
+body[data-disc-style="picture"] .label-text-bottom {
+  opacity: 0;
+}
+
+.label-art-ring {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.25;
+}
+
+.label-text-top,
+.label-text-bottom {
+  position: relative;
+  z-index: 2;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.5rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  max-width: 86%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Fixed Anisotropic Butterfly Specular Light Reflection across Grooves */
+.vinyl-anisotropic-sheen {
+  position: absolute;
+  inset: 3.5%;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 32deg at 50% 50%,
+    transparent 0deg,
+    rgba(255, 248, 240, 0.11) 24deg,
+    rgba(255, 248, 240, 0.23) 40deg,
+    rgba(255, 248, 240, 0.10) 56deg,
+    transparent 82deg,
+    transparent 180deg,
+    rgba(255, 248, 240, 0.10) 204deg,
+    rgba(255, 248, 240, 0.21) 220deg,
+    rgba(255, 248, 240, 0.09) 236deg,
+    transparent 262deg,
+    transparent 360deg
+  );
+  pointer-events: none;
+  z-index: 7;
+  mix-blend-mode: screen;
+}
+
+/* Machined Stainless Center Spindle */
+.center-spindle-pin {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 32%, #FFFFFF, #C2C0B8 58%, #3A3835 100%);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.75);
+  z-index: 11;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   1:1 GIMBAL TONEARM ASSEMBLY WITH COUNTERWEIGHT SCALE, ANTI-SKATE,
+   HYDRAULIC CUE LEVER WAND, ARMREST CLAMP & CARTRIDGE LEAD WIRES
+   ========================================================================== */
+.tonearm-pivot-center {
+  position: absolute;
+  right: 92px;
+  top: 136px;
+  width: 0;
+  height: 0;
+  z-index: 22;
+}
+
+/* Outer Machined Gimbal Base Plate */
+.tonearm-base-plate {
+  position: absolute;
+  left: -54px;
+  top: -54px;
+  width: 108px;
+  height: 108px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 36% 36%, #444240 0%, #211F1E 66%, #11100F 100%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow:
+    0 14px 28px rgba(0, 0, 0, 0.65),
+    inset 0 2px 4px rgba(255, 255, 255, 0.2);
+  pointer-events: none;
+}
+
+/* Calibrated Anti-Skate Dial on Gimbal Base */
+.anti-skate-dial {
+  position: absolute;
+  right: -46px;
+  top: -14px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #D6D3CD, #6E6A64);
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+
+.anti-skate-dial::after {
+  content: "1.75";
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.36rem;
+  font-weight: 700;
+  color: #111;
+}
+
+/* Physical Hydraulic Cueing Lever Wand (Interactive!) */
+.hydraulic-cue-assembly {
+  position: absolute;
+  left: -58px;
+  top: 38px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  z-index: 25;
+  cursor: pointer;
+}
+
+.cue-cylinder-body {
+  width: 14px;
+  height: 26px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #555, #CCC, #444);
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+.cue-wand-lever {
+  width: 22px;
+  height: 4px;
+  background: linear-gradient(180deg, #EEE, #777);
+  border-radius: 2px;
+  transform-origin: left center;
+  transform: rotate(18deg);
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hydraulic-cue-assembly.cued-up .cue-wand-lever {
+  transform: rotate(-26deg);
+}
+
+.cue-rubber-tip {
+  width: 7px;
+  height: 6px;
+  border-radius: 2px;
+  background: var(--accent-flame);
+}
+
+/* Armrest Locking Cradle along Tonearm Shaft */
+.tonearm-rest-cradle {
+  position: absolute;
+  left: -11px;
+  top: 98px;
+  width: 22px;
+  height: 16px;
+  border: 2px solid #52504C;
+  border-top: none;
+  border-radius: 0 0 5px 5px;
+  pointer-events: none;
+}
+
+/* Rotating Tonearm Rig (rotates around (0,0) gimbal center) */
+.tonearm-rotating-rig {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  transform-origin: 0 0;
+  transform: translate3d(0, 0, 0) rotate(0deg);
+  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.tonearm-rotating-rig.dragging {
+  transition: none !important;
+}
+
+/* Calibrated Counterweight with Numbered Tracking-Force Gauge Ring */
+.tonearm-counterweight {
+  position: absolute;
+  left: -15px;
+  top: -78px;
+  width: 30px;
+  height: 40px;
+  border-radius: 5px;
+  background: linear-gradient(90deg, #1E1D1B, #6E6B65, #181715);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.65);
+  overflow: hidden;
+}
+
+.counterweight-scale-ring {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 11px;
+  background: linear-gradient(90deg, #999, #F5F5F4, #888);
+  color: #111;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.38rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.tonearm-rear-stub {
+  position: absolute;
+  left: -5.5px;
+  top: -42px;
+  width: 11px;
+  height: 42px;
+  background: var(--arm-tube);
+}
+
+/* Gimbal Bridge Housing */
+.tonearm-gimbal-bridge {
+  position: absolute;
+  left: -24px;
+  top: -24px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--metal-knob);
+  border: 1.5px solid rgba(255, 255, 255, 0.22);
+  box-shadow:
+    0 8px 16px rgba(0, 0, 0, 0.6),
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.35);
+  display: grid;
+  place-items: center;
+}
+
+.gimbal-pivot-screw {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #E5E5E5, #555);
+}
+
+/* Main Tubular Tonearm Rod */
+.tonearm-main-rod {
+  position: absolute;
+  left: -6px;
+  top: 0;
+  width: 12px;
+  height: 242px;
+  border-radius: 6px;
+  background: var(--arm-tube);
+  box-shadow: -10px 16px 20px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+
+/* Locking Collar Ring between Tonearm Tube & Headshell */
+.headshell-collar-nut {
+  position: absolute;
+  left: -8px;
+  top: 224px;
+  width: 16px;
+  height: 10px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #555, #EEE, #444);
+  pointer-events: none;
+}
+
+/* Die-Cast Slotted Headshell + 4 Color-Coded Cartridge Lead Wires (Draggable!) */
+.tonearm-headshell {
+  position: absolute;
+  left: -14px;
+  top: 230px;
+  width: 28px;
+  height: 60px;
+  transform-origin: 50% 0%;
+  transform: rotate(23deg);
+  background: linear-gradient(145deg, #3A3835, #181715);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px 4px 7px 7px;
+  box-shadow: -8px 14px 18px rgba(0, 0, 0, 0.65);
+  cursor: grab;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 3px 5px;
+}
+
+.tonearm-headshell:active {
+  cursor: grabbing;
+}
+
+/* 4 Color-Coded Phono Lead Wires (Red/White/Green/Blue) visible at top of headshell */
+.cartridge-lead-wires {
+  display: flex;
+  gap: 2px;
+  width: 14px;
+  height: 7px;
+}
+.lead-wire {
+  flex: 1;
+  border-radius: 1px;
+}
+.lead-wire.lw-r { background: #EF4444; }
+.lead-wire.lw-w { background: #F5F5F4; }
+.lead-wire.lw-g { background: #22C55E; }
+.lead-wire.lw-b { background: #3B82F6; }
+
+/* Machined Weight-Reduction Slots & Dual Cartridge Mounting Bolts */
+.headshell-slots {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+.mounting-bolt {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #D6D3CD;
+}
+
+/* Curved Metal Finger Lift */
+.headshell-finger-lift {
+  position: absolute;
+  right: -15px;
+  top: 20px;
+  width: 16px;
+  height: 4px;
+  background: linear-gradient(90deg, #D6D3CD, #FFF);
+  border-radius: 2px;
+  transform: rotate(-18deg);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Glowing Diamond Stylus Cantilever Tip Indicator */
+.stylus-indicator-triangle {
+  width: 0;
+  height: 0;
+  border-left: 4.5px solid transparent;
+  border-right: 4.5px solid transparent;
+  border-bottom: 8px solid var(--accent-flame);
+  filter: drop-shadow(0 0 4px var(--accent-flame));
+}
+
+/* ==========================================================================
+   RECESSED GRADUATED PITCH ADJUSTMENT SLIDER (-8% ... 0 ... +8%)
+   WITH QUARTZ LOCK LED & ANIMATED 3D FADER CAP (Right Plinth Edge)
+   ========================================================================== */
+.recessed-pitch-assembly {
+  position: absolute;
+  right: 20px;
+  bottom: 26px;
+  width: 58px;
+  height: 178px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 16;
+}
+
+.pitch-header-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.48rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--plinth-silkscreen-dim);
+}
+
+.quartz-lock-led {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(52, 211, 153, 0.2);
+  transition: all 0.2s ease;
+}
+
+.quartz-lock-led.locked {
+  background: var(--quartz-green);
+  box-shadow: 0 0 8px var(--quartz-green);
+}
+
+.pitch-fader-track- housing {
+  position: relative;
+  width: 48px;
+  height: 136px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pitch-scale-ticks {
+  position: absolute;
+  left: 2px;
+  top: 8px;
+  bottom: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.44rem;
+  color: var(--plinth-silkscreen-dim);
+  pointer-events: none;
+  text-align: right;
+  width: 14px;
+}
+
+.pitch-slot-well {
+  position: relative;
+  margin-left: 14px;
+  width: 12px;
+  height: 124px;
+  border-radius: 4px;
+  background: #070708;
+  box-shadow:
+    inset 0 2px 6px rgba(0, 0, 0, 0.95),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+  cursor: ns-resize;
+  touch-action: none;
+}
+
+/* Center Slot Slit */
+.pitch-slot-well::before {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 6px;
+  bottom: 6px;
+  width: 2px;
+  background: #000;
+}
+
+/* Physical 3D Sliding Fader Knob Cap (Smooth Animated Position!) */
+.pitch-fader-cap {
+  position: absolute;
+  left: -9px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 30px;
+  height: 18px;
+  border-radius: 3px;
+  background: linear-gradient(180deg, #52504D 0%, #D6D3CD 45%, #272523 55%, #78746E 100%);
+  box-shadow:
+    0 5px 10px rgba(0, 0, 0, 0.65),
+    inset 0 1px 1px rgba(255, 255, 255, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  transition: top 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.pitch-fader-cap.dragging {
+  transition: none !important;
+  cursor: grabbing;
+}
+
+.pitch-fader-index-line {
+  width: 100%;
+  height: 1.5px;
+  background: #FFFFFF;
+}
+
+.pitch-reset-mini-btn {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(0, 0, 0, 0.35);
+  color: var(--plinth-silkscreen-dim);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.45rem;
+  padding: 2px 6px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.pitch-reset-mini-btn:hover {
+  color: var(--ink-cream);
+  border-color: var(--ink-cream);
+}
+
+/* Subtle Instruction Strip Below Turntable */
+.turntable-gesture-strip {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: min(100%, 730px);
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: rgba(255, 248, 240, 0.05);
+  border: 1px solid var(--hairline);
+  backdrop-filter: blur(12px);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.67rem;
+  color: var(--ink-warm-muted);
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.telemetry-pills-inline {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.telemetry-pills-inline strong {
+  color: var(--ink-cream);
+}
+
+/* Hero Bottom Scroll Cue */
+.hero-bottom-bar {
+  position: relative;
+  z-index: 15;
+  max-width: 1540px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 48px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--ink-warm-muted);
+}
+
+.scroll-discover-link {
+  color: var(--ink-warm-muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.scroll-discover-link:hover {
+  color: var(--ink-cream);
+}
+
+/* ==========================================================================
+   SECTION 01: "MADE TO SPIN. DESIGNED TO FEEL RIGHT." (RIFT 3-COLUMN ARCHITECTURE)
+   ========================================================================== */
+.rift-section {
+  position: relative;
+  max-width: 1540px;
+  margin: 0 auto;
+  padding: 88px 48px;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-warm-muted);
+  margin-bottom: 18px;
+}
+
+.section-eyebrow::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-flame);
+}
+
+.section-header-split {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+  margin-bottom: 56px;
+  flex-wrap: wrap;
+}
+
+.section-display-heading {
+  font-size: clamp(2.2rem, 3.8vw, 3.6rem);
+  font-weight: 300;
+  line-height: 1.06;
+  letter-spacing: -0.03em;
+}
+
+.section-aside-blurb {
+  max-width: 34ch;
+  font-size: 0.86rem;
+  line-height: 1.6;
+  color: var(--ink-warm-muted);
+}
+
+/* 3-Column Feature Strip with Hairline Top Rules */
+.rift-three-columns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 36px;
+}
+
+@media (max-width: 900px) {
+  .rift-three-columns {
+    grid-template-columns: 1fr;
+  }
+}
+
+.rift-feature-col {
+  border-top: 1px solid var(--hairline-strong);
+  padding-top: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.feature-col-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.76rem;
+  color: var(--ink-warm-muted);
+}
+
+.feature-col-icon {
+  width: 44px;
+  height: 44px;
+  color: var(--ink-cream);
+  opacity: 0.88;
+}
+
+.feature-col-title {
+  font-size: 1.25rem;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+.feature-col-desc {
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--ink-warm-muted);
+}
+
+/* ==========================================================================
+   SECTION 02: "YOUR DECK. YOUR FINISH." INTERACTIVE CONFIGURATOR CARD
+   (Directly inspired by RIFT ONE "02 / MAKE IT YOURS" configurator!)
+   ========================================================================== */
+.configurator-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr minmax(380px, 560px);
+  gap: 48px;
+  align-items: center;
+}
+
+@media (max-width: 980px) {
+  .configurator-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.configurator-card {
+  background: rgba(255, 248, 240, 0.03);
+  border: 1px solid var(--hairline-strong);
+  border-radius: 20px;
+  padding: 28px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  backdrop-filter: blur(18px);
+}
+
+.config-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--hairline);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--ink-warm-muted);
+}
+
+.config-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.config-group-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.84rem;
+  color: var(--ink-cream);
+}
+
+.config-swatches-row {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  flex-wrap: wrap;
+}
+
+.finish-swatch-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  border: none;
+  color: var(--ink-warm-muted);
+  font-family: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.swatch-circle {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.22);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.finish-swatch-btn.active {
+  color: var(--ink-cream);
+  font-weight: 500;
+}
+
+.finish-swatch-btn.active .swatch-circle {
+  border-color: var(--ink-cream);
+  box-shadow: 0 0 0 3px rgba(255, 248, 240, 0.16);
+}
+
+/* Pill Selector Row (like S / M / L / XL in Rift reference) */
+.config-pills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.wax-mode-pill {
+  height: 42px;
+  border-radius: 999px;
+  border: 1px solid var(--hairline-strong);
+  background: transparent;
+  color: var(--ink-cream);
+  font-family: inherit;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.wax-mode-pill.active {
+  background: var(--ink-cream);
+  color: #120E0C;
+  font-weight: 600;
+}
+
+/* Acoustic Cafe Ambience Sliders inside Configurator */
+.acoustic-sliders-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.acoustic-slider-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.acoustic-slider-item label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--ink-warm-muted);
+  letter-spacing: 0.06em;
+}
+
+.acoustic-slider-item input[type="range"] {
+  width: 100%;
+  accent-color: var(--accent-flame);
+  cursor: pointer;
+}
+
+.config-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  color: var(--ink-warm-muted);
+}
+
+/* ==========================================================================
+   SECTION 03: WARM SUNSET CRATE & LIVE GLOBAL VINYL LATHE
+   ========================================================================== */
+.crate-sunset-section {
+  position: relative;
+  width: 100%;
+  background:
+    radial-gradient(circle at 82% 65%, rgba(217, 78, 31, 0.45) 0%, rgba(124, 38, 12, 0.28) 42%, var(--bg-obsidian) 85%);
+  padding: 88px 0 64px;
+}
+
+.crate-inner-container {
+  max-width: 1540px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+
+.lathe-press-grid {
+  display: grid;
+  grid-template-columns: 1fr minmax(340px, 520px);
+  gap: 44px;
+  align-items: end;
+  margin-bottom: 52px;
+}
+
+@media (max-width: 960px) {
+  .lathe-press-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.lathe-form-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.lathe-glass-field {
+  background: rgba(255, 248, 240, 0.08);
+  border: 1px solid rgba(255, 248, 240, 0.18);
+  border-radius: 12px;
+  padding: 12px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  backdrop-filter: blur(12px);
+}
+
+.lathe-field-label {
+  font-size: 0.68rem;
+  color: var(--ink-warm-muted);
+}
+
+.lathe-text-input {
+  border: none;
+  background: transparent;
+  color: var(--ink-cream);
+  font-family: inherit;
+  font-size: 0.92rem;
+  outline: none;
+}
+
+.lathe-text-input::placeholder {
+  color: rgba(246, 241, 233, 0.38);
+}
+
+.lathe-submit-pill {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--ink-cream);
+  color: #120E0C;
+  border: none;
+  border-radius: 999px;
+  padding: 8px 8px 8px 22px;
+  font-family: inherit;
+  font-size: 0.84rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.lathe-submit-pill:hover {
+  transform: translateY(-1px);
+}
+
+/* Vinyl Crate Sleeves Grid */
+.crate-sleeves-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 24px;
+}
+
+.vinyl-sleeve-card {
+  position: relative;
+  background: rgba(255, 248, 240, 0.04);
+  border: 1px solid var(--hairline);
+  border-radius: 14px;
+  padding: 14px;
+  cursor: pointer;
+  transition: all 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+  backdrop-filter: blur(12px);
+}
+
+.vinyl-sleeve-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(255, 248, 240, 0.38);
+  background: rgba(255, 248, 240, 0.08);
+  box-shadow: 0 22px 44px rgba(0, 0, 0, 0.45);
+}
+
+.vinyl-sleeve-card.active-sleeve {
+  border-color: var(--accent-flame);
+  box-shadow: 0 0 0 1px var(--accent-flame), 0 18px 36px rgba(0, 0, 0, 0.4);
+}
+
+.sleeve-art-stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  margin-bottom: 12px;
+}
+
+.sleeve-peeking-disc {
+  position: absolute;
+  top: 6%;
+  right: 4%;
+  width: 88%;
+  height: 88%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, #F4EFE6 0%, #F4EFE6 16%, #111 17%, #222 58%, #0B0B0C 100%);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+  transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 1;
+}
+
+.vinyl-sleeve-card:hover .sleeve-peeking-disc,
+.vinyl-sleeve-card.active-sleeve .sleeve-peeking-disc {
+  transform: translateX(18px) rotate(28deg);
+}
+
+.sleeve-cover-img {
+  position: relative;
+  width: 88%;
+  height: 88%;
+  object-fit: cover;
+  border-radius: 6px;
+  box-shadow: 4px 8px 20px rgba(0, 0, 0, 0.5);
+  z-index: 2;
+  background: #1A1817;
+}
+
+.sleeve-meta-title {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--ink-cream);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sleeve-meta-artist {
+  font-size: 0.78rem;
+  color: var(--ink-warm-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 2px;
+}
+
+.sleeve-meta-year {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--ink-warm-subtle);
+  margin-top: 4px;
+}
+
+/* Toast Notification */
+.studio-toast {
+  position: fixed;
+  bottom: 26px;
+  right: 32px;
+  background: var(--ink-cream);
+  color: #120E0C;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.74rem;
+  font-weight: 500;
+  padding: 12px 20px;
+  border-radius: 999px;
+  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  transform: translateY(12px);
+  pointer-events: none;
+  transition: all 0.25s ease;
+  z-index: 1000;
+}
+
+.studio-toast.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* ==========================================================================
+   KOMBAI CAROUSEL-WEB-111 3D RECORD SLEEVE CAROUSEL & KOMBAI SELECTS MOTION
+   ========================================================================== */
+.kombai-carousel-stage {
+  position: relative;
+  margin-bottom: 48px;
+  padding: 28px 32px;
+  border-radius: 22px;
+  background: linear-gradient(165deg, rgba(255, 248, 240, 0.06) 0%, rgba(18, 12, 9, 0.78) 100%);
+  border: 1px solid var(--hairline-strong);
+  box-shadow:
+    0 32px 72px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(18px);
+}
+
+.kombai-carousel-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.kombai-carousel-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  color: var(--accent-flame);
+  text-transform: uppercase;
+  display: block;
+}
+
+.kombai-carousel-sub {
+  font-size: 0.82rem;
+  color: var(--ink-warm-muted);
+  margin-top: 4px;
+}
+
+.kombai-carousel-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.kombai-carousel-nav-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--hairline-strong);
+  background: rgba(255, 248, 240, 0.06);
+  color: var(--ink-cream);
+  font-size: 0.95rem;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), background 0.25s ease, border-color 0.25s ease;
+}
+
+.kombai-carousel-nav-btn:hover {
+  background: var(--ink-cream);
+  color: #120E0C;
+  border-color: var(--ink-cream);
+  transform: scale(1.07);
+}
+
+.kombai-carousel-counter {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.76rem;
+  color: var(--ink-cream);
+  min-width: 58px;
+  text-align: center;
+}
+
+.kombai-carousel-viewport {
+  position: relative;
+  width: 100%;
+  height: 350px;
+  perspective: 1500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  user-select: none;
+  cursor: grab;
+  touch-action: pan-y;
+}
+
+.kombai-carousel-viewport:active {
+  cursor: grabbing;
+}
+
+.kombai-carousel-track {
+  position: relative;
+  width: 248px;
+  height: 248px;
+  transform-style: preserve-3d;
+}
+
+.carousel-sleeve-3d-card {
+  position: absolute;
+  inset: 0;
+  width: 248px;
+  height: 248px;
+  transform-style: preserve-3d;
+  transition:
+    transform 0.68s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.52s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.52s ease;
+  cursor: pointer;
+  will-change: transform, opacity;
+}
+
+/* Grooved 180g Vinyl Record Disc Peeking from the 12-inch Sleeve */
+.carousel-peeking-vinyl {
+  position: absolute;
+  top: 4%;
+  right: -12%;
+  width: 92%;
+  height: 92%;
+  border-radius: 50%;
+  background:
+    repeating-radial-gradient(
+      circle at 50% 50%,
+      rgba(255, 255, 255, 0.04) 0px,
+      rgba(255, 255, 255, 0.04) 1px,
+      rgba(10, 10, 12, 0.92) 1.5px,
+      rgba(10, 10, 12, 0.92) 3px
+    ),
+    radial-gradient(circle at 50% 50%, #18181B 0%, #09090B 100%);
+  box-shadow: 10px 16px 34px rgba(0, 0, 0, 0.78);
+  display: grid;
+  place-items: center;
+  transition: transform 0.58s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 1;
+}
+
+.carousel-sleeve-3d-card.is-focused .carousel-peeking-vinyl,
+.carousel-sleeve-3d-card:hover .carousel-peeking-vinyl {
+  transform: translateX(46px) rotate(32deg);
+}
+
+.carousel-peeking-label {
+  width: 34%;
+  height: 34%;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 0 0 5px rgba(12, 12, 14, 0.88);
+  position: relative;
+}
+
+.carousel-peeking-label::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: #12100E;
+}
+
+/* Physical 12-inch Cardboard Record Jacket */
+.carousel-jacket-cover {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #181412;
+  box-shadow:
+    -12px 22px 44px rgba(0, 0, 0, 0.78),
+    inset 2px 0 4px rgba(255, 255, 255, 0.25),
+    inset 0 1px 1px rgba(255, 255, 255, 0.22);
+  z-index: 2;
+}
+
+.carousel-jacket-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Shrink-wrap gloss & cardboard spine crease */
+.carousel-jacket-cover::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(255,255,255,0.22) 0px, rgba(0,0,0,0.35) 5px, transparent 10px),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.16) 0%, transparent 44%, rgba(0, 0, 0, 0.36) 100%);
+  pointer-events: none;
+}
+
+.carousel-now-spinning-pill {
+  position: absolute;
+  top: 10px;
+  left: 12px;
+  z-index: 4;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(15, 10, 8, 0.86);
+  border: 1px solid var(--accent-flame);
+  color: var(--ink-cream);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.56rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  backdrop-filter: blur(8px);
+}
+
+.kombai-carousel-footer-bar {
+  margin-top: 16px;
+  padding-top: 18px;
+  border-top: 1px solid var(--hairline);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.kombai-focused-note {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  color: var(--accent-flame);
+  display: block;
+}
+
+.kombai-focused-title {
+  font-size: 1.35rem;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: var(--ink-cream);
+  margin-top: 2px;
+}
+
+.kombai-focused-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--ink-warm-muted);
+  display: block;
+  margin-top: 3px;
+}
+
+.kombai-focused-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.kombai-secondary-pill {
+  border: 1px solid var(--hairline-strong);
+  background: rgba(255, 248, 240, 0.06);
+  color: var(--ink-cream);
+  border-radius: 999px;
+  padding: 9px 18px;
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.24s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.kombai-secondary-pill:hover {
+  background: rgba(255, 248, 240, 0.15);
+  transform: translateY(-1px);
+}
+
+.crate-grid-divider-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+  color: var(--ink-warm-subtle);
+  margin-bottom: 18px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--hairline);
+}
+
+</style>
+</head>
+<body data-chassis="obsidian" data-disc-style="picture">
+
+  <!-- ========================================================================
+       HERO STAGE: RIFT-INSPIRED BURNT ESPRESSO / SUNRISE LIGHT STAGE
+       ======================================================================== -->
+  <section id="heroStage" class="hero-stage">
+    <div class="hero-sunbeam-orb"></div>
+    <div id="heroWatermarkText" class="hero-watermark-text">blonde</div>
+
+    <!-- Floating Glass Pill Navigation Bar -->
+    <header class="rift-nav">
+      <a href="#heroStage" class="rift-wordmark">
+        atelier<sup>01</sup>
+      </a>
+
+      <nav class="rift-center-pills" aria-label="Studio Navigation">
+        <a href="#heroStage" class="rift-nav-pill active">Turntable</a>
+        <a href="#ritualSection" class="rift-nav-pill">Acoustics</a>
+        <a href="#configureSection" class="rift-nav-pill">Finish</a>
+        <a href="#crateSection" class="rift-nav-pill">Record Crate (<span id="navCrateCount">11</span>)</a>
+      </nav>
+
+      <button id="topDropNeedleCta" class="rift-top-cta" title="Drop or lift stylus (Spacebar)">
+        <span>Drop the needle</span>
+        <span class="rift-top-cta-circle">→</span>
+      </button>
+    </header>
+
+    <!-- Main Hero Grid: Whisper-Quiet Left Editorial + Dominant 1:1 Turntable -->
+    <div class="hero-main-grid">
+
+      <!-- Left Column: Morning Jazz Coffee Shop Editorial & Groove Tracklist -->
+      <div class="hero-editorial-panel">
+        <div class="eyebrow-tag">
+          <span id="eyebrowDot" class="eyebrow-dot"></span>
+          <span id="eyebrowStatusText">PLATTER READY // DRAG TONEARM ONTO RECORD TO PLAY</span>
+        </div>
+
+        <h1 id="heroDisplayTitle" class="hero-display-title">Blonde</h1>
+
+        <p id="heroAlbumSubtitle" class="hero-album-subtitle">
+          Frank Ocean • 2016 • 17 tracks pressed on 180g audiophile vinyl. Drag the tonearm onto the wax to listen.
+        </p>
+
+        <div class="rift-pill-row">
+          <button id="dropNeedlePillBtn" class="rift-primary-pill">
+            <span id="dropNeedlePillText">Drop Needle on Wax</span>
+            <span class="rift-pill-icon-circle">→</span>
+          </button>
+          <span class="kbd-hint-tag">[SPACE] or drag cartridge</span>
+        </div>
+
+        <!-- Minimal Tracklist Groove Selector -->
+        <div class="minimal-groove-list">
+          <div class="groove-list-header">
+            <span id="grooveSideLabel">SIDE A • TRACK 01 — Nikes</span>
+            <span>GROOVE RADIUS</span>
+          </div>
+          <div id="grooveTracksContainer" class="groove-tracks-container"></div>
+        </div>
+      </div>
+
+      <!-- Right Column: 1:1 Photorealistic Turntable Hardware Deck -->
+      <div class="turntable-hero-stage">
+        <div class="turntable-unit-frame">
+
+          <!-- Rear Gold-Plated Phono RCA Terminals & Isolation Feet -->
+          <div class="rear-hardware-edge">
+            <div class="rca-ground-screw"></div>
+            <div class="rca-terminal"></div>
+            <div class="rca-terminal"></div>
+          </div>
+          <div class="isolation-foot fl"></div>
+          <div class="isolation-foot fr"></div>
+
+          <!-- 1:1 MACHINED TURNTABLE PLINTH (Zero Digital Play/Pause Buttons!) -->
+          <div class="turntable-plinth">
+
+            <!-- Top-Left Engraved Model Plate -->
+            <div class="plinth-model-plate">
+              <span class="model-plate-title">ATELIER // PC-4G</span>
+              <span class="model-plate-sub">DIRECT QUARTZ &amp; BELT REFERENCE SYSTEM</span>
+            </div>
+
+            <!-- Exposed Brass Belt-Drive Pulley & Rubber Tension Belt -->
+            <svg class="belt-rubber-svg" viewBox="0 0 165 210" fill="none">
+              <line x1="18" y1="84" x2="148" y2="10" stroke="#09090A" stroke-width="2.8" />
+              <line x1="18" y1="126" x2="148" y2="200" stroke="#09090A" stroke-width="2.8" />
+            </svg>
+            <div class="belt-drive-assembly" title="Exposed Brass Belt-Drive Motor Pulley">
+              <div class="motor-pulley-well">
+                <div id="brassMotorSpindle" class="brass-motor-spindle"></div>
+              </div>
+            </div>
+
+            <!-- Bottom-Left Real Turntable Hardware: Rotary Power Switch + Strobe Prism + 33/45/78 Buttons -->
+            <div class="bottom-left-hardware-cluster">
+              <div class="power-strobe-turret">
+                <button
+                  id="rotaryPowerKnob"
+                  class="rotary-power-knob power-on"
+                  title="Mechanical Rotary Power Switch (ON / OFF)"
+                  aria-label="Toggle Turntable Motor Power"
+                >
+                  <div class="rotary-fin"></div>
+                </button>
+                <div class="strobe-prism-housing" title="Quartz Strobe Illuminator Tower">
+                  <div id="strobeLedWindow" class="strobe-led-window lit"></div>
+                </div>
+                <span class="power-label-caption">POWER<br/>ON•OFF</span>
+              </div>
+
+              <div class="speed-buttons-bank" role="group" aria-label="Platter RPM Selector">
+                <button class="hardware-speed-btn active" data-rpm="33.3" title="33⅓ RPM Standard LP Speed">
+                  <span class="speed-led-slit"></span>
+                  <span>33</span>
+                </button>
+                <button class="hardware-speed-btn" data-rpm="45" title="45 RPM EP Single Speed">
+                  <span class="speed-led-slit"></span>
+                  <span>45</span>
+                </button>
+                <button class="hardware-speed-btn" data-rpm="78" title="78 RPM Shellac Speed">
+                  <span class="speed-led-slit"></span>
+                  <span>78</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- DIE-CAST PLATTER WITH STROBE DOTS & 180G VINYL RECORD -->
+            <div class="platter-assembly">
+              <!-- Rotating Die-Cast Strobe Dots Bevel -->
+              <div id="platterStrobeRim" class="platter-strobe-rim"></div>
+
+              <!-- Subtle Rim Progress Arc -->
+              <svg class="rim-progress-svg" viewBox="0 0 320 320">
+                <circle class="rim-progress-track" cx="160" cy="160" r="150" />
+                <circle id="rimProgressFill" class="rim-progress-fill" cx="160" cy="160" r="150" />
+              </svg>
+
+              <!-- Interactive Draggable Vinyl Record -->
+              <div id="vinylDisc" class="vinyl-disc" title="Grab and drag the record to scrub or scratch!">
+                <div id="vinylFullbleedArt" class="vinyl-fullbleed-art"></div>
+                <div class="vinyl-grooves-overlay"></div>
+                <div id="vinylTrackBands" class="vinyl-track-bands"></div>
+                <div id="vinylRimEngraving" class="vinyl-rim-engraving">• FRANK OCEAN •</div>
+
+                <!-- Center Vinyl Label -->
+                <div id="vinylCenterLabel" class="vinyl-center-label">
+                  <div id="labelArtRing" class="label-art-ring"></div>
+                  <span id="labelTextTop" class="label-text-top">FRANK OCEAN</span>
+                  <span id="labelTextBottom" class="label-text-bottom">BLONDE</span>
+                </div>
+              </div>
+
+              <!-- Fixed Anisotropic Specular Sheen & Center Spindle -->
+              <div class="vinyl-anisotropic-sheen"></div>
+              <div class="center-spindle-pin"></div>
+            </div>
+
+            <!-- 1:1 PRECISION GIMBAL TONEARM ASSEMBLY -->
+            <div id="tonearmPivotCenter" class="tonearm-pivot-center">
+              <div class="tonearm-base-plate"></div>
+              <div class="anti-skate-dial" title="Calibrated Anti-Skate Force (1.75g)"></div>
+
+              <!-- Physical Hydraulic Cueing Lever Wand -->
+              <div id="hydraulicCueAssembly" class="hydraulic-cue-assembly" title="Hydraulic Cueing Lever (Flip to lift/lower stylus)">
+                <div class="cue-cylinder-body"></div>
+                <div class="cue-wand-lever"></div>
+                <div class="cue-rubber-tip"></div>
+              </div>
+
+              <div class="tonearm-rest-cradle"></div>
+
+              <!-- Rotating Tonearm Rig -->
+              <div id="tonearmRig" class="tonearm-rotating-rig">
+                <div class="tonearm-counterweight" title="Calibrated Tracking Force Counterweight">
+                  <div class="counterweight-scale-ring">
+                    <span>1.0</span><span>1.5</span><span>2.0</span>
+                  </div>
+                </div>
+                <div class="tonearm-rear-stub"></div>
+                <div class="tonearm-main-rod"></div>
+                <div class="headshell-collar-nut"></div>
+                <div class="tonearm-gimbal-bridge">
+                  <div class="gimbal-pivot-screw"></div>
+                </div>
+
+                <!-- Slotted Die-Cast Headshell with 4 Cartridge Lead Wires (Drag onto record!) -->
+                <div id="tonearmHeadshell" class="tonearm-headshell" title="Drag cartridge onto the vinyl grooves to play!">
+                  <div class="cartridge-lead-wires">
+                    <span class="lead-wire lw-r"></span>
+                    <span class="lead-wire lw-w"></span>
+                    <span class="lead-wire lw-g"></span>
+                    <span class="lead-wire lw-b"></span>
+                  </div>
+                  <div class="headshell-slots">
+                    <span class="mounting-bolt"></span>
+                    <span class="mounting-bolt"></span>
+                  </div>
+                  <div class="headshell-finger-lift"></div>
+                  <div class="stylus-indicator-triangle"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- RECESSED GRADUATED PITCH FADER (-8% ... 0 ... +8%) WITH QUARTZ LOCK -->
+            <div class="recessed-pitch-assembly">
+              <div class="pitch-header-row">
+                <span id="quartzLockLed" class="quartz-lock-led locked"></span>
+                <span>PITCH</span>
+              </div>
+
+              <div class="pitch-fader-track-housing" style="position:relative;display:flex;align-items:center;">
+                <div class="pitch-scale-ticks">
+                  <span>-8</span>
+                  <span>-4</span>
+                  <span>0</span>
+                  <span>+4</span>
+                  <span>+8</span>
+                </div>
+                <div id="pitchSlotWell" class="pitch-slot-well" title="Slide or click to adjust turntable pitch (±8%)">
+                  <div id="pitchFaderCap" class="pitch-fader-cap">
+                    <div class="pitch-fader-index-line"></div>
+                  </div>
+                </div>
+              </div>
+
+              <button id="pitchResetBtn" class="pitch-reset-mini-btn" title="Reset to 0.0% Quartz Lock">
+                RESET
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Subtle Hardware Telemetry & Tactile Gesture Strip -->
+        <div class="turntable-gesture-strip">
+          <span><strong>TACTILE RITUAL:</strong> Drag cartridge onto record to play • Grab spinning wax to scratch</span>
+          <div class="telemetry-pills-inline">
+            <span>SPEED <strong id="teleRpm">0.0 RPM</strong></span>
+            <span>RADIUS <strong id="teleRadius">150 mm</strong></span>
+            <span>PITCH <strong id="telePitch">0.0%</strong></span>
+            <span>TIME <strong id="teleTime">0:00</strong></span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom Hero Scroll Bar -->
+    <div class="hero-bottom-bar">
+      <a href="#crateSection" class="scroll-discover-link">Scroll to explore the listening room &amp; record crate ↓</a>
+      <span>MORNING ESPRESSO &amp; ANALOG WAX</span>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       SECTION 01: ANALOG RITUAL (RIFT 3-COLUMN MINIMALIST ARCHITECTURE)
+       ======================================================================== -->
+  <section id="ritualSection" class="rift-section">
+    <div class="section-eyebrow">01 / DESIGNED AROUND THE RITUAL</div>
+
+    <div class="section-header-split">
+      <h2 class="section-display-heading">
+        Made to breathe.<br />
+        Designed to feel tactile.
+      </h2>
+      <p class="section-aside-blurb">
+        No digital play buttons on the deck. Like a quiet morning at a Tokyo jazz kissaten, music begins only when your hand lifts the headshell and lowers the diamond stylus onto spinning wax.
+      </p>
+    </div>
+
+    <div class="rift-three-columns">
+      <div class="rift-feature-col">
+        <span class="feature-col-num">01</span>
+        <svg class="feature-col-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="24" cy="24" r="18" />
+          <circle cx="24" cy="24" r="5" />
+          <path d="M38 10L27 21" />
+        </svg>
+        <h3 class="feature-col-title">Physical needle drop.</h3>
+        <p class="feature-col-desc">
+          Drag the die-cast headshell across the vinyl radius from 146mm to 60mm. Wherever you release the cartridge, the stylus lands with a resonant phono thump and plays that exact track groove.
+        </p>
+      </div>
+
+      <div class="rift-feature-col">
+        <span class="feature-col-num">02</span>
+        <svg class="feature-col-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M6 26C12 10 18 10 24 26C30 42 36 42 42 26" />
+        </svg>
+        <h3 class="feature-col-title">True varispeed &amp; scratch.</h3>
+        <p class="feature-col-desc">
+          Hold the record with your cursor to slow the belt, scrub backward through a horn solo, or whip-scratch across the grooves. The recessed pitch fader bends motor speed ±8% with a center quartz lock detent.
+        </p>
+      </div>
+
+      <div class="rift-feature-col">
+        <span class="feature-col-num">03</span>
+        <svg class="feature-col-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="20" cy="20" r="11" />
+          <circle cx="28" cy="28" r="11" />
+        </svg>
+        <h3 class="feature-col-title">Morning coffee patina.</h3>
+        <p class="feature-col-desc">
+          Synthesizes real-time analog surface dust, stylus static impulses, hydraulic cue lever damping, and warm jazz cafe room tone entirely through Web Audio DSP.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       SECTION 02: "YOUR DECK. YOUR FINISH." INTERACTIVE CONFIGURATOR CARD
+       ======================================================================== -->
+  <section id="configureSection" class="rift-section">
+    <div class="section-eyebrow">02 / MAKE IT YOURS</div>
+
+    <div class="configurator-grid">
+      <div>
+        <h2 class="section-display-heading">
+          Your deck.<br />
+          Your room tone.
+        </h2>
+        <p class="section-aside-blurb" style="margin-top:16px;">
+          Tailor the plinth finish, vinyl pressing style, and morning cafe acoustics in real time.
+        </p>
+      </div>
+
+      <div class="configurator-card">
+        <div class="config-card-header">
+          <span>ATELIER ONE</span>
+          <span>01 / Configure</span>
+        </div>
+
+        <!-- Plinth Finish Swatches -->
+        <div class="config-group">
+          <div class="config-group-label">
+            <span>Choose your plinth finish</span>
+          </div>
+          <div class="config-swatches-row">
+            <button class="finish-swatch-btn active" data-chassis="obsidian">
+              <span class="swatch-circle" style="background:#161514;"></span>
+              <span>Matte obsidian</span>
+            </button>
+            <button class="finish-swatch-btn" data-chassis="espresso">
+              <span class="swatch-circle" style="background:#5A2310;"></span>
+              <span>Sunburst espresso</span>
+            </button>
+            <button class="finish-swatch-btn" data-chassis="silver">
+              <span class="swatch-circle" style="background:#DCD9D0;"></span>
+              <span>Brushed silver</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Wax Pressing Style Pills -->
+        <div class="config-group">
+          <div class="config-group-label">
+            <span>Select vinyl pressing style</span>
+          </div>
+          <div class="config-pills-grid">
+            <button class="wax-mode-pill active" data-disc="picture">Picture Disc</button>
+            <button class="wax-mode-pill" data-disc="classic">180g Black Wax</button>
+            <button class="wax-mode-pill" data-disc="amber">Amber Wax</button>
+          </div>
+        </div>
+
+        <!-- Morning Cafe & Analog Patina Mixers -->
+        <div class="config-group" style="border-bottom:none;padding-bottom:4px;">
+          <div class="config-group-label">
+            <span>Room acoustics &amp; patina mix</span>
+          </div>
+          <div class="acoustic-sliders-row">
+            <div class="acoustic-slider-item">
+              <label for="crackleRange">VINYL DUST</label>
+              <input id="crackleRange" type="range" min="0" max="1" step="0.02" value="0.36" />
+            </div>
+            <div class="acoustic-slider-item">
+              <label for="cafeRange">CAFE AMBIENCE</label>
+              <input id="cafeRange" type="range" min="0" max="1" step="0.02" value="0.22" />
+            </div>
+            <div class="acoustic-slider-item">
+              <label for="gainRange">OUTPUT GAIN</label>
+              <input id="gainRange" type="range" min="0" max="1" step="0.02" value="0.85" />
+            </div>
+          </div>
+        </div>
+
+        <div class="config-card-footer">
+          <span id="configSummaryText">Atelier One / Matte Obsidian / Full-Bleed Picture Disc</span>
+          <a href="#heroStage" class="rift-primary-pill" style="text-decoration:none;padding:5px 6px 5px 16px;">
+            <span>Back to deck</span>
+            <span class="rift-pill-icon-circle">↑</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       SECTION 03: THE RECORD CRATE & LIVE VINYL LATHE
+       ======================================================================== -->
+  <section id="crateSection" class="crate-sunset-section">
+    <div class="crate-inner-container">
+      <div class="section-eyebrow">03 / THE RECORD CRATE &amp; CUSTOM LATHE</div>
+
+      <div class="lathe-press-grid">
+        <div>
+          <h2 class="section-display-heading">
+            Your crate.<br />
+            Your rotation.
+          </h2>
+          <p class="section-aside-blurb" style="margin-top:14px;">
+            Pre-stocked with <em>Blonde</em>, <em>Love Deluxe</em>, <em>All I Have</em>, <em>Louder Than Bombs</em>, <em>Faith</em>, and jazz essentials—or cut any album in the world onto custom wax below.
+          </p>
+        </div>
+
+        <!-- Rift-Styled Glassmorphic Custom Vinyl Lathe Form -->
+        <form id="latheSearchForm" class="lathe-form-stack">
+          <div class="lathe-glass-field">
+            <span class="lathe-field-label">Artist name</span>
+            <input id="latheArtistInput" class="lathe-text-input" type="text" placeholder="e.g. Erykah Badu, Bill Evans, Radiohead" />
+          </div>
+          <div class="lathe-glass-field">
+            <span class="lathe-field-label">Album title</span>
+            <input id="latheAlbumInput" class="lathe-text-input" type="text" placeholder="e.g. Mama's Gun, Waltz for Debby, In Rainbows" />
+          </div>
+          <button id="latheSubmitBtn" type="submit" class="lathe-submit-pill">
+            <span>Press album onto 180g vinyl</span>
+            <span class="rift-pill-icon-circle">→</span>
+          </button>
+        </form>
+      </div>
+
+      <!-- 9-Album Starting Crate Sleeves Grid -->
+      
+      <!-- KOMBAI CAROUSEL-WEB-111 INSPIRED 3D RECORD SLEEVE CAROUSEL -->
+      <div id="sleeveCarouselStage" class="kombai-carousel-stage">
+        <div class="kombai-carousel-header">
+          <div class="kombai-carousel-title-cluster">
+            <span class="kombai-carousel-eyebrow">INTERACTIVE 3D RECORD SLEEVE CAROUSEL // DRAG, SCROLL OR USE ← → KEYS</span>
+            <p class="kombai-carousel-sub">Inspect each 12&quot; jacket in 3D space — click any sleeve to center, or click the center record to mount &amp; drop the needle</p>
+          </div>
+          <div class="kombai-carousel-controls">
+            <button id="carouselPrevBtn" type="button" class="kombai-carousel-nav-btn" aria-label="Previous Record">←</button>
+            <span id="carouselCounterText" class="kombai-carousel-counter">01 / 11</span>
+            <button id="carouselNextBtn" type="button" class="kombai-carousel-nav-btn" aria-label="Next Record">→</button>
+          </div>
+        </div>
+
+        <div id="sleeveCarouselViewport" class="kombai-carousel-viewport">
+          <div id="sleeveCarouselTrack" class="kombai-carousel-track"></div>
+        </div>
+
+        <div class="kombai-carousel-footer-bar">
+          <div class="kombai-focused-info">
+            <span id="carouselFocusedNote" class="kombai-focused-note">01 // AVANT-SOUL • FRANK OCEAN (2016)</span>
+            <h3 id="carouselFocusedTitle" class="kombai-focused-title">Blonde — Frank Ocean</h3>
+            <span id="carouselFocusedMeta" class="kombai-focused-meta">17 tracks pressed on 180g audiophile wax</span>
+          </div>
+          <div class="kombai-focused-actions">
+            <button id="carouselMountOnlyBtn" type="button" class="kombai-secondary-pill">
+              <span>Mount on Platter</span>
+            </button>
+            <button id="carouselDropNeedleBtn" type="button" class="rift-primary-pill">
+              <span>Mount &amp; Drop Needle</span>
+              <span class="rift-pill-icon-circle">→</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="crate-grid-divider-label">
+        <span>FULL 11-ALBUM RECORD CRATE ARCHIVE</span>
+        <span>CLICK ANY RECORD SLEEVE TO SPIN</span>
+      </div>
+
+      <div id="crateSleevesGrid" class="crate-sleeves-grid"></div>
+    </div>
+  </section>
+
+  <div id="studioToast" class="studio-toast"></div>
+
+  <script>
+window.INITIAL_VINYL_CATALOG = [
+  {
+    "id": "1146195596",
+    "title": "Blonde",
+    "artist": "Frank Ocean",
+    "year": "2016",
+    "genre": "Pop",
+    "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/bb/45/68/bb4568f3-68cd-619d-fbcb-4e179916545d/BlondCover-Final.jpg/1000x1000bb.jpg",
+    "tracks": [
+      {
+        "number": 1,
+        "title": "Nikes",
+        "durationMs": 314075,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/bf/f7/ca/bff7ca18-3394-dc65-563e-d5f71c3f2a89/mzaf_13717584090404043503.plus.aac.p.m4a"
+      },
+      {
+        "number": 2,
+        "title": "Ivy",
+        "durationMs": 249191,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/16/73/d7/1673d707-48e2-01fc-95de-1167d0e56b0a/mzaf_16050809593139320086.plus.aac.p.m4a"
+      },
+      {
+        "number": 3,
+        "title": "Pink + White",
+        "durationMs": 184516,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/ba/11/dc/ba11dccd-16d2-9cd8-13f0-85b73acc0a09/mzaf_1304250511099243436.plus.aac.p.m4a"
+      },
+      {
+        "number": 4,
+        "title": "Be Yourself",
+        "durationMs": 86944,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/27/ca/32/27ca32db-23d1-bff5-e617-6ea26853566f/mzaf_12580550754890360869.plus.aac.p.m4a"
+      },
+      {
+        "number": 5,
+        "title": "Solo",
+        "durationMs": 257380,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/c7/82/3d/c7823d02-39e1-1d28-4e1d-9e035684a32e/mzaf_4118265048032857214.plus.aac.p.m4a"
+      },
+      {
+        "number": 6,
+        "title": "Skyline To",
+        "durationMs": 184600,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/dd/2e/95/dd2e959e-0960-9f96-db6f-979267b0cd39/mzaf_1296975182138290723.plus.aac.p.m4a"
+      },
+      {
+        "number": 7,
+        "title": "Self Control",
+        "durationMs": 249668,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/67/d5/18/67d5185e-37e4-3e36-d345-0e8075de0407/mzaf_12338821043527808523.plus.aac.p.m4a"
+      },
+      {
+        "number": 8,
+        "title": "Good Guy",
+        "durationMs": 66786,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/49/d4/24/49d424d4-497a-91b1-1eeb-21297b388039/mzaf_2809852115452507548.plus.aac.p.m4a"
+      },
+      {
+        "number": 9,
+        "title": "Nights",
+        "durationMs": 307151,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/a6/8c/70/a68c700b-0c96-2eff-79a7-b4c3607a4a0f/mzaf_6282991914472119670.plus.aac.p.m4a"
+      },
+      {
+        "number": 10,
+        "title": "Solo (Reprise)",
+        "durationMs": 78743,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/27/0f/6c/270f6cab-c720-738b-1986-37466299a6ef/mzaf_15781133493801558452.plus.aac.p.m4a"
+      },
+      {
+        "number": 11,
+        "title": "Pretty Sweet",
+        "durationMs": 158478,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/00/ea/fe/00eafebf-779d-78a5-19db-378bc4c7cae8/mzaf_12437179479734547591.plus.aac.p.m4a"
+      },
+      {
+        "number": 12,
+        "title": "Facebook Story",
+        "durationMs": 68588,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/4d/e4/e2/4de4e21f-3a83-8dd0-e952-0f6b5ba5db44/mzaf_13158743490350012917.plus.aac.p.m4a"
+      },
+      {
+        "number": 13,
+        "title": "Close to You",
+        "durationMs": 85754,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/ba/22/17/ba221715-0e38-d197-72b4-a1e04fe2b8ce/mzaf_15048558747116558769.plus.aac.p.m4a"
+      },
+      {
+        "number": 14,
+        "title": "White Ferrari",
+        "durationMs": 248808,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/b6/94/4d/b6944d5f-b66c-ef53-6fd5-8f0aaa92846c/mzaf_16355860049074950110.plus.aac.p.m4a"
+      },
+      {
+        "number": 15,
+        "title": "Seigfried",
+        "durationMs": 334570,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/0f/b8/f1/0fb8f187-840c-658e-5941-0adb0b372200/mzaf_14720449909523055987.plus.aac.p.m4a"
+      },
+      {
+        "number": 16,
+        "title": "Godspeed",
+        "durationMs": 177922,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/12/39/65/1239657a-e24a-7445-1182-08e794600062/mzaf_7593396232276030207.plus.aac.p.m4a"
+      },
+      {
+        "number": 17,
+        "title": "Futura Free",
+        "durationMs": 564166,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/8d/7b/53/8d7b53ed-1a6c-d87d-459a-f51854bd1500/mzaf_2220082779574598131.plus.aac.p.m4a"
+      }
+    ],
+    "accent": "#D95D24",
+    "waxColor": "#141416",
+    "labelBg": "#F4EFE6",
+    "labelInk": "#141210",
+    "note": "01 // AVANT-SOUL \u2022 FRANK OCEAN (2016)",
+    "glowPrimary": "#D9531E",
+    "glowSecondary": "#6E230B"
+  },
+  {
+    "id": "1440841363",
+    "itunesCollectionId": "1440841363",
+    "title": "Views",
+    "artist": "Drake",
+    "year": "2016",
+    "genre": "Hip-Hop/Rap",
+    "artwork": "https://upload.wikimedia.org/wikipedia/en/a/af/Drake_-_Views_cover.jpg",
+    "accent": "#64748B",
+    "waxColor": "#121316",
+    "labelBg": "#E2E8F0",
+    "labelInk": "#0F172A",
+    "note": "02 // TORONTO WINTER CINEMA \u2022 DRAKE (2016)",
+    "glowPrimary": "#C85A28",
+    "glowSecondary": "#334155",
+    "tracks": [
+      {
+        "number": 1,
+        "title": "Keep the Family Close",
+        "durationMs": 328000,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/bf/f7/ca/bff7ca18-3394-dc65-563e-d5f71c3f2a89/mzaf_13717584090404043503.plus.aac.p.m4a"
+      },
+      {
+        "number": 2,
+        "title": "9",
+        "durationMs": 255000,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/16/73/d7/1673d707-48e2-01fc-95de-1167d0e56b0a/mzaf_16050809593139320086.plus.aac.p.m4a"
+      },
+      {
+        "number": 3,
+        "title": "U With Me?",
+        "durationMs": 297000,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/ba/11/dc/ba11dccd-16d2-9cd8-13f0-85b73acc0a09/mzaf_1304250511099243436.plus.aac.p.m4a"
+      },
+      {
+        "number": 4,
+        "title": "Feel No Ways",
+        "durationMs": 240000,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/c7/82/3d/c7823d02-39e1-1d28-4e1d-9e035684a32e/mzaf_4118265048032857214.plus.aac.p.m4a"
+      },
+      {
+        "number": 5,
+        "title": "Hype",
+        "durationMs": 209000,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/dd/2e/95/dd2e959e-0960-9f96-db6f-979267b0cd39/mzaf_1296975182138290723.plus.aac.p.m4a"
+      },
+      {
+        "number": 6,
+        "title": "Weston Road Flows",
+        "durationMs": 253000,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/67/d5/18/67d5185e-37e4-3e36-d345-0e8075de0407/mzaf_12338821043527808523.plus.aac.p.m4a"
+      },
+      {
+        "number": 7,
+        "title": "Redemption",
+        "durationMs": 333000,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/a6/8c/70/a68c700b-0c96-2eff-79a7-b4c3607a4a0f/mzaf_6282991914472119670.plus.aac.p.m4a"
+      },
+      {
+        "number": 8,
+        "title": "With You (feat. PARTYNEXTDOOR)",
+        "durationMs": 195000,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/00/ea/fe/00eafebf-779d-78a5-19db-378bc4c7cae8/mzaf_12437179479734547591.plus.aac.p.m4a"
+      },
+      {
+        "number": 9,
+        "title": "Faithful (feat. Pimp C & dvsn)",
+        "durationMs": 290000,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/b6/94/4d/b6944d5f-b66c-ef53-6fd5-8f0aaa92846c/mzaf_16355860049074950110.plus.aac.p.m4a"
+      },
+      {
+        "number": 10,
+        "title": "Still Here",
+        "durationMs": 189000,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/0f/b8/f1/0fb8f187-840c-658e-5941-0adb0b372200/mzaf_14720449909523055987.plus.aac.p.m4a"
+      },
+      {
+        "number": 11,
+        "title": "Controlla",
+        "durationMs": 245000,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/12/39/65/1239657a-e24a-7445-1182-08e794600062/mzaf_7593396232276030207.plus.aac.p.m4a"
+      },
+      {
+        "number": 12,
+        "title": "One Dance (feat. Wizkid & Kyla)",
+        "durationMs": 173000,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/8d/7b/53/8d7b53ed-1a6c-d87d-459a-f51854bd1500/mzaf_2220082779574598131.plus.aac.p.m4a"
+      },
+      {
+        "number": 13,
+        "title": "Grammys (feat. Future)",
+        "durationMs": 220000,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/bf/f7/ca/bff7ca18-3394-dc65-563e-d5f71c3f2a89/mzaf_13717584090404043503.plus.aac.p.m4a"
+      },
+      {
+        "number": 14,
+        "title": "Childs Play",
+        "durationMs": 241000,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/16/73/d7/1673d707-48e2-01fc-95de-1167d0e56b0a/mzaf_16050809593139320086.plus.aac.p.m4a"
+      },
+      {
+        "number": 15,
+        "title": "Pop Style",
+        "durationMs": 212000,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/ba/11/dc/ba11dccd-16d2-9cd8-13f0-85b73acc0a09/mzaf_1304250511099243436.plus.aac.p.m4a"
+      },
+      {
+        "number": 16,
+        "title": "Too Good (feat. Rihanna)",
+        "durationMs": 263000,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/c7/82/3d/c7823d02-39e1-1d28-4e1d-9e035684a32e/mzaf_4118265048032857214.plus.aac.p.m4a"
+      },
+      {
+        "number": 17,
+        "title": "Summers Over Interlude",
+        "durationMs": 106000,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/dd/2e/95/dd2e959e-0960-9f96-db6f-979267b0cd39/mzaf_1296975182138290723.plus.aac.p.m4a"
+      },
+      {
+        "number": 18,
+        "title": "Fire & Desire",
+        "durationMs": 238000,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/67/d5/18/67d5185e-37e4-3e36-d345-0e8075de0407/mzaf_12338821043527808523.plus.aac.p.m4a"
+      },
+      {
+        "number": 19,
+        "title": "Views",
+        "durationMs": 311000,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/a6/8c/70/a68c700b-0c96-2eff-79a7-b4c3607a4a0f/mzaf_6282991914472119670.plus.aac.p.m4a"
+      },
+      {
+        "number": 20,
+        "title": "Hotline Bling",
+        "durationMs": 267000,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/b6/94/4d/b6944d5f-b66c-ef53-6fd5-8f0aaa92846c/mzaf_16355860049074950110.plus.aac.p.m4a"
+      }
+    ]
+  },
+  {
+    "id": "1276760743",
+    "itunesCollectionId": "1276760743",
+    "title": "The Miseducation of Lauryn Hill",
+    "artist": "Lauryn Hill",
+    "year": "1998",
+    "genre": "R&B/Soul",
+    "artwork": "https://upload.wikimedia.org/wikipedia/en/5/55/LaurynHillTheMiseducationofLaurynHillalbumcover.jpg",
+    "accent": "#D97706",
+    "waxColor": "#141210",
+    "labelBg": "#F5E6C8",
+    "labelInk": "#2A1808",
+    "note": "03 // TUFF GONG NEO-SOUL CLASSIC \u2022 LAURYN HILL (1998)",
+    "glowPrimary": "#D96B27",
+    "glowSecondary": "#6B2E0E",
+    "tracks": [
+      {
+        "number": 1,
+        "title": "Intro",
+        "durationMs": 47000,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/de/ba/4b/deba4b91-edf0-1b06-6e19-ea4e07ae8070/mzaf_14195090635642668997.plus.aac.p.m4a"
+      },
+      {
+        "number": 2,
+        "title": "Lost Ones",
+        "durationMs": 333000,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/c7/35/19/c7351999-b045-59b7-6c07-d2262e8d70bc/mzaf_8466921745446253197.plus.aac.p.m4a"
+      },
+      {
+        "number": 3,
+        "title": "Ex-Factor",
+        "durationMs": 326000,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/b1/46/6e/b1466eeb-49fd-dee2-659d-21c75cbc067b/mzaf_12650858337599219289.plus.aac.p.m4a"
+      },
+      {
+        "number": 4,
+        "title": "To Zion (feat. Carlos Santana)",
+        "durationMs": 369000,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/54/31/fb/5431fba7-f8e2-78a3-680b-29f53f19f326/mzaf_4568317637618415745.plus.aac.p.m4a"
+      },
+      {
+        "number": 5,
+        "title": "Doo Wop (That Thing)",
+        "durationMs": 320000,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/4d/4d/10/4d4d1099-d3f7-06a6-c4af-f82ad3c3fab8/mzaf_10268299450496380808.plus.aac.p.m4a"
+      },
+      {
+        "number": 6,
+        "title": "Superstar",
+        "durationMs": 297000,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/f5/ef/53/f5ef5337-385c-804b-1716-09e6f7821d53/mzaf_1360705290361924160.plus.aac.p.m4a"
+      },
+      {
+        "number": 7,
+        "title": "Final Hour",
+        "durationMs": 256000,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/31/ae/ab/31aeabd4-17b5-22c3-05d1-e54f5b88826b/mzaf_17668804716809306160.plus.aac.p.m4a"
+      },
+      {
+        "number": 8,
+        "title": "When It Hurts So Bad",
+        "durationMs": 342000,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/35/9b/72/359b7221-24f9-114b-e955-3e79aaa5a3de/mzaf_99249538700728326.plus.aac.p.m4a"
+      },
+      {
+        "number": 9,
+        "title": "I Used to Love Him (feat. Mary J. Blige)",
+        "durationMs": 339000,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/e9/67/42/e96742e8-b27e-5100-b06c-1fc92201754b/mzaf_328886946816780206.plus.aac.p.m4a"
+      },
+      {
+        "number": 10,
+        "title": "Forgive Them Father",
+        "durationMs": 315000,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/84/7a/ac/847aacb6-81a0-e98f-510e-3316aa54ab37/mzaf_12541141651048345328.plus.aac.p.m4a"
+      },
+      {
+        "number": 11,
+        "title": "Every Ghetto, Every City",
+        "durationMs": 314000,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/ef/02/98/ef0298b8-d4a4-bc10-1a12-812653a54dfa/mzaf_10494417981211518371.plus.aac.p.m4a"
+      },
+      {
+        "number": 12,
+        "title": "Nothing Even Matters (feat. D'Angelo)",
+        "durationMs": 350000,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/0d/7e/c9/0d7ec9d6-1978-690f-c9aa-3666e034b9d8/mzaf_4976915174170038135.plus.aac.p.m4a"
+      },
+      {
+        "number": 13,
+        "title": "Everything Is Everything",
+        "durationMs": 293000,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/b8/5e/8d/b85e8d03-825d-9391-9bda-d635ae61f93c/mzaf_17677129595623684960.plus.aac.p.m4a"
+      },
+      {
+        "number": 14,
+        "title": "The Miseducation of Lauryn Hill",
+        "durationMs": 257000,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/3e/a6/b5/3ea6b555-dafb-2f1e-1370-21976efe916a/mzaf_16727847582304102061.plus.aac.p.m4a"
+      },
+      {
+        "number": 15,
+        "title": "Can't Take My Eyes Off of You",
+        "durationMs": 221000,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/c8/10/9d/c8109d0d-279a-65bd-ace0-4fc06bda6189/mzaf_7416315347858711698.plus.aac.p.m4a"
+      },
+      {
+        "number": 16,
+        "title": "Tell Him",
+        "durationMs": 280000,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/5a/3e/22/5a3e22bb-2741-0a07-dec0-b5d2fce5832c/mzaf_8059609941750125025.plus.aac.p.m4a"
+      }
+    ]
+  },
+  {
+    "id": "158796559",
+    "title": "Love Deluxe",
+    "artist": "Sade",
+    "year": "1992",
+    "genre": "R&B/Soul",
+    "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/18/c8/d7/18c8d7bc-8491-09e6-df0d-6e0a83ead680/mzi.wsikzifg.jpg/1000x1000bb.jpg",
+    "tracks": [
+      {
+        "number": 1,
+        "title": "No Ordinary Love",
+        "durationMs": 440467,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/de/ba/4b/deba4b91-edf0-1b06-6e19-ea4e07ae8070/mzaf_14195090635642668997.plus.aac.p.m4a"
+      },
+      {
+        "number": 2,
+        "title": "Feel No Pain",
+        "durationMs": 309200,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/c7/35/19/c7351999-b045-59b7-6c07-d2262e8d70bc/mzaf_8466921745446253197.plus.aac.p.m4a"
+      },
+      {
+        "number": 3,
+        "title": "I Couldn't Love You More",
+        "durationMs": 228293,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/b1/46/6e/b1466eeb-49fd-dee2-659d-21c75cbc067b/mzaf_12650858337599219289.plus.aac.p.m4a"
+      },
+      {
+        "number": 4,
+        "title": "Like a Tattoo",
+        "durationMs": 218000,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/54/31/fb/5431fba7-f8e2-78a3-680b-29f53f19f326/mzaf_4568317637618415745.plus.aac.p.m4a"
+      },
+      {
+        "number": 5,
+        "title": "Kiss of Life",
+        "durationMs": 350000,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/4d/4d/10/4d4d1099-d3f7-06a6-c4af-f82ad3c3fab8/mzaf_10268299450496380808.plus.aac.p.m4a"
+      },
+      {
+        "number": 6,
+        "title": "Cherish the Day",
+        "durationMs": 332133,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/f5/ef/53/f5ef5337-385c-804b-1716-09e6f7821d53/mzaf_1360705290361924160.plus.aac.p.m4a"
+      },
+      {
+        "number": 7,
+        "title": "Pearls",
+        "durationMs": 273227,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/31/ae/ab/31aeabd4-17b5-22c3-05d1-e54f5b88826b/mzaf_17668804716809306160.plus.aac.p.m4a"
+      },
+      {
+        "number": 8,
+        "title": "Bullet Proof Soul",
+        "durationMs": 324667,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/35/9b/72/359b7221-24f9-114b-e955-3e79aaa5a3de/mzaf_99249538700728326.plus.aac.p.m4a"
+      },
+      {
+        "number": 9,
+        "title": "Mermaid",
+        "durationMs": 264360,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/e9/67/42/e96742e8-b27e-5100-b06c-1fc92201754b/mzaf_328886946816780206.plus.aac.p.m4a"
+      }
+    ],
+    "accent": "#C84B31",
+    "waxColor": "#121114",
+    "labelBg": "#1C1615",
+    "labelInk": "#EBD9C8",
+    "note": "02 // SOPHISTI-JAZZ \u2022 SADE (1992)",
+    "glowPrimary": "#B83B24",
+    "glowSecondary": "#59160C"
+  },
+  {
+    "id": "158813501",
+    "title": "All I Have",
+    "artist": "Amerie",
+    "year": "2002",
+    "genre": "R&B/Soul",
+    "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/3d/70/8b/3d708bb7-6b57-b6ec-3756-88a6304a8d39/mzi.fnnhrcsa.jpg/1000x1000bb.jpg",
+    "tracks": [
+      {
+        "number": 1,
+        "title": "Why Don't We Fall In Love",
+        "durationMs": 159293,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/84/7a/ac/847aacb6-81a0-e98f-510e-3316aa54ab37/mzaf_12541141651048345328.plus.aac.p.m4a"
+      },
+      {
+        "number": 2,
+        "title": "Talkin' to Me",
+        "durationMs": 234707,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/ef/02/98/ef0298b8-d4a4-bc10-1a12-812653a54dfa/mzaf_10494417981211518371.plus.aac.p.m4a"
+      },
+      {
+        "number": 3,
+        "title": "Nothing Like Loving You",
+        "durationMs": 231467,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/0d/7e/c9/0d7ec9d6-1978-690f-c9aa-3666e034b9d8/mzaf_4976915174170038135.plus.aac.p.m4a"
+      },
+      {
+        "number": 4,
+        "title": "Can't Let Go",
+        "durationMs": 261733,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/b8/5e/8d/b85e8d03-825d-9391-9bda-d635ae61f93c/mzaf_17677129595623684960.plus.aac.p.m4a"
+      },
+      {
+        "number": 5,
+        "title": "Need You Tonight",
+        "durationMs": 229560,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/3e/a6/b5/3ea6b555-dafb-2f1e-1370-21976efe916a/mzaf_16727847582304102061.plus.aac.p.m4a"
+      },
+      {
+        "number": 6,
+        "title": "Got to Be There",
+        "durationMs": 181640,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/c8/10/9d/c8109d0d-279a-65bd-ace0-4fc06bda6189/mzaf_7416315347858711698.plus.aac.p.m4a"
+      },
+      {
+        "number": 7,
+        "title": "I Just Died",
+        "durationMs": 209560,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/5a/3e/22/5a3e22bb-2741-0a07-dec0-b5d2fce5832c/mzaf_8059609941750125025.plus.aac.p.m4a"
+      },
+      {
+        "number": 8,
+        "title": "Hatin' On You",
+        "durationMs": 237173,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/33/56/6a/33566ab3-3ea9-ee18-8e27-e4e4b4d7b480/mzaf_16587658840667443869.plus.aac.p.m4a"
+      },
+      {
+        "number": 9,
+        "title": "Float",
+        "durationMs": 243133,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/ff/9e/7f/ff9e7f1d-8c91-b322-55a9-9eb21dbe3c91/mzaf_17185152771727892031.plus.aac.p.m4a"
+      },
+      {
+        "number": 10,
+        "title": "Show Me",
+        "durationMs": 254560,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/28/cc/d2/28ccd219-94c2-aae1-d18e-3de991f62fd9/mzaf_12546376356008343059.plus.aac.p.m4a"
+      },
+      {
+        "number": 11,
+        "title": "All I Have",
+        "durationMs": 248573,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/d1/6f/b8/d16fb8c9-516b-266e-d883-c09d180908a7/mzaf_11674661453949425962.plus.aac.p.m4a"
+      },
+      {
+        "number": 12,
+        "title": "Outro",
+        "durationMs": 63160,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/20/c7/c7/20c7c720-7fcd-66b8-b07d-8bff653b94de/mzaf_1158721939413740700.plus.aac.p.m4a"
+      }
+    ],
+    "accent": "#D4883A",
+    "glowPrimary": "#C97A2B",
+    "glowSecondary": "#61350D",
+    "labelBg": "#F5EBD9",
+    "labelInk": "#26180B",
+    "note": "03 // GOLDEN ERA R&B \u2022 AMERIE (2002)"
+  },
+  {
+    "id": "802231063",
+    "title": "Louder Than Bombs",
+    "artist": "The Smiths",
+    "year": "1987",
+    "genre": "Alternative",
+    "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/02/3a/62/023a629e-1541-c493-0b45-536cbe9b59dd/825646642847.jpg/1000x1000bb.jpg",
+    "tracks": [
+      {
+        "number": 1,
+        "title": "Is It Really So Strange? (John Peel Session, 12/2/86)",
+        "durationMs": 186760,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/ee/26/9a/ee269ae2-e543-0e84-8ad3-3ec28531e156/mzaf_2122548324012767580.plus.aac.p.m4a"
+      },
+      {
+        "number": 2,
+        "title": "Sheila Take a Bow",
+        "durationMs": 162133,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/09/47/18/09471803-5296-56e8-dbed-1c1e0591eb4d/mzaf_6660266095700821923.plus.aac.p.m4a"
+      },
+      {
+        "number": 3,
+        "title": "Shoplifters of the World Unite",
+        "durationMs": 177973,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/f2/6e/7c/f26e7ce0-7ed6-d0c4-869b-702cc2dddf4b/mzaf_9230229733337116066.plus.aac.p.m4a"
+      },
+      {
+        "number": 4,
+        "title": "Sweet and Tender Hooligan (John Peel Session, 12/2/86)",
+        "durationMs": 216773,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/3d/1d/30/3d1d3018-02b1-1ea4-ddef-5d7de0dace18/mzaf_8919013025272016617.plus.aac.p.m4a"
+      },
+      {
+        "number": 5,
+        "title": "Half a Person",
+        "durationMs": 216640,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/ec/6c/fe/ec6cfe8a-dd46-e1f3-1cfc-863716616d09/mzaf_4364554187626957414.plus.aac.p.m4a"
+      },
+      {
+        "number": 6,
+        "title": "London",
+        "durationMs": 127253,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/d9/38/51/d938510e-c501-4dfb-170d-f56b19d8d2a0/mzaf_4506768907734485825.plus.aac.p.m4a"
+      },
+      {
+        "number": 7,
+        "title": "Panic",
+        "durationMs": 141480,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/53/c5/c9/53c5c90b-11a2-52a1-8271-6c19da103225/mzaf_25093908507492451.plus.aac.p.m4a"
+      },
+      {
+        "number": 8,
+        "title": "Girl Afraid",
+        "durationMs": 166000,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/8e/52/f3/8e52f33d-1e2e-cf5e-dfd5-272e9083b395/mzaf_5593350662246729064.plus.aac.p.m4a"
+      },
+      {
+        "number": 9,
+        "title": "Shakespeare's Sister",
+        "durationMs": 129093,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/f2/3a/50/f23a5077-f4a4-5d0f-60a4-0b82c8730e19/mzaf_14678426701172473969.plus.aac.p.m4a"
+      },
+      {
+        "number": 10,
+        "title": "William, It Was Really Nothing",
+        "durationMs": 130547,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/d9/88/cd/d988cd3e-3690-465b-0c7e-d6a04f3a3a2e/mzaf_14372086974378766379.plus.aac.p.m4a"
+      },
+      {
+        "number": 11,
+        "title": "You Just Haven't Earned It Yet, Baby (US Mix)",
+        "durationMs": 214400,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/c2/7f/81/c27f8132-33a0-22e5-ed63-c28e0c54ccd0/mzaf_6679558624901085158.plus.aac.p.m4a"
+      },
+      {
+        "number": 12,
+        "title": "Heaven Knows I'm Miserable Now",
+        "durationMs": 216440,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/e7/10/c0/e710c004-36eb-fe15-76af-d1ef04d429ac/mzaf_2668534232447804902.plus.aac.p.m4a"
+      },
+      {
+        "number": 13,
+        "title": "Ask (Remix)",
+        "durationMs": 196347,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/ad/43/37/ad4337b6-5ff9-e7c5-b3b0-4ace45e6b7df/mzaf_13861774753293470330.plus.aac.p.m4a"
+      },
+      {
+        "number": 14,
+        "title": "Golden Lights",
+        "durationMs": 161920,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/aa/28/e8/aa28e87d-c9ed-03b0-d769-7dcc73089d59/mzaf_6459998411049632713.plus.aac.p.m4a"
+      },
+      {
+        "number": 15,
+        "title": "Oscillate Wildly",
+        "durationMs": 207773,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/3a/a3/3d/3aa33d1f-e635-81d4-70b9-29abb61fa1a1/mzaf_7497684333132845949.plus.aac.p.m4a"
+      },
+      {
+        "number": 16,
+        "title": "These Things Take Time",
+        "durationMs": 143853,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/fa/b0/8c/fab08c11-2e8e-f63d-6a28-9a7e1706f7cd/mzaf_5238228966098823030.plus.aac.p.m4a"
+      },
+      {
+        "number": 17,
+        "title": "Rubber Ring",
+        "durationMs": 228880,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/51/f2/aa/51f2aad3-c55c-7593-e1a3-6b0920f57af3/mzaf_7475378812655755955.plus.aac.p.m4a"
+      },
+      {
+        "number": 18,
+        "title": "Back to the Old House",
+        "durationMs": 184547,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/9a/02/eb/9a02eb76-5738-05b4-d3db-b73a077c9762/mzaf_11461105527906621792.plus.aac.p.m4a"
+      },
+      {
+        "number": 19,
+        "title": "Hand In Glove (Single A-Side Mix)",
+        "durationMs": 197213,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/47/06/55/47065595-d62b-ba2d-e82d-b84e8209d2f5/mzaf_3206922521217388808.plus.aac.p.m4a"
+      },
+      {
+        "number": 20,
+        "title": "Stretch Out and Wait",
+        "durationMs": 159640,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/ee/9b/57/ee9b57eb-396c-3a98-0e7b-1f890bafc6c9/mzaf_14746508010546027877.plus.aac.p.m4a"
+      },
+      {
+        "number": 21,
+        "title": "Please Please Please Let Me Get What I Want",
+        "durationMs": 112320,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/ff/28/15/ff2815f2-ce87-994b-6ba0-d6bc89d46ab8/mzaf_2615753380140600361.plus.aac.p.m4a"
+      },
+      {
+        "number": 22,
+        "title": "This Night Has Opened My Eyes",
+        "durationMs": 221907,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/70/49/c1/7049c159-ac0c-bcb3-4cfa-b962450ff31e/mzaf_16792843716035959986.plus.aac.p.m4a"
+      },
+      {
+        "number": 23,
+        "title": "Unloveable (Single B-Side)",
+        "durationMs": 236040,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/45/30/fb/4530fba9-ece3-8927-afcb-d5b2571a41da/mzaf_8982710862273309291.plus.aac.p.m4a"
+      },
+      {
+        "number": 24,
+        "title": "Asleep",
+        "durationMs": 250600,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/d9/e9/aa/d9e9aa8d-d8f3-ddda-b14c-1b74f46677f7/mzaf_6199988175613292749.plus.aac.p.m4a"
+      }
+    ],
+    "accent": "#D96B27",
+    "glowPrimary": "#C85A19",
+    "glowSecondary": "#5E2508",
+    "labelBg": "#E8B888",
+    "labelInk": "#1A120B",
+    "note": "04 // MANCHESTER POST-PUNK \u2022 THE SMITHS (1987)"
+  },
+  {
+    "id": "395918916",
+    "title": "Faith",
+    "artist": "George Michael",
+    "year": "1987",
+    "genre": "Pop",
+    "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/87/29/d2/8729d243-f06f-e588-3ddf-ffa87a2ce17e/mzi.yupygcca.jpg/1000x1000bb.jpg",
+    "tracks": [
+      {
+        "number": 1,
+        "title": "Faith",
+        "durationMs": 193200,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/3b/ba/fc/3bbafcda-8454-2df5-300a-3a215beb4abb/mzaf_17008812206809633065.plus.aac.p.m4a"
+      },
+      {
+        "number": 2,
+        "title": "Father Figure",
+        "durationMs": 336667,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/ce/5a/8f/ce5a8fb5-91c9-3939-f33f-21443be4690c/mzaf_16442751277340738861.plus.aac.p.m4a"
+      },
+      {
+        "number": 3,
+        "title": "I Want Your Sex, Pts. 1 & 2",
+        "durationMs": 557293,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/ce/16/62/ce1662ee-b0ec-61da-a6ad-befc5bb17ec8/mzaf_16511223450535276219.plus.aac.p.m4a"
+      },
+      {
+        "number": 4,
+        "title": "One More Try",
+        "durationMs": 350667,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/86/57/27/86572771-95ca-ed35-eb18-b871d87735c1/mzaf_4017065208567668821.plus.aac.p.m4a"
+      },
+      {
+        "number": 5,
+        "title": "Hard Day",
+        "durationMs": 288067,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/07/1f/cb/071fcba5-bbce-4c55-25af-459a7123e56e/mzaf_5434155186728539312.plus.aac.p.m4a"
+      },
+      {
+        "number": 6,
+        "title": "Hand to Mouth",
+        "durationMs": 276200,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/65/4a/ef/654aefa0-c2e5-ea62-eb9b-28a5c551343b/mzaf_8828754804007544453.plus.aac.p.m4a"
+      },
+      {
+        "number": 7,
+        "title": "Look at Your Hands",
+        "durationMs": 277800,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/8d/28/3d/8d283dc3-84e7-f059-bb22-1903783146be/mzaf_1182553962334770970.plus.aac.p.m4a"
+      },
+      {
+        "number": 8,
+        "title": "Monkey",
+        "durationMs": 306120,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/ed/c4/b6/edc4b628-98a8-ff7e-b620-0e92f0159d15/mzaf_17366168288794121169.plus.aac.p.m4a"
+      },
+      {
+        "number": 9,
+        "title": "Kissing a Fool",
+        "durationMs": 280720,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/c5/6c/c2/c56cc264-508e-f917-1ed1-ef2b5acdfb49/mzaf_1340148470787267380.plus.aac.p.m4a"
+      },
+      {
+        "number": 10,
+        "title": "A Last Request (I Want Your Sex, Pt. 3)",
+        "durationMs": 227360,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/f8/3f/e2/f83fe219-6461-01c8-6c91-90b9cfe66893/mzaf_9292334263495983517.plus.aac.p.m4a"
+      }
+    ],
+    "accent": "#C9963B",
+    "glowPrimary": "#B87324",
+    "glowSecondary": "#522E09",
+    "labelBg": "#161412",
+    "labelInk": "#E6C687",
+    "note": "05 // POP-SOUL MASTERWORK \u2022 GEORGE MICHAEL (1987)"
+  },
+  {
+    "id": "268443092",
+    "title": "Kind of Blue",
+    "artist": "Miles Davis",
+    "year": "1959",
+    "genre": "Jazz",
+    "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music/7f/9f/d6/mzi.vtnaewef.jpg/1000x1000bb.jpg",
+    "tracks": [
+      {
+        "number": 1,
+        "title": "So What",
+        "durationMs": 547983,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/54/e8/0a/54e80a8b-1d60-6b59-e908-6fd65c4ff783/mzaf_2469862574651846302.plus.aac.p.m4a"
+      },
+      {
+        "number": 2,
+        "title": "Freddie Freeloader",
+        "durationMs": 588411,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/47/a1/16/47a116d0-40e5-a1ed-6a52-d8af1e21deb0/mzaf_8345337894870074911.plus.aac.p.m4a"
+      },
+      {
+        "number": 3,
+        "title": "Blue In Green",
+        "durationMs": 335939,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/af/5d/60/af5d603d-d0db-c066-3fe6-54bb2b51bdfb/mzaf_1714770531795139058.plus.aac.p.m4a"
+      },
+      {
+        "number": 4,
+        "title": "All Blues",
+        "durationMs": 692897,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/68/fd/e6/68fde6cb-d822-989b-b355-66cf8f8a67a4/mzaf_15826989764965426693.plus.aac.p.m4a"
+      },
+      {
+        "number": 5,
+        "title": "Flamenco Sketches",
+        "durationMs": 561105,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/f1/50/34/f15034d6-05e2-952c-3e86-f767c079c8bb/mzaf_6910963868402689544.plus.aac.p.m4a"
+      }
+    ],
+    "accent": "#4A7C9D",
+    "waxColor": "#111317",
+    "labelBg": "#132235",
+    "labelInk": "#DCE9F5",
+    "note": "06 // MODAL JAZZ \u2022 MILES DAVIS (1959)",
+    "glowPrimary": "#9E4720",
+    "glowSecondary": "#263B4D"
+  },
+  {
+    "id": "1440713018",
+    "title": "A Love Supreme",
+    "artist": "John Coltrane",
+    "year": "1965",
+    "genre": "Jazz",
+    "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music114/v4/e5/24/aa/e524aacd-467b-66f3-8931-0fcd6750a4b9/08UMGIM07914.rgb.jpg/1000x1000bb.jpg",
+    "tracks": [
+      {
+        "number": 1,
+        "title": "A Love Supreme, Pt. 1: Acknowledgement",
+        "durationMs": 463252,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/46/57/ad/4657ad07-9bb1-a8f9-75d3-61a3f1d3dc8b/mzaf_2837170089287274786.plus.aac.p.m4a"
+      },
+      {
+        "number": 2,
+        "title": "A Love Supreme, Pt. 2: Resolution",
+        "durationMs": 439011,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/a1/16/97/a1169731-d9e7-9182-65e6-646cfb581cb5/mzaf_15112684738594336395.plus.aac.p.m4a"
+      },
+      {
+        "number": 3,
+        "title": "A Love Supreme, Pt. 3: Pursuance",
+        "durationMs": 642875,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/51/f2/44/51f24441-dd60-aac4-8342-03592a4342a1/mzaf_5683649462795465778.plus.aac.p.m4a"
+      },
+      {
+        "number": 4,
+        "title": "A Love Supreme, Pt. 4: Psalm",
+        "durationMs": 424028,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/e1/0b/03/e10b0311-1a9a-e478-febc-41587c349a3f/mzaf_8791647697922681498.plus.aac.p.m4a"
+      }
+    ],
+    "accent": "#C98A3A",
+    "waxColor": "#111214",
+    "labelBg": "#EDE5D5",
+    "labelInk": "#171412",
+    "note": "07 // SPIRITUAL JAZZ \u2022 JOHN COLTRANE (1965)",
+    "glowPrimary": "#C46222",
+    "glowSecondary": "#57260B"
+  },
+  {
+    "id": "1463409338",
+    "title": "IGOR",
+    "artist": "Tyler, The Creator",
+    "year": "2019",
+    "genre": "Hip-Hop/Rap",
+    "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/0c/06/05/0c060581-6242-6a2a-a677-20170f2cf8da/886447710180.jpg/1000x1000bb.jpg",
+    "tracks": [
+      {
+        "number": 1,
+        "title": "IGOR'S THEME",
+        "durationMs": 200684,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/b5/f1/58/b5f158c7-0938-82de-e380-a19444cd0260/mzaf_4489287100179218200.plus.aac.p.m4a"
+      },
+      {
+        "number": 2,
+        "title": "EARFQUAKE",
+        "durationMs": 190073,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/bd/b5/47/bdb547fb-d482-35d0-bb55-478a48bbb5d5/mzaf_17120481313607472448.plus.aac.p.m4a"
+      },
+      {
+        "number": 3,
+        "title": "I THINK",
+        "durationMs": 212016,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/9e/03/a7/9e03a75f-1723-66f9-8427-9cc3e31bb400/mzaf_13753441255673905920.plus.aac.p.m4a"
+      },
+      {
+        "number": 4,
+        "title": "EXACTLY WHAT YOU RUN FROM YOU END UP CHASING",
+        "durationMs": 14627,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/28/b9/85/28b985a4-6f7f-7a69-c97e-426034387830/mzaf_954360507075586182.plus.aac.p.m4a"
+      },
+      {
+        "number": 5,
+        "title": "RUNNING OUT OF TIME",
+        "durationMs": 177219,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/69/52/c7/6952c712-58b1-bda2-ee1d-49f289e667c4/mzaf_898519031649894892.plus.aac.p.m4a"
+      },
+      {
+        "number": 6,
+        "title": "NEW MAGIC WAND",
+        "durationMs": 195327,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/da/26/e3/da26e3ea-9bee-f3ad-1d97-fa6d0aa9a452/mzaf_16692108669540432384.plus.aac.p.m4a"
+      },
+      {
+        "number": 7,
+        "title": "A BOY IS A GUN",
+        "durationMs": 210253,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/8b/cf/cf/8bcfcf6b-be1b-643d-9ea2-bbc9db8bbce0/mzaf_3463549425066377298.plus.aac.p.m4a"
+      },
+      {
+        "number": 8,
+        "title": "PUPPET",
+        "durationMs": 179003,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/e3/6c/c9/e36cc905-9ee2-0535-071a-5d2e02144aef/mzaf_18278179411700033519.plus.aac.p.m4a"
+      },
+      {
+        "number": 9,
+        "title": "WHAT'S GOOD",
+        "durationMs": 205637,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/af/cc/9a/afcc9afd-9b31-78b9-787e-624f450ec28d/mzaf_15051113356962574089.plus.aac.p.m4a"
+      },
+      {
+        "number": 10,
+        "title": "GONE, GONE / THANK YOU",
+        "durationMs": 375387,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/d7/9e/8b/d79e8b9a-bccf-856a-746e-a7bcd5e469ca/mzaf_9855785532807289963.plus.aac.p.m4a"
+      },
+      {
+        "number": 11,
+        "title": "I DON'T LOVE YOU ANYMORE",
+        "durationMs": 161200,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/48/2c/16/482c1677-d41f-c1f4-24f5-68fae6b56015/mzaf_15025349381092528427.plus.aac.p.m4a"
+      },
+      {
+        "number": 12,
+        "title": "ARE WE STILL FRIENDS?",
+        "durationMs": 265480,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/c7/f4/4d/c7f44d50-ce80-a987-bae2-5e9f87989154/mzaf_3170895944158745604.plus.aac.p.m4a"
+      }
+    ],
+    "accent": "#E07A9B",
+    "waxColor": "#161316",
+    "labelBg": "#F2B8C6",
+    "labelInk": "#171214",
+    "note": "08 // NEO-SOUL SYNTHESIS \u2022 TYLER, THE CREATOR (2019)",
+    "glowPrimary": "#C84D32",
+    "glowSecondary": "#5E1E2E"
+  },
+  {
+    "id": "617154241",
+    "title": "Random Access Memories",
+    "artist": "Daft Punk",
+    "year": "2013",
+    "genre": "Pop",
+    "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/e8/43/5f/e8435ffa-b6b9-b171-40ab-4ff3959ab661/886443919266.jpg/1000x1000bb.jpg",
+    "tracks": [
+      {
+        "number": 1,
+        "title": "Give Life Back to Music",
+        "durationMs": 274403,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/f1/20/87/f12087fe-44df-d6fa-9fc6-5cd87d56cfef/mzaf_17737854447914578103.plus.aac.p.m4a"
+      },
+      {
+        "number": 2,
+        "title": "The Game of Love",
+        "durationMs": 322149,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/69/68/74/696874eb-0abc-b92b-56a2-c78c4a7113aa/mzaf_17278107372138790000.plus.aac.p.m4a"
+      },
+      {
+        "number": 3,
+        "title": "Giorgio by Moroder",
+        "durationMs": 544629,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/df/06/62/df066260-84b2-afd6-8ac2-42ce1db00900/mzaf_7704112998481229652.plus.aac.p.m4a"
+      },
+      {
+        "number": 4,
+        "title": "Within",
+        "durationMs": 228509,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/fa/78/88/fa7888a1-34dd-b775-f49e-f74c092da621/mzaf_8383593994878622113.plus.aac.p.m4a"
+      },
+      {
+        "number": 5,
+        "title": "Instant Crush",
+        "durationMs": 337562,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/dc/1e/c2/dc1ec21b-96a0-470c-ee89-2b09346fa847/mzaf_7827098614541126525.plus.aac.p.m4a"
+      },
+      {
+        "number": 6,
+        "title": "Lose Yourself to Dance",
+        "durationMs": 353896,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/3b/77/0c/3b770ccc-3d91-5ed4-7b6c-44ff48393fdd/mzaf_1731026751738920688.plus.aac.p.m4a"
+      },
+      {
+        "number": 7,
+        "title": "Touch",
+        "durationMs": 498962,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/44/78/fa/4478fa21-d200-f145-bafd-cf0691457450/mzaf_1310753099376776142.plus.aac.p.m4a"
+      },
+      {
+        "number": 8,
+        "title": "Get Lucky",
+        "durationMs": 369629,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/57/a5/85/57a585aa-f1bc-7619-881b-f8a04a5541d5/mzaf_6906185026678279401.plus.aac.p.m4a"
+      },
+      {
+        "number": 9,
+        "title": "Beyond",
+        "durationMs": 290242,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/88/e4/7d/88e47d2d-501f-648f-f9ad-bb0ace6acb97/mzaf_13983793705772739593.plus.aac.p.m4a"
+      },
+      {
+        "number": 10,
+        "title": "Motherboard",
+        "durationMs": 341656,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/18/8f/23/188f23d9-6359-4fc3-64ac-c40e46bd7aa1/mzaf_4556869175161348282.plus.aac.p.m4a"
+      },
+      {
+        "number": 11,
+        "title": "Fragments of Time",
+        "durationMs": 279776,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/42/2a/d0/422ad0eb-bb99-6ebd-e6bf-6045f89d89a4/mzaf_13969108765622694970.plus.aac.p.m4a"
+      },
+      {
+        "number": 12,
+        "title": "Doin' it Right",
+        "durationMs": 251302,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/c0/63/5a/c0635a54-12e9-ea08-7a4d-3b8cc8ce4056/mzaf_7757912861192311635.plus.aac.p.m4a"
+      },
+      {
+        "number": 13,
+        "title": "Contact",
+        "durationMs": 381351,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/76/cf/81/76cf819a-4621-641f-8aa2-06fb835ccf2c/mzaf_12341795345768680877.plus.aac.p.m4a"
+      }
+    ],
+    "accent": "#D4A838",
+    "waxColor": "#121214",
+    "labelBg": "#171615",
+    "labelInk": "#E5C158",
+    "note": "09 // ANALOG ELECTRO-FUNK \u2022 DAFT PUNK (2013)",
+    "glowPrimary": "#C45B20",
+    "glowSecondary": "#52230A"
+  }
+];
+
+/**
+ * RIFT // ATELIER ANALOGUE — Precision Turntable & Morning Cafe Acoustics Engine
+ * Features:
+ *  - Continuous velocity-tracked vinyl scrub & scratch DSP (harmonic groove buffer + dynamic formant filter)
+ *  - Authentic mechanical hardware acoustics (rotary power clunk, quartz-lock pitch detent, hydraulic cue lever, diamond stylus drop)
+ *  - Procedural vinyl surface patina (warm dust floor + random micro-pop impulses)
+ *  - Morning Jazz Coffee Shop room ambiance generator
+ */
+class TurntableAudioEngine {
+  constructor() {
+    this.ctx = null;
+    this.audioEl = new Audio();
+    this.audioEl.preload = "auto";
+    this.preservePitch(false);
+
+    this.isInitialized = false;
+    this.masterVolume = 0.85;
+    this.crackleAmount = 0.36;
+    this.cafeAmbienceAmount = 0.22;
+    this.currentRate = 1.0;
+
+    // Web Audio nodes
+    this.crackleGain = null;
+    this.cafeGain = null;
+    this.scratchGain = null;
+    this.scratchFilter = null;
+    this.scratchSource = null;
+
+    // Callbacks
+    this.onTrackEnded = null;
+    this.onTimeUpdate = null;
+    this.onPlayStateChange = null;
+
+    this.audioEl.addEventListener("ended", () => {
+      if (this.onTrackEnded) this.onTrackEnded();
+    });
+    this.audioEl.addEventListener("timeupdate", () => {
+      if (this.onTimeUpdate) {
+        this.onTimeUpdate(this.audioEl.currentTime, this.audioEl.duration || 30);
+      }
+    });
+    this.audioEl.addEventListener("play", () => {
+      if (this.onPlayStateChange) this.onPlayStateChange(true);
+    });
+    this.audioEl.addEventListener("pause", () => {
+      if (this.onPlayStateChange) this.onPlayStateChange(false);
+    });
+  }
+
+  preservePitch(flag) {
+    if ("preservesPitch" in this.audioEl) this.audioEl.preservesPitch = flag;
+    if ("mozPreservesPitch" in this.audioEl) this.audioEl.mozPreservesPitch = flag;
+    if ("webkitPreservesPitch" in this.audioEl) this.audioEl.webkitPreservesPitch = flag;
+  }
+
+  initContext() {
+    if (this.isInitialized && this.ctx) {
+      if (this.ctx.state === "suspended") this.ctx.resume();
+      return;
+    }
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if (!AudioCtx) return;
+    this.ctx = new AudioCtx();
+    this.setupVinylCrackleGenerator();
+    this.setupContinuousScratchDSP();
+    this.setupMorningCafeAmbience();
+    this.isInitialized = true;
+  }
+
+  /**
+   * 1. Continuous Vinyl Surface Dust & Micro-Pop Generator
+   */
+  setupVinylCrackleGenerator() {
+    if (!this.ctx) return;
+    const sr = this.ctx.sampleRate;
+    const len = sr * 5;
+    const buffer = this.ctx.createBuffer(2, len, sr);
+
+    for (let ch = 0; ch < 2; ch++) {
+      const data = buffer.getChannelData(ch);
+      let b0 = 0, b1 = 0;
+      for (let i = 0; i < len; i++) {
+        const white = Math.random() * 2 - 1;
+        b0 = 0.992 * b0 + white * 0.01;
+        b1 = 0.965 * b1 + white * 0.022;
+        let sample = (b0 + b1) * 0.32;
+
+        const r = Math.random();
+        if (r > 0.9994) {
+          sample += (Math.random() * 2 - 1) * 0.9;
+        } else if (r > 0.9968) {
+          sample += (Math.random() * 2 - 1) * 0.24;
+        }
+        data[i] = sample;
+      }
+      for (let i = 2; i < len; i++) {
+        data[i] = data[i] * 0.68 + data[i - 1] * 0.22 + data[i - 2] * 0.1;
+      }
+    }
+
+    const src = this.ctx.createBufferSource();
+    src.buffer = buffer;
+    src.loop = true;
+
+    const bp = this.ctx.createBiquadFilter();
+    bp.type = "bandpass";
+    bp.frequency.value = 2250;
+    bp.Q.value = 0.75;
+
+    this.crackleGain = this.ctx.createGain();
+    this.crackleGain.gain.value = 0.0;
+
+    src.connect(bp);
+    bp.connect(this.crackleGain);
+    this.crackleGain.connect(this.ctx.destination);
+    src.start(0);
+  }
+
+  /**
+   * 2. Continuous Velocity-Tracked Vinyl Scrub & Scratch DSP
+   * Synthesizes a rich harmonic groove texture buffer (warm jazz chord harmonics + wax friction)
+   * whose playback rate, resonant formant filter, and gain follow the user's hand drag velocity continuously.
+   */
+  setupContinuousScratchDSP() {
+    if (!this.ctx) return;
+    const sr = this.ctx.sampleRate;
+    const len = sr * 2;
+    const buf = this.ctx.createBuffer(1, len, sr);
+    const data = buf.getChannelData(0);
+
+    // Build a textured groove signal: warm Rhodes/horn harmonic partials + micro-groove surface modulation
+    const freqs = [110, 164.81, 220, 261.63, 329.63, 392.0, 493.88];
+    let pink = 0;
+    for (let i = 0; i < len; i++) {
+      const t = i / sr;
+      const white = Math.random() * 2 - 1;
+      pink = 0.92 * pink + 0.08 * white;
+
+      // Rhythmic amplitude contour embedded in the groove so scrubbing crosses audible "beats" in the wax
+      const grooveEnvelope = 0.55 + 0.45 * Math.sin(t * Math.PI * 7.5) * Math.cos(t * Math.PI * 3.0);
+      let tonal = 0;
+      for (let f = 0; f < freqs.length; f++) {
+        tonal += Math.sin(2 * Math.PI * freqs[f] * t + Math.sin(t * 12) * 0.3) / freqs.length;
+      }
+      data[i] = (tonal * 0.65 + pink * 0.48) * grooveEnvelope;
+    }
+
+    const src = this.ctx.createBufferSource();
+    src.buffer = buf;
+    src.loop = true;
+
+    const filter = this.ctx.createBiquadFilter();
+    filter.type = "bandpass";
+    filter.frequency.value = 400;
+    filter.Q.value = 1.65;
+
+    const gain = this.ctx.createGain();
+    gain.gain.value = 0.0;
+
+    src.connect(filter);
+    filter.connect(gain);
+    gain.connect(this.ctx.destination);
+    src.start(0);
+
+    this.scratchSource = src;
+    this.scratchFilter = filter;
+    this.scratchGain = gain;
+  }
+
+  /**
+   * Updates the continuous vinyl scrub/scratch DSP in real time as the user drags the record.
+   * @param {number} degPerSec - Angular velocity of the user's hand drag in degrees/sec
+   * @param {boolean} stylusDown - Whether the needle is currently resting on the vinyl
+   */
+  updateScratchScrub(degPerSec, stylusDown) {
+    if (!this.ctx || !this.scratchGain || !this.scratchFilter || !this.scratchSource) return;
+    const now = this.ctx.currentTime;
+    const absVel = Math.abs(degPerSec);
+
+    if (!stylusDown || absVel < 4) {
+      this.scratchGain.gain.setTargetAtTime(0.0, now, 0.025);
+      return;
+    }
+
+    // Normal 33.3 RPM is ~200 deg/sec. Map hand speed to pitch & filter cutoff:
+    const speedRatio = Math.min(3.8, Math.max(0.15, absVel / 180));
+    this.scratchSource.playbackRate.setTargetAtTime(speedRatio, now, 0.012);
+
+    const targetCutoff = Math.min(3400, Math.max(160, 220 + speedRatio * 780));
+    this.scratchFilter.frequency.setTargetAtTime(targetCutoff, now, 0.012);
+
+    const targetGain = Math.min(0.26, (0.04 + speedRatio * 0.075) * this.masterVolume);
+    this.scratchGain.gain.setTargetAtTime(targetGain, now, 0.012);
+  }
+
+  /**
+   * 3. Morning Jazz Coffee Shop Room Ambience (Warm room tone + gentle rain/espresso warmth)
+   */
+  setupMorningCafeAmbience() {
+    if (!this.ctx) return;
+    const sr = this.ctx.sampleRate;
+    const len = sr * 6;
+    const buf = this.ctx.createBuffer(2, len, sr);
+
+    for (let ch = 0; ch < 2; ch++) {
+      const d = buf.getChannelData(ch);
+      let b0 = 0, b1 = 0, b2 = 0;
+      for (let i = 0; i < len; i++) {
+        const w = Math.random() * 2 - 1;
+        b0 = 0.997 * b0 + w * 0.008;
+        b1 = 0.985 * b1 + w * 0.012;
+        b2 = 0.95 * b2 + w * 0.015;
+        // Slow morning room breathe modulation
+        const mod = 0.8 + 0.2 * Math.sin((i / len) * Math.PI * 2 + ch);
+        d[i] = (b0 + b1 * 0.6 + b2 * 0.25) * 0.28 * mod;
+      }
+    }
+
+    const src = this.ctx.createBufferSource();
+    src.buffer = buf;
+    src.loop = true;
+
+    const lp = this.ctx.createBiquadFilter();
+    lp.type = "lowpass";
+    lp.frequency.value = 680;
+
+    this.cafeGain = this.ctx.createGain();
+    this.cafeGain.gain.value = 0.0;
+
+    src.connect(lp);
+    lp.connect(this.cafeGain);
+    this.cafeGain.connect(this.ctx.destination);
+    src.start(0);
+  }
+
+  updateSurfaceNoise(stylusOnRecord, normalizedSpeed) {
+    if (!this.ctx) return;
+    const now = this.ctx.currentTime;
+    if (this.crackleGain) {
+      const speedFactor = Math.min(1.5, Math.max(0, Math.abs(normalizedSpeed)));
+      const target = stylusOnRecord ? this.crackleAmount * 0.18 * speedFactor * this.masterVolume : 0.0;
+      this.crackleGain.gain.setTargetAtTime(target, now, 0.04);
+    }
+    if (this.cafeGain) {
+      const cafeTarget = this.cafeAmbienceAmount * 0.14 * this.masterVolume;
+      this.cafeGain.gain.setTargetAtTime(cafeTarget, now, 0.08);
+    }
+  }
+
+  /**
+   * 4. Realistic Hardware Sound: Heavy Rotary Power Switch Detent Clunk
+   */
+  playPowerSwitchClunk(isTurningOn = true) {
+    this.initContext();
+    if (!this.ctx) return;
+    const now = this.ctx.currentTime;
+
+    // 1) Heavy cabinet mechanical thud
+    const bodyOsc = this.ctx.createOscillator();
+    const bodyGain = this.ctx.createGain();
+    bodyOsc.type = "sine";
+    bodyOsc.frequency.setValueAtTime(isTurningOn ? 165 : 130, now);
+    bodyOsc.frequency.exponentialRampToValueAtTime(38, now + 0.065);
+    bodyGain.gain.setValueAtTime(0.34 * this.masterVolume, now);
+    bodyGain.gain.exponentialRampToValueAtTime(0.001, now + 0.07);
+    bodyOsc.connect(bodyGain);
+    bodyGain.connect(this.ctx.destination);
+    bodyOsc.start(now);
+    bodyOsc.stop(now + 0.075);
+
+    // 2) Crisp spring-loaded brass detent snap (12ms delayed double-click like a real rotary cam)
+    const snapBuf = this.ctx.createBuffer(1, Math.floor(this.ctx.sampleRate * 0.025), this.ctx.sampleRate);
+    const ch = snapBuf.getChannelData(0);
+    for (let i = 0; i < ch.length; i++) {
+      ch[i] = (Math.random() * 2 - 1) * Math.exp(-i / (this.ctx.sampleRate * 0.0025));
+    }
+    const snapSrc = this.ctx.createBufferSource();
+    snapSrc.buffer = snapBuf;
+    const bp = this.ctx.createBiquadFilter();
+    bp.type = "bandpass";
+    bp.frequency.value = isTurningOn ? 2850 : 2100;
+    bp.Q.value = 3.2;
+    const snapGain = this.ctx.createGain();
+    snapGain.gain.value = 0.35 * this.masterVolume;
+
+    snapSrc.connect(bp);
+    bp.connect(snapGain);
+    snapGain.connect(this.ctx.destination);
+    snapSrc.start(now + 0.008);
+  }
+
+  /**
+   * 5. Realistic Hardware Sound: Stylus Needle Drop onto Vinyl Groove
+   */
+  playNeedleDropSound(isLanding = true) {
+    this.initContext();
+    if (!this.ctx) return;
+    const now = this.ctx.currentTime;
+
+    // Low phono cartridge suspension resonance (55Hz thump)
+    const osc = this.ctx.createOscillator();
+    const gain = this.ctx.createGain();
+    osc.type = "sine";
+    osc.frequency.setValueAtTime(isLanding ? 128 : 92, now);
+    osc.frequency.exponentialRampToValueAtTime(26, now + 0.16);
+    gain.gain.setValueAtTime((isLanding ? 0.38 : 0.2) * this.masterVolume, now);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.17);
+    osc.connect(gain);
+    gain.connect(this.ctx.destination);
+    osc.start(now);
+    osc.stop(now + 0.18);
+
+    if (isLanding) {
+      // Diamond tip touching spinning PVC groove transient + initial vinyl crackle burst
+      const len = Math.floor(this.ctx.sampleRate * 0.06);
+      const buf = this.ctx.createBuffer(1, len, this.ctx.sampleRate);
+      const d = buf.getChannelData(0);
+      for (let i = 0; i < len; i++) {
+        const env = Math.exp(-i / (this.ctx.sampleRate * 0.009));
+        d[i] = (Math.random() * 2 - 1) * env;
+      }
+      const src = this.ctx.createBufferSource();
+      src.buffer = buf;
+      const hp = this.ctx.createBiquadFilter();
+      hp.type = "bandpass";
+      hp.frequency.value = 2600;
+      hp.Q.value = 1.4;
+      const g = this.ctx.createGain();
+      g.gain.value = 0.28 * this.masterVolume;
+      src.connect(hp);
+      hp.connect(g);
+      g.connect(this.ctx.destination);
+      src.start(now + 0.015);
+    }
+  }
+
+  /**
+   * 6. Realistic Hardware Sound: Hydraulic Cueing Lever Toggle
+   */
+  playCueLeverSound(isLowering = true) {
+    this.initContext();
+    if (!this.ctx) return;
+    const now = this.ctx.currentTime;
+
+    // Metallic lever toggle tick + soft pneumatic hiss
+    const len = Math.floor(this.ctx.sampleRate * 0.08);
+    const buf = this.ctx.createBuffer(1, len, this.ctx.sampleRate);
+    const d = buf.getChannelData(0);
+    for (let i = 0; i < len; i++) {
+      const clickEnv = Math.exp(-i / (this.ctx.sampleRate * 0.002));
+      const hissEnv = Math.sin((i / len) * Math.PI) * 0.18;
+      d[i] = (Math.random() * 2 - 1) * (clickEnv * 0.8 + hissEnv);
+    }
+    const src = this.ctx.createBufferSource();
+    src.buffer = buf;
+    const filter = this.ctx.createBiquadFilter();
+    filter.type = "bandpass";
+    filter.frequency.value = isLowering ? 1850 : 2450;
+    filter.Q.value = 1.8;
+    const gain = this.ctx.createGain();
+    gain.gain.value = 0.24 * this.masterVolume;
+
+    src.connect(filter);
+    filter.connect(gain);
+    gain.connect(this.ctx.destination);
+    src.start(now);
+  }
+
+  /**
+   * 7. Realistic Hardware Sound: Pitch Fader Slide & Center 0.0% Quartz Detent Click
+   */
+  playPitchFaderTick(isCenterDetent = false) {
+    this.initContext();
+    if (!this.ctx) return;
+    const now = this.ctx.currentTime;
+
+    const osc = this.ctx.createOscillator();
+    const gain = this.ctx.createGain();
+    osc.type = isCenterDetent ? "triangle" : "sine";
+    osc.frequency.setValueAtTime(isCenterDetent ? 1420 : 620, now);
+    osc.frequency.exponentialRampToValueAtTime(isCenterDetent ? 340 : 190, now + (isCenterDetent ? 0.024 : 0.012));
+
+    gain.gain.setValueAtTime((isCenterDetent ? 0.22 : 0.05) * this.masterVolume, now);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + (isCenterDetent ? 0.026 : 0.014));
+
+    osc.connect(gain);
+    gain.connect(this.ctx.destination);
+    osc.start(now);
+    osc.stop(now + 0.03);
+  }
+
+  playMechanicalClick(pitchMultiplier = 1.0) {
+    this.initContext();
+    if (!this.ctx) return;
+    const now = this.ctx.currentTime;
+
+    // Short noise burst + resonant wood/metal switch body
+    const len = Math.floor(this.ctx.sampleRate * 0.018);
+    const buf = this.ctx.createBuffer(1, len, this.ctx.sampleRate);
+    const d = buf.getChannelData(0);
+    for (let i = 0; i < len; i++) {
+      d[i] = (Math.random() * 2 - 1) * Math.exp(-i / (this.ctx.sampleRate * 0.0022));
+    }
+    const src = this.ctx.createBufferSource();
+    src.buffer = buf;
+
+    const bp = this.ctx.createBiquadFilter();
+    bp.type = "bandpass";
+    bp.frequency.value = 1950 * pitchMultiplier;
+    bp.Q.value = 2.4;
+
+    const gain = this.ctx.createGain();
+    gain.gain.value = 0.25 * this.masterVolume;
+
+    src.connect(bp);
+    bp.connect(gain);
+    gain.connect(this.ctx.destination);
+    src.start(now);
+  }
+
+  loadTrack(previewUrl, autoPlay = false, startOffsetRatio = 0) {
+    this.initContext();
+    if (!previewUrl) return;
+
+    const isSameUrl = this.audioEl.src === previewUrl;
+    if (!isSameUrl) {
+      this.audioEl.src = previewUrl;
+      this.audioEl.load();
+    }
+    this.audioEl.volume = this.masterVolume;
+    this.preservePitch(false);
+    this.audioEl.playbackRate = Math.max(0.25, Math.min(3.0, this.currentRate));
+
+    const applySeekAndPlay = () => {
+      if (startOffsetRatio > 0 && this.audioEl.duration && isFinite(this.audioEl.duration)) {
+        this.audioEl.currentTime = Math.min(
+          this.audioEl.duration - 0.4,
+          Math.max(0, startOffsetRatio * this.audioEl.duration)
+        );
+      }
+      if (autoPlay) {
+        this.audioEl.play().catch(() => {});
+      }
+    };
+
+    if (this.audioEl.readyState >= 1) {
+      applySeekAndPlay();
+    } else {
+      this.audioEl.addEventListener("loadedmetadata", applySeekAndPlay, { once: true });
+    }
+  }
+
+  play() {
+    this.initContext();
+    if (this.audioEl.src) {
+      this.audioEl.play().catch(() => {});
+    }
+  }
+
+  pause() {
+    this.audioEl.pause();
+  }
+
+  setPlaybackRate(rate) {
+    this.currentRate = rate;
+    const clamped = Math.max(0.2, Math.min(3.5, Math.abs(rate) || 0.25));
+    try {
+      this.preservePitch(false);
+      this.audioEl.playbackRate = clamped;
+    } catch (e) {}
+  }
+
+  setVolume(val) {
+    this.masterVolume = Math.max(0, Math.min(1, val));
+    this.audioEl.volume = this.masterVolume;
+  }
+
+  setCrackle(val) {
+    this.crackleAmount = Math.max(0, Math.min(1, val));
+  }
+
+  setCafeAmbience(val) {
+    this.cafeAmbienceAmount = Math.max(0, Math.min(1, val));
+  }
+
+  seekToRatio(ratio) {
+    if (this.audioEl.duration && isFinite(this.audioEl.duration)) {
+      this.audioEl.currentTime = Math.max(
+        0,
+        Math.min(this.audioEl.duration - 0.15, ratio * this.audioEl.duration)
+      );
+    }
+  }
+
+  getProgressRatio() {
+    if (!this.audioEl.duration || !isFinite(this.audioEl.duration) || this.audioEl.duration <= 0) {
+      return 0;
+    }
+    return Math.min(1, Math.max(0, this.audioEl.currentTime / this.audioEl.duration));
+  }
+}
+
+window.TurntableAudioEngine = TurntableAudioEngine;
+
+/**
+ * RIFT // ATELIER ONE — 1:1 Turntable Physics, Tonearm Kinematics & Audio Controller
+ * Features:
+ *  - Buttery-smooth 60/120fps GPU-composited vinyl rotation (calm, hypnotic real-wax cadence)
+ *  - No media play/pause buttons on the plinth: drop the needle onto the record (or press Spacebar) to play
+ *  - Realistic rotary power switch (OFF / ON), 33 / 45 / 78 speed bank, hydraulic cue lever wand,
+ *    and animated recessed Pitch Fader (-8% to +8%) with Quartz Lock center detent
+ *  - Continuous velocity-tracked vinyl scrub & scratch DSP
+ */
+(function () {
+  const catalog = Array.isArray(window.INITIAL_VINYL_CATALOG)
+    ? [...window.INITIAL_VINYL_CATALOG]
+    : [];
+
+  const audio = new window.TurntableAudioEngine();
+
+  const state = {
+    albumIndex: 0,
+    trackIndex: 0,
+    motorPower: true,         // Rotary power switch ON by default
+    stylusDropped: false,     // Music plays ONLY when needle is on the record (and cue is down)
+    isCuedUp: false,          // Hydraulic cueing lever state
+    isDraggingVinyl: false,
+    isDraggingTonearm: false,
+    isDraggingPitch: false,
+
+    // Rotational physics (unwrapped continuous angle for zero-jitter GPU compositing)
+    rpmBase: 33.3,            // 33.3, 45, 78
+    pitchPercent: 0,          // -8.0 to +8.0
+    platterAngle: 0,          // continuous degrees
+    pulleyAngle: 0,           // continuous degrees
+    angularVelocityDegPerSec: 0,
+    lastPointerAngle: 0,
+    lastPointerTime: 0,
+
+    // Tonearm kinematics (0 deg = parked on armrest, 18.5 deg = outer Track 1 groove, 41.5 deg = inner label)
+    tonearmAngle: 0,
+    OUTER_GROOVE_DEG: 18.5,
+    INNER_GROOVE_DEG: 41.5,
+
+    // Configurator state
+    chassis: "obsidian",      // "obsidian" | "espresso" | "silver"
+    discStyle: "picture"      // "picture" | "classic" | "amber"
+  };
+
+  const els = {};
+
+  function cacheElements() {
+    const ids = [
+      "heroStage", "heroWatermarkText", "eyebrowDot", "eyebrowStatusText",
+      "heroDisplayTitle", "heroAlbumSubtitle", "dropNeedlePillBtn", "dropNeedlePillText",
+      "grooveSideLabel", "grooveTracksContainer",
+      "vinylDisc", "vinylFullbleedArt", "vinylTrackBands", "vinylRimEngraving",
+      "vinylCenterLabel", "labelArtRing", "labelTextTop", "labelTextBottom",
+      "platterStrobeRim", "rimProgressFill", "brassMotorSpindle",
+      "rotaryPowerKnob", "strobeLedWindow",
+      "tonearmPivotCenter", "tonearmRig", "tonearmHeadshell", "hydraulicCueAssembly",
+      "pitchSlotWell", "pitchFaderCap", "quartzLockLed", "pitchResetBtn",
+      "teleRpm", "teleRadius", "telePitch", "teleTime",
+      "crackleRange", "cafeRange", "gainRange", "configSummaryText",
+      "latheSearchForm", "latheArtistInput", "latheAlbumInput", "latheSubmitBtn",
+      "crateSleevesGrid", "topDropNeedleCta", "studioToast"
+    ];
+    ids.forEach((id) => {
+      els[id] = document.getElementById(id);
+    });
+  }
+
+  function showToast(msg) {
+    if (!els.studioToast) return;
+    els.studioToast.textContent = msg;
+    els.studioToast.classList.add("visible");
+    clearTimeout(showToast._timer);
+    showToast._timer = setTimeout(() => {
+      els.studioToast.classList.remove("visible");
+    }, 2800);
+  }
+
+  function getCurrentAlbum() {
+    return catalog[state.albumIndex] || catalog[0];
+  }
+
+  function getCurrentTrack() {
+    const album = getCurrentAlbum();
+    if (!album || !album.tracks || !album.tracks.length) return null;
+    return album.tracks[state.trackIndex] || album.tracks[0];
+  }
+
+  function getEffectiveRpm() {
+    return state.rpmBase * (1 + state.pitchPercent / 100);
+  }
+
+  function getNormalizedPlaybackRate() {
+    return getEffectiveRpm() / 33.3;
+  }
+
+  function isNeedleActivelyPlaying() {
+    return state.motorPower && state.stylusDropped && !state.isCuedUp;
+  }
+
+  /**
+   * Computes target tonearm angle [18.5 .. 41.5] based on current album track & progress
+   */
+  function computeTargetTonearmAngle() {
+    if (!state.stylusDropped) return 0;
+    const album = getCurrentAlbum();
+    const totalTracks = (album && album.tracks && album.tracks.length) || 1;
+    const trackRatio = audio.getProgressRatio();
+    const overallProgress = Math.min(
+      1,
+      Math.max(0, (state.trackIndex + trackRatio) / totalTracks)
+    );
+    return (
+      state.OUTER_GROOVE_DEG +
+      overallProgress * (state.INNER_GROOVE_DEG - state.OUTER_GROOVE_DEG)
+    );
+  }
+
+  function getGrooveRadiusMm(angleDeg) {
+    if (angleDeg < state.OUTER_GROOVE_DEG - 2) return 150;
+    const norm = Math.min(
+      1,
+      Math.max(
+        0,
+        (angleDeg - state.OUTER_GROOVE_DEG) /
+          (state.INNER_GROOVE_DEG - state.OUTER_GROOVE_DEG)
+      )
+    );
+    return Math.round(146 - norm * 86);
+  }
+
+  function renderVinylGrooveBands(album) {
+    if (!els.vinylTrackBands || !album || !album.tracks) return;
+    const n = album.tracks.length;
+    const stops = [];
+    for (let i = 1; i < n; i++) {
+      const pct = 95 - (i / n) * 57;
+      stops.push(
+        `transparent ${pct - 0.22}%`,
+        `rgba(255, 255, 255, 0.13) ${pct}%`,
+        `rgba(0, 0, 0, 0.58) ${pct + 0.18}%`,
+        `transparent ${pct + 0.42}%`
+      );
+    }
+    els.vinylTrackBands.style.background = stops.length
+      ? `radial-gradient(circle at 50% 50%, ${stops.join(", ")})`
+      : "none";
+  }
+
+  function renderAlbumState() {
+    const album = getCurrentAlbum();
+    if (!album) return;
+    const track = getCurrentTrack();
+
+    // Shift the warm espresso/sunrise radial light glow behind the turntable to match the album!
+    document.documentElement.style.setProperty("--glow-primary", album.glowPrimary || "#D9531E");
+    document.documentElement.style.setProperty("--glow-secondary", album.glowSecondary || "#6E230B");
+
+    if (els.heroWatermarkText) {
+      els.heroWatermarkText.textContent = album.title.toLowerCase();
+    }
+    if (els.heroDisplayTitle) {
+      els.heroDisplayTitle.textContent = album.title;
+    }
+    if (els.heroAlbumSubtitle) {
+      els.heroAlbumSubtitle.textContent = `${album.artist} • ${album.year} • ${album.tracks.length} tracks pressed on 180g audiophile vinyl. Drag the tonearm onto the wax to listen.`;
+    }
+
+    // Vinyl disc textures & labels
+    if (els.vinylFullbleedArt) {
+      els.vinylFullbleedArt.style.backgroundImage = `url("${album.artwork}")`;
+    }
+    if (els.labelArtRing) {
+      els.labelArtRing.style.backgroundImage = `url("${album.artwork}")`;
+    }
+    if (els.vinylCenterLabel) {
+      els.vinylCenterLabel.style.backgroundColor = album.labelBg || "#F4EFE6";
+      els.vinylCenterLabel.style.color = album.labelInk || "#141210";
+    }
+    if (els.labelTextTop) els.labelTextTop.textContent = album.artist;
+    if (els.labelTextBottom) els.labelTextBottom.textContent = album.title;
+    if (els.vinylRimEngraving) els.vinylRimEngraving.textContent = `• ${album.artist} •`;
+
+    renderVinylGrooveBands(album);
+    renderGrooveTracklist(album);
+    state.carouselIndex = state.albumIndex;
+    renderCrateGrid();
+    renderSleeveCarousel();
+    updateHardwareStatusUI();
+    updateConfiguratorSummary();
+  }
+
+  function renderGrooveTracklist(album) {
+    if (!els.grooveTracksContainer) return;
+    els.grooveTracksContainer.innerHTML = "";
+    const total = album.tracks.length;
+
+    album.tracks.forEach((t, idx) => {
+      const row = document.createElement("div");
+      const isCurrent = idx === state.trackIndex && state.stylusDropped;
+      row.className = "groove-track-item" + (isCurrent ? " active" : "");
+      const numStr = String(idx + 1).padStart(2, "0");
+      const radiusMm = Math.round(146 - (idx / Math.max(1, total)) * 84);
+
+      row.innerHTML = `
+        <span class="groove-track-num">${numStr}</span>
+        <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${t.title}</span>
+        <span class="groove-track-mm">${radiusMm}mm</span>
+      `;
+      row.addEventListener("click", () => {
+        dropNeedleOnTrack(idx, 0);
+      });
+      els.grooveTracksContainer.appendChild(row);
+    });
+
+    const activeRow = els.grooveTracksContainer.querySelector(".groove-track-item.active");
+    if (activeRow) {
+      activeRow.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    }
+  }
+
+  function renderCrateGrid() {
+    if (!els.crateSleevesGrid) return;
+    els.crateSleevesGrid.innerHTML = "";
+
+    catalog.forEach((album, idx) => {
+      const card = document.createElement("div");
+      card.className = "vinyl-sleeve-card" + (idx === state.albumIndex ? " active-sleeve" : "");
+      card.innerHTML = `
+        <div class="sleeve-art-stage">
+          <div class="sleeve-peeking-disc"></div>
+          <img class="sleeve-cover-img" src="${album.artwork}" alt="${album.title}" loading="lazy" />
+        </div>
+        <div class="sleeve-meta-title">${album.title}</div>
+        <div class="sleeve-meta-artist">${album.artist}</div>
+        <div class="sleeve-meta-year">${album.year} • ${album.tracks.length} TRACKS</div>
+      `;
+      card.addEventListener("click", () => {
+        mountAlbumOnPlatter(idx, true);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+      els.crateSleevesGrid.appendChild(card);
+    });
+  }
+
+  /**
+   * Mounts a record from the crate onto the platter and swings the tonearm over to Track 1
+   */
+  function mountAlbumOnPlatter(albumIdx, autoDropNeedle = true) {
+    audio.playMechanicalClick(0.92);
+    state.albumIndex = albumIdx;
+    state.trackIndex = 0;
+    state.isCuedUp = false;
+
+    if (!state.motorPower) {
+      state.motorPower = true;
+      audio.playPowerSwitchClunk(true);
+    }
+
+    renderAlbumState();
+    if (autoDropNeedle) {
+      dropNeedleOnTrack(0, 0);
+      showToast(`Mounted "${getCurrentAlbum().title}" — Dropping stylus on Track 01`);
+    } else {
+      parkTonearm();
+      showToast(`Mounted "${getCurrentAlbum().title}" on platter`);
+    }
+  }
+
+  /**
+   * Swings the tonearm over to the specified track groove and drops the diamond stylus
+   */
+  function dropNeedleOnTrack(trackIdx, offsetRatio = 0) {
+    const album = getCurrentAlbum();
+    if (!album || !album.tracks[trackIdx]) return;
+
+    if (!state.motorPower) {
+      state.motorPower = true;
+      audio.playPowerSwitchClunk(true);
+    }
+
+    state.trackIndex = trackIdx;
+    state.stylusDropped = true;
+    state.isCuedUp = false;
+
+    const track = album.tracks[trackIdx];
+    audio.playNeedleDropSound(true);
+    audio.loadTrack(track.previewUrl, true, offsetRatio);
+
+    renderGrooveTracklist(album);
+    updateHardwareStatusUI();
+  }
+
+  /**
+   * Lifts the tonearm off the record and returns it to the armrest cradle
+   */
+  function parkTonearm() {
+    const wasDropped = state.stylusDropped;
+    state.stylusDropped = false;
+    state.isCuedUp = false;
+    audio.pause();
+    if (wasDropped) {
+      audio.playNeedleDropSound(false);
+    }
+    renderGrooveTracklist(getCurrentAlbum());
+    updateHardwareStatusUI();
+  }
+
+  /**
+   * Spacebar / Pill CTA handler: drops the needle onto the record if parked, or parks it if playing
+   */
+  function toggleNeedleDrop() {
+    if (!state.stylusDropped) {
+      dropNeedleOnTrack(state.trackIndex, audio.getProgressRatio());
+      showToast(`Stylus dropped on "${getCurrentTrack().title}"`);
+    } else if (state.isCuedUp) {
+      // Lower hydraulic cue lever back onto the groove
+      state.isCuedUp = false;
+      audio.playCueLeverSound(true);
+      audio.playNeedleDropSound(true);
+      if (state.motorPower) audio.play();
+      updateHardwareStatusUI();
+    } else {
+      parkTonearm();
+      showToast("Stylus lifted — Tonearm returned to rest");
+    }
+  }
+
+  function updateHardwareStatusUI() {
+    const playing = isNeedleActivelyPlaying();
+    const album = getCurrentAlbum();
+    const track = getCurrentTrack();
+
+    if (els.rotaryPowerKnob) {
+      els.rotaryPowerKnob.classList.toggle("power-on", state.motorPower);
+    }
+    if (els.strobeLedWindow) {
+      els.strobeLedWindow.classList.toggle("lit", state.motorPower);
+    }
+    if (els.hydraulicCueAssembly) {
+      els.hydraulicCueAssembly.classList.toggle("cued-up", state.isCuedUp);
+    }
+    if (els.eyebrowDot) {
+      els.eyebrowDot.classList.toggle("playing", playing);
+    }
+    if (els.eyebrowStatusText) {
+      if (!state.motorPower) {
+        els.eyebrowStatusText.textContent = "MOTOR OFF // TURN ROTARY KNOB OR DROP NEEDLE";
+      } else if (!state.stylusDropped) {
+        els.eyebrowStatusText.textContent = "PLATTER READY // DRAG TONEARM ONTO RECORD TO PLAY";
+      } else if (state.isCuedUp) {
+        els.eyebrowStatusText.textContent = `CUE LEVER LIFTED // ${track ? track.title.toUpperCase() : ""}`;
+      } else {
+        els.eyebrowStatusText.textContent = `NOW SPINNING // ${track ? track.title.toUpperCase() : ""} (${getEffectiveRpm().toFixed(1)} RPM)`;
+      }
+    }
+
+    if (els.dropNeedlePillText) {
+      els.dropNeedlePillText.textContent = playing ? "Lift Stylus & Park" : "Drop Needle on Wax";
+    }
+    if (els.grooveSideLabel && album && track) {
+      const side = state.trackIndex < Math.ceil(album.tracks.length / 2) ? "SIDE A" : "SIDE B";
+      els.grooveSideLabel.textContent = `${side} • TRACK ${String(state.trackIndex + 1).padStart(2, "0")} — ${track.title}`;
+    }
+  }
+
+  function updateConfiguratorSummary() {
+    if (!els.configSummaryText) return;
+    const finishNames = {
+      obsidian: "Matte Obsidian",
+      espresso: "Sunburst Espresso",
+      silver: "Brushed Silver PC-4"
+    };
+    const waxNames = {
+      picture: "Full-Bleed Picture Disc",
+      classic: "180g Classic Black Wax",
+      amber: "Translucent Amber Wax"
+    };
+    els.configSummaryText.textContent = `Atelier One / ${finishNames[state.chassis]} / ${waxNames[state.discStyle]}`;
+  }
+
+  /**
+   * Continuous Album Playback: automatically advances across every track groove on the record!
+   */
+  audio.onTrackEnded = () => {
+    const album = getCurrentAlbum();
+    if (!album) return;
+    if (state.trackIndex + 1 < album.tracks.length) {
+      state.trackIndex += 1;
+      renderGrooveTracklist(album);
+      updateHardwareStatusUI();
+      const nextTrack = album.tracks[state.trackIndex];
+      audio.loadTrack(nextTrack.previewUrl, true, 0);
+    } else {
+      // End of record run-out groove -> auto-return tonearm to rest!
+      state.trackIndex = 0;
+      parkTonearm();
+      showToast("Run-out groove reached — Tonearm auto-returned");
+    }
+  };
+
+  audio.onTimeUpdate = (cur, dur) => {
+    const album = getCurrentAlbum();
+    const totalTracks = (album && album.tracks.length) || 1;
+    const trackRatio = dur > 0 ? cur / dur : 0;
+    const overallRatio = Math.min(1, Math.max(0, (state.trackIndex + trackRatio) / totalTracks));
+
+    if (els.rimProgressFill) {
+      const offset = 942 - overallRatio * 942;
+      els.rimProgressFill.style.strokeDashoffset = String(offset);
+    }
+    if (els.teleTime) {
+      const m = Math.floor(cur / 60);
+      const s = String(Math.floor(cur % 60)).padStart(2, "0");
+      els.teleTime.textContent = `${m}:${s}`;
+    }
+  };
+
+  /**
+   * Direct Pointer-Drag Vinyl Scrubbing & Scratching with Continuous Harmonic DSP
+   */
+  function setupVinylScratchInteractions() {
+    const disc = els.vinylDisc;
+    if (!disc) return;
+
+    let centerCache = { x: 0, y: 0 };
+
+    const updateCenterCache = () => {
+      const r = disc.getBoundingClientRect();
+      centerCache = { x: r.left + r.width / 2, y: r.top + r.height / 2 };
+    };
+
+    const getPointerAngle = (clientX, clientY) => {
+      return Math.atan2(clientY - centerCache.y, clientX - centerCache.x) * (180 / Math.PI);
+    };
+
+    disc.addEventListener("pointerdown", (e) => {
+      e.preventDefault();
+      updateCenterCache();
+      disc.setPointerCapture(e.pointerId);
+      state.isDraggingVinyl = true;
+      state.lastPointerAngle = getPointerAngle(e.clientX, e.clientY);
+      state.lastPointerTime = performance.now();
+      audio.initContext();
+    });
+
+    disc.addEventListener("pointermove", (e) => {
+      if (!state.isDraggingVinyl) return;
+      const currentAngle = getPointerAngle(e.clientX, e.clientY);
+      let delta = currentAngle - state.lastPointerAngle;
+      if (delta > 180) delta -= 360;
+      if (delta < -180) delta += 360;
+
+      const now = performance.now();
+      const dtMs = Math.max(4, now - state.lastPointerTime);
+      const degPerSec = (delta / dtMs) * 1000;
+
+      // Rotate platter and pulley 1:1 with hand movement
+      state.platterAngle += delta;
+      state.pulleyAngle += delta * 3.6;
+      state.angularVelocityDegPerSec = degPerSec;
+
+      const stylusDown = state.stylusDropped && !state.isCuedUp;
+      // Trigger continuous velocity-tracked Web Audio vinyl scratch & scrub DSP!
+      audio.updateScratchScrub(degPerSec, stylusDown);
+
+      if (stylusDown) {
+        const curRatio = audio.getProgressRatio();
+        const nextRatio = Math.min(0.995, Math.max(0, curRatio + delta * 0.00055));
+        audio.seekToRatio(nextRatio);
+
+        // Varispeed pitch bend on the song stream proportional to hand speed
+        const handSpeedRate = Math.min(3.0, Math.max(0.22, Math.abs(degPerSec) / 55));
+        audio.setPlaybackRate(handSpeedRate);
+      }
+
+      state.lastPointerAngle = currentAngle;
+      state.lastPointerTime = now;
+    });
+
+    const releaseVinyl = (e) => {
+      if (!state.isDraggingVinyl) return;
+      state.isDraggingVinyl = false;
+      try {
+        disc.releasePointerCapture(e.pointerId);
+      } catch (err) {}
+      audio.updateScratchScrub(0, false);
+      audio.setPlaybackRate(getNormalizedPlaybackRate());
+    };
+
+    disc.addEventListener("pointerup", releaseVinyl);
+    disc.addEventListener("pointercancel", releaseVinyl);
+  }
+
+  /**
+   * Draggable 1:1 Gimbal Tonearm Headshell
+   * Drop the needle anywhere on the record to start playing that exact track groove!
+   */
+  function setupTonearmDragInteractions() {
+    const headshell = els.tonearmHeadshell;
+    const pivotEl = els.tonearmPivotCenter;
+    const rigEl = els.tonearmRig;
+    if (!headshell || !pivotEl || !rigEl) return;
+
+    let pivotCenter = { x: 0, y: 0 };
+
+    const computeAngleFromPointer = (clientX, clientY) => {
+      const dx = clientX - pivotCenter.x;
+      const dy = clientY - pivotCenter.y;
+      const angleDeg = Math.atan2(-dx, dy) * (180 / Math.PI);
+      return Math.max(0, Math.min(44, angleDeg));
+    };
+
+    headshell.addEventListener("pointerdown", (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      const rect = pivotEl.getBoundingClientRect();
+      pivotCenter = { x: rect.left, y: rect.top };
+      headshell.setPointerCapture(e.pointerId);
+      state.isDraggingTonearm = true;
+      rigEl.classList.add("dragging");
+      audio.initContext();
+      audio.playMechanicalClick(1.18);
+    });
+
+    headshell.addEventListener("pointermove", (e) => {
+      if (!state.isDraggingTonearm) return;
+      const angle = computeAngleFromPointer(e.clientX, e.clientY);
+      state.tonearmAngle = angle;
+      rigEl.style.transform = `translate3d(0,0,0) rotate(${angle.toFixed(3)}deg)`;
+      if (els.teleRadius) {
+        els.teleRadius.textContent = `${getGrooveRadiusMm(angle)} mm`;
+      }
+    });
+
+    const endTonearmDrag = (e) => {
+      if (!state.isDraggingTonearm) return;
+      state.isDraggingTonearm = false;
+      rigEl.classList.remove("dragging");
+      try {
+        headshell.releasePointerCapture(e.pointerId);
+      } catch (err) {}
+
+      // If released near armrest (< 13 deg), park the tonearm and stop playback
+      if (state.tonearmAngle < 13) {
+        state.tonearmAngle = 0;
+        rigEl.style.transform = `translate3d(0,0,0) rotate(0deg)`;
+        parkTonearm();
+        showToast("Tonearm parked on armrest cradle");
+        return;
+      }
+
+      // Dropped onto the vinyl grooves! Map angle [18.5 .. 41.5] to track & offset
+      const album = getCurrentAlbum();
+      if (!album || !album.tracks.length) return;
+      const clamped = Math.max(
+        state.OUTER_GROOVE_DEG,
+        Math.min(state.INNER_GROOVE_DEG, state.tonearmAngle)
+      );
+      const norm =
+        (clamped - state.OUTER_GROOVE_DEG) /
+        (state.INNER_GROOVE_DEG - state.OUTER_GROOVE_DEG);
+      const exactTrackFloat = norm * album.tracks.length;
+      const targetTrackIdx = Math.min(
+        album.tracks.length - 1,
+        Math.max(0, Math.floor(exactTrackFloat))
+      );
+      const withinTrackOffset = exactTrackFloat - targetTrackIdx;
+
+      dropNeedleOnTrack(targetTrackIdx, withinTrackOffset * 0.85);
+      showToast(
+        `Needle dropped at ${getGrooveRadiusMm(clamped)}mm — "${album.tracks[targetTrackIdx].title}"`
+      );
+    };
+
+    headshell.addEventListener("pointerup", endTonearmDrag);
+    headshell.addEventListener("pointercancel", endTonearmDrag);
+  }
+
+  /**
+   * Animated Recessed Pitch Fader (-8% to +8%) with Center 0.0% Quartz Detent Click
+   */
+  function setupRecessedPitchFader() {
+    const well = els.pitchSlotWell;
+    const cap = els.pitchFaderCap;
+    if (!well || !cap) return;
+
+    let lastTickStep = 0;
+
+    const setPitchFromValue = (val, animateCap = true) => {
+      let clamped = Math.max(-8, Math.min(8, val));
+      // Magnetic center quartz detent snap around 0.0%
+      const wasZero = Math.abs(state.pitchPercent) < 0.05;
+      if (Math.abs(clamped) < 0.38) {
+        clamped = 0;
+      }
+
+      const crossedZero = !wasZero && clamped === 0;
+      const tickStep = Math.round(clamped * 2);
+      if (crossedZero) {
+        audio.playPitchFaderTick(true);
+      } else if (tickStep !== lastTickStep) {
+        audio.playPitchFaderTick(false);
+        lastTickStep = tickStep;
+      }
+
+      state.pitchPercent = clamped;
+      audio.setPlaybackRate(getNormalizedPlaybackRate());
+
+      // Position 3D fader cap inside slot (top 10% = -8%, 50% = 0%, 90% = +8%)
+      const pctTop = 50 + (clamped / 8) * 40;
+      if (!animateCap) {
+        cap.classList.add("dragging");
+      } else {
+        cap.classList.remove("dragging");
+      }
+      cap.style.top = `${pctTop.toFixed(2)}%`;
+
+      if (els.quartzLockLed) {
+        els.quartzLockLed.classList.toggle("locked", clamped === 0);
+      }
+      if (els.telePitch) {
+        const sign = clamped > 0 ? "+" : "";
+        els.telePitch.textContent = `${sign}${clamped.toFixed(1)}%`;
+      }
+      updateHardwareStatusUI();
+    };
+
+    const updateFromPointerY = (clientY, animate) => {
+      const rect = well.getBoundingClientRect();
+      const relY = (clientY - rect.top) / rect.height;
+      const norm = Math.max(0, Math.min(1, (relY - 0.1) / 0.8));
+      const pitchVal = -8 + norm * 16;
+      setPitchFromValue(pitchVal, animate);
+    };
+
+    well.addEventListener("pointerdown", (e) => {
+      e.preventDefault();
+      well.setPointerCapture(e.pointerId);
+      state.isDraggingPitch = true;
+      audio.initContext();
+      // If user clicked the slot away from the cap, animate smoothly first!
+      updateFromPointerY(e.clientY, true);
+    });
+
+    well.addEventListener("pointermove", (e) => {
+      if (!state.isDraggingPitch) return;
+      updateFromPointerY(e.clientY, false);
+    });
+
+    const endPitchDrag = (e) => {
+      if (!state.isDraggingPitch) return;
+      state.isDraggingPitch = false;
+      cap.classList.remove("dragging");
+      try {
+        well.releasePointerCapture(e.pointerId);
+      } catch (err) {}
+    };
+
+    well.addEventListener("pointerup", endPitchDrag);
+    well.addEventListener("pointercancel", endPitchDrag);
+
+    if (els.pitchResetBtn) {
+      els.pitchResetBtn.addEventListener("click", () => {
+        setPitchFromValue(0, true);
+        showToast("Quartz Pitch Lock engaged (0.0%)");
+      });
+    }
+  }
+
+  /**
+   * Buttery-Smooth 60/120fps Hardware Physics Loop
+   * Uses unwrapped floating-point rotation with translate3d(0,0,0) and zero DOM layout reads.
+   * Calibrated so 33⅓ RPM has a hypnotic, true-to-life visual rotation speed (~54 deg/sec).
+   */
+  function startTurntablePhysicsLoop() {
+    let lastTime = performance.now();
+
+    function frame(now) {
+      const dtMs = Math.min(48, now - lastTime);
+      lastTime = now;
+
+      const dtSec = dtMs / 1000;
+      const effectiveRpm = getEffectiveRpm();
+
+      // Platter rotates when motor power is ON and needle is dropped (or platter is spinning)
+      // Calibrated visual angular speed: 54 deg/sec at 33.3 RPM (~6.6s per full revolution)
+      // so the eye can smoothly track the spinning vinyl grooves and label at 60/120fps without blur!
+      const platterShouldSpin = state.motorPower && state.stylusDropped;
+      const targetDegPerSec = platterShouldSpin ? (effectiveRpm / 33.3) * 54.0 : 0;
+
+      if (!state.isDraggingVinyl) {
+        // Smooth belt-drive inertia ramp
+        state.angularVelocityDegPerSec +=
+          (targetDegPerSec - state.angularVelocityDegPerSec) * Math.min(1, dtSec * 5.5);
+
+        // Decay scratch synth when not dragging
+        audio.updateScratchScrub(0, false);
+
+        if (Math.abs(state.angularVelocityDegPerSec) > 0.02) {
+          const deltaDeg = state.angularVelocityDegPerSec * dtSec;
+          state.platterAngle += deltaDeg;
+          state.pulleyAngle += deltaDeg * 3.6;
+        }
+      }
+
+      // GPU-composited sub-pixel rotation (no % 360 snap!)
+      if (els.vinylDisc) {
+        els.vinylDisc.style.transform = `translate3d(0,0,0) rotate(${state.platterAngle.toFixed(3)}deg)`;
+      }
+      if (els.platterStrobeRim) {
+        els.platterStrobeRim.style.transform = `translate3d(0,0,0) rotate(${(state.platterAngle * 0.65).toFixed(3)}deg)`;
+      }
+      if (els.brassMotorSpindle) {
+        els.brassMotorSpindle.style.transform = `translate3d(0,0,0) rotate(${state.pulleyAngle.toFixed(3)}deg)`;
+      }
+
+      // Smoothly advance tonearm across the groove when not being dragged by hand
+      if (!state.isDraggingTonearm && els.tonearmRig) {
+        const targetArm = computeTargetTonearmAngle();
+        state.tonearmAngle += (targetArm - state.tonearmAngle) * Math.min(1, dtSec * 8.0);
+        els.tonearmRig.style.transform = `translate3d(0,0,0) rotate(${state.tonearmAngle.toFixed(3)}deg)`;
+      }
+
+      // Update live telemetry readouts
+      if (els.teleRpm) {
+        const currentRpmDisplay =
+          (Math.abs(state.angularVelocityDegPerSec) / 54.0) * 33.3;
+        els.teleRpm.textContent = `${currentRpmDisplay.toFixed(1)} RPM`;
+      }
+      if (els.teleRadius) {
+        els.teleRadius.textContent = `${getGrooveRadiusMm(state.tonearmAngle)} mm`;
+      }
+
+      // Update vinyl surface dust crackle & morning cafe room tone
+      const stylusTouchingWax =
+        state.motorPower && state.stylusDropped && !state.isCuedUp && state.tonearmAngle >= 14;
+      const normSpeed = Math.abs(state.angularVelocityDegPerSec) / 54.0;
+      audio.updateSurfaceNoise(stylusTouchingWax, normSpeed);
+
+      requestAnimationFrame(frame);
+    }
+
+    requestAnimationFrame(frame);
+  }
+
+  /**
+   * Live Global Album Pressing via Apple Music / iTunes Search API
+   */
+  async function pressCustomVinyl(artistQuery, albumQuery) {
+    const combined = `${artistQuery || ""} ${albumQuery || ""}`.trim();
+    if (!combined) {
+      showToast("Enter an artist or album name to press onto vinyl");
+      return;
+    }
+
+    const btn = els.latheSubmitBtn;
+    const origHtml = btn.innerHTML;
+    btn.textContent = "Cutting Master Lacquer...";
+    btn.disabled = true;
+
+    try {
+      const q = encodeURIComponent(combined);
+      const res = await fetch(`https://itunes.apple.com/search?term=${q}&entity=album&limit=8`);
+      const data = await res.json();
+      const candidates = data.results || [];
+      if (!candidates.length) {
+        showToast(`No master found for "${combined}"`);
+        return;
+      }
+
+      let pressedAlbum = null;
+      for (const c of candidates) {
+        const tRes = await fetch(
+          `https://itunes.apple.com/lookup?id=${c.collectionId}&entity=song`
+        );
+        const tData = await tRes.json();
+        const tracks = (tData.results || []).filter(
+          (r) => r.wrapperType === "track" && r.previewUrl
+        );
+        if (tracks.length > 0) {
+          pressedAlbum = {
+            id: String(c.collectionId),
+            title: c.collectionName,
+            artist: c.artistName,
+            year: (c.releaseDate || "2024").slice(0, 4),
+            genre: c.primaryGenreName || "Custom Pressing",
+            note: `CUSTOM PRESSING // ${c.artistName.toUpperCase()} (${(c.releaseDate || "").slice(0, 4)})`,
+            artwork: (c.artworkUrl100 || "").replace("100x100bb", "1000x1000bb"),
+            glowPrimary: "#D9531E",
+            glowSecondary: "#6E230B",
+            labelBg: "#F4EFE6",
+            labelInk: "#141210",
+            tracks: tracks.map((t, idx) => ({
+              number: t.trackNumber || idx + 1,
+              title: t.trackName,
+              durationMs: t.trackTimeMillis || 30000,
+              previewUrl: t.previewUrl
+            }))
+          };
+          break;
+        }
+      }
+
+      if (!pressedAlbum) {
+        showToast("Album found, but audio streams are unavailable in this region");
+        return;
+      }
+
+      catalog.unshift(pressedAlbum);
+      if (els.latheArtistInput) els.latheArtistInput.value = "";
+      if (els.latheAlbumInput) els.latheAlbumInput.value = "";
+      mountAlbumOnPlatter(0, true);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      showToast(`Pressed "${pressedAlbum.title}" by ${pressedAlbum.artist} onto 180g wax!`);
+    } catch (e) {
+      showToast("Could not connect to vinyl catalog server");
+    } finally {
+      btn.innerHTML = origHtml;
+      btn.disabled = false;
+    }
+  }
+
+  function bindHardwareControls() {
+    // 1. Rotary Power Switch (OFF / ON)
+    if (els.rotaryPowerKnob) {
+      els.rotaryPowerKnob.addEventListener("click", () => {
+        state.motorPower = !state.motorPower;
+        audio.playPowerSwitchClunk(state.motorPower);
+        if (!state.motorPower) {
+          audio.pause();
+          showToast("Turntable motor switched OFF — Platter coasting to stop");
+        } else {
+          if (state.stylusDropped && !state.isCuedUp) {
+            audio.play();
+          }
+          showToast("Turntable motor switched ON — Strobe locked");
+        }
+        updateHardwareStatusUI();
+      });
+    }
+
+    // 2. Rectangular Machined Speed Selector Buttons (33 / 45 / 78 RPM)
+    document.querySelectorAll(".hardware-speed-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        audio.playMechanicalClick(1.15);
+        document.querySelectorAll(".hardware-speed-btn").forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        state.rpmBase = parseFloat(btn.dataset.rpm || "33.3");
+        audio.setPlaybackRate(getNormalizedPlaybackRate());
+        updateHardwareStatusUI();
+        showToast(`Belt drive engaged: ${state.rpmBase === 33.3 ? "33⅓" : state.rpmBase} RPM`);
+      });
+    });
+
+    // 3. Physical Hydraulic Cueing Lever Wand
+    if (els.hydraulicCueAssembly) {
+      els.hydraulicCueAssembly.addEventListener("click", () => {
+        state.isCuedUp = !state.isCuedUp;
+        audio.playCueLeverSound(!state.isCuedUp);
+        if (state.isCuedUp) {
+          audio.pause();
+          showToast("Cueing lever raised — Stylus lifted above groove");
+        } else {
+          if (!state.stylusDropped) {
+            dropNeedleOnTrack(state.trackIndex, audio.getProgressRatio());
+          } else if (state.motorPower) {
+            audio.playNeedleDropSound(true);
+            audio.play();
+          }
+          showToast("Cueing lever lowered — Stylus resting in groove");
+        }
+        updateHardwareStatusUI();
+      });
+    }
+
+    // 4. Pill CTAs & Spacebar Shortcut
+    if (els.dropNeedlePillBtn) {
+      els.dropNeedlePillBtn.addEventListener("click", toggleNeedleDrop);
+    }
+    if (els.topDropNeedleCta) {
+      els.topDropNeedleCta.addEventListener("click", toggleNeedleDrop);
+    }
+
+    window.addEventListener("keydown", (e) => {
+      if (e.target && (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA")) return;
+      if (e.code === "Space") {
+        e.preventDefault();
+        toggleNeedleDrop();
+      }
+    });
+
+    // 5. Section 02 Configurator Finish Swatches & Wax Pills
+    document.querySelectorAll(".finish-swatch-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        audio.playMechanicalClick(1.0);
+        document.querySelectorAll(".finish-swatch-btn").forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        state.chassis = btn.dataset.chassis || "obsidian";
+        document.body.setAttribute("data-chassis", state.chassis);
+        updateConfiguratorSummary();
+      });
+    });
+
+    document.querySelectorAll(".wax-mode-pill").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        audio.playMechanicalClick(1.08);
+        document.querySelectorAll(".wax-mode-pill").forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        state.discStyle = btn.dataset.disc || "picture";
+        document.body.setAttribute("data-disc-style", state.discStyle);
+        updateConfiguratorSummary();
+      });
+    });
+
+    // 6. Acoustic Sliders (Vinyl Crackle, Morning Cafe Ambience, Master Gain)
+    if (els.crackleRange) {
+      els.crackleRange.addEventListener("input", (e) => {
+        audio.initContext();
+        audio.setCrackle(parseFloat(e.target.value || "0.36"));
+      });
+    }
+    if (els.cafeRange) {
+      els.cafeRange.addEventListener("input", (e) => {
+        audio.initContext();
+        audio.setCafeAmbience(parseFloat(e.target.value || "0.22"));
+      });
+    }
+    if (els.gainRange) {
+      els.gainRange.addEventListener("input", (e) => {
+        audio.setVolume(parseFloat(e.target.value || "0.85"));
+      });
+    }
+
+    // 7. Section 03 Live Global Vinyl Lathe Form
+    if (els.latheSearchForm) {
+      els.latheSearchForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        pressCustomVinyl(
+          els.latheArtistInput ? els.latheArtistInput.value : "",
+          els.latheAlbumInput ? els.latheAlbumInput.value : ""
+        );
+      });
+    }
+  }
+
+  
+  // ==========================================================================
+  // KOMBAI 3D RECORD SLEEVE CAROUSEL & JSONP ITUNES STREAM HYDRATION
+  // ==========================================================================
+  state.carouselIndex = 0;
+
+  function fetchItunesJsonp(url) {
+    return new Promise((resolve, reject) => {
+      const cbName = "__atelierItunesCb_" + Math.random().toString(36).slice(2);
+      const script = document.createElement("script");
+      const timer = setTimeout(() => {
+        cleanup();
+        reject(new Error("JSONP timeout"));
+      }, 6500);
+
+      function cleanup() {
+        clearTimeout(timer);
+        delete window[cbName];
+        if (script.parentNode) script.parentNode.removeChild(script);
+      }
+
+      window[cbName] = (data) => {
+        cleanup();
+        resolve(data);
+      };
+
+      script.onerror = () => {
+        cleanup();
+        reject(new Error("JSONP error"));
+      };
+
+      script.src = url + (url.includes("?") ? "&" : "?") + "callback=" + cbName;
+      document.head.appendChild(script);
+    });
+  }
+
+  async function hydrateAlbumFromItunesId(album) {
+    if (!album || !album.itunesCollectionId || album._hydratedFromItunes) return;
+    album._hydratedFromItunes = true;
+    try {
+      const url = `https://itunes.apple.com/lookup?id=${album.itunesCollectionId}&entity=song`;
+      let data = null;
+      try {
+        data = await fetchItunesJsonp(url);
+      } catch (err) {
+        const res = await fetch(url);
+        data = await res.json();
+      }
+      if (!data || !Array.isArray(data.results) || !data.results.length) return;
+
+      const collection = data.results.find((r) => r.wrapperType === "collection") || data.results[0];
+      if (collection && collection.artworkUrl100) {
+        album.artwork = collection.artworkUrl100.replace("100x100bb", "1000x1000bb");
+      }
+
+      const songResults = data.results.filter((r) => r.wrapperType === "track" && r.previewUrl);
+      if (songResults.length > 0) {
+        album.tracks = songResults.map((t, idx) => ({
+          number: t.trackNumber || idx + 1,
+          title: t.trackName,
+          durationMs: t.trackTimeMillis || 30000,
+          previewUrl: t.previewUrl
+        }));
+      }
+
+      if (getCurrentAlbum() && getCurrentAlbum().id === album.id) {
+        renderAlbumState();
+      } else {
+        renderCrateGrid();
+        renderSleeveCarousel();
+      }
+    } catch (e) {
+      // Keep pre-seeded Wikimedia cover & fallback audio streams if offline
+    }
+  }
+
+  function renderSleeveCarousel() {
+    const trackEl = document.getElementById("sleeveCarouselTrack");
+    const navCountEl = document.getElementById("navCrateCount");
+    if (navCountEl) navCountEl.textContent = String(catalog.length);
+    if (!trackEl) return;
+
+    trackEl.innerHTML = "";
+    catalog.forEach((album, idx) => {
+      const card = document.createElement("div");
+      card.className = "carousel-sleeve-3d-card";
+      card.dataset.index = String(idx);
+      const isSpinning = idx === state.albumIndex;
+
+      card.innerHTML = `
+        <div class="carousel-peeking-vinyl">
+          <div class="carousel-peeking-label" style="background-image:url('${album.artwork}')"></div>
+        </div>
+        <div class="carousel-jacket-cover">
+          ${isSpinning ? '<span class="carousel-now-spinning-pill">● ON PLATTER</span>' : ''}
+          <img class="carousel-jacket-img" src="${album.artwork}" alt="${album.title}" loading="lazy" />
+        </div>
+      `;
+
+      card.addEventListener("click", () => {
+        if (state.carouselIndex === idx) {
+          mountAlbumOnPlatter(idx, true);
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        } else {
+          audio.playMechanicalClick(1.05);
+          state.carouselIndex = idx;
+          updateSleeveCarouselTransforms();
+        }
+      });
+
+      trackEl.appendChild(card);
+    });
+
+    updateSleeveCarouselTransforms();
+  }
+
+  function updateSleeveCarouselTransforms() {
+    const trackEl = document.getElementById("sleeveCarouselTrack");
+    if (!trackEl) return;
+    const cards = trackEl.querySelectorAll(".carousel-sleeve-3d-card");
+    const total = catalog.length;
+    if (!total) return;
+
+    cards.forEach((card, idx) => {
+      let offset = idx - state.carouselIndex;
+      if (offset > total / 2) offset -= total;
+      if (offset < -total / 2) offset += total;
+
+      const absOff = Math.abs(offset);
+      const tx = offset * 205;
+      const tz = -absOff * 125;
+      const ry = offset * -25;
+      const scale = offset === 0 ? 1.08 : Math.max(0.72, 1 - absOff * 0.11);
+      const opacity = absOff > 3 ? 0 : Math.max(0.22, 1 - absOff * 0.25);
+
+      card.style.transform = `translate3d(${tx}px, 0px, ${tz}px) rotateY(${ry}deg) scale(${scale})`;
+      card.style.zIndex = String(30 - absOff);
+      card.style.opacity = String(opacity);
+      card.style.pointerEvents = absOff > 3 ? "none" : "auto";
+      card.classList.toggle("is-focused", offset === 0);
+    });
+
+    const focused = catalog[state.carouselIndex] || catalog[0];
+    if (focused) {
+      const counterEl = document.getElementById("carouselCounterText");
+      const noteEl = document.getElementById("carouselFocusedNote");
+      const titleEl = document.getElementById("carouselFocusedTitle");
+      const metaEl = document.getElementById("carouselFocusedMeta");
+
+      if (counterEl) {
+        counterEl.textContent = `${String(state.carouselIndex + 1).padStart(2, "0")} / ${String(total).padStart(2, "0")}`;
+      }
+      if (noteEl) {
+        noteEl.textContent = focused.note || `${focused.genre.toUpperCase()} • ${focused.artist.toUpperCase()} (${focused.year})`;
+      }
+      if (titleEl) {
+        titleEl.textContent = `${focused.title} — ${focused.artist}`;
+      }
+      if (metaEl) {
+        metaEl.textContent = `${focused.year} • ${focused.tracks.length} tracks pressed on 180g audiophile vinyl`;
+      }
+    }
+  }
+
+  function setupSleeveCarouselInteractions() {
+    const prevBtn = document.getElementById("carouselPrevBtn");
+    const nextBtn = document.getElementById("carouselNextBtn");
+    const mountOnlyBtn = document.getElementById("carouselMountOnlyBtn");
+    const dropNeedleBtn = document.getElementById("carouselDropNeedleBtn");
+    const viewport = document.getElementById("sleeveCarouselViewport");
+
+    const stepCarousel = (dir) => {
+      if (!catalog.length) return;
+      audio.playMechanicalClick(1.1);
+      state.carouselIndex = (state.carouselIndex + dir + catalog.length) % catalog.length;
+      updateSleeveCarouselTransforms();
+    };
+
+    if (prevBtn) prevBtn.addEventListener("click", () => stepCarousel(-1));
+    if (nextBtn) nextBtn.addEventListener("click", () => stepCarousel(1));
+
+    if (mountOnlyBtn) {
+      mountOnlyBtn.addEventListener("click", () => {
+        mountAlbumOnPlatter(state.carouselIndex, false);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    }
+    if (dropNeedleBtn) {
+      dropNeedleBtn.addEventListener("click", () => {
+        mountAlbumOnPlatter(state.carouselIndex, true);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    }
+
+    if (viewport) {
+      let startX = null;
+      viewport.addEventListener("pointerdown", (e) => {
+        if (e.target.closest("button")) return;
+        startX = e.clientX;
+      });
+      window.addEventListener("pointerup", (e) => {
+        if (startX === null) return;
+        const dx = e.clientX - startX;
+        startX = null;
+        if (Math.abs(dx) > 36) {
+          stepCarousel(dx < 0 ? 1 : -1);
+        }
+      });
+
+      let wheelCooldown = false;
+      viewport.addEventListener("wheel", (e) => {
+        if (Math.abs(e.deltaX) > Math.abs(e.deltaY) && Math.abs(e.deltaX) > 15) {
+          e.preventDefault();
+          if (!wheelCooldown) {
+            wheelCooldown = true;
+            stepCarousel(e.deltaX > 0 ? 1 : -1);
+            setTimeout(() => { wheelCooldown = false; }, 260);
+          }
+        }
+      }, { passive: false });
+    }
+
+    window.addEventListener("keydown", (e) => {
+      if (e.target && (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA")) return;
+      if (e.code === "ArrowLeft") {
+        stepCarousel(-1);
+      } else if (e.code === "ArrowRight") {
+        stepCarousel(1);
+      }
+    });
+  }
+
+  function init() {
+    cacheElements();
+    renderAlbumState();
+    setupSleeveCarouselInteractions();
+    catalog.forEach((alb) => hydrateAlbumFromItunesId(alb));
+    bindHardwareControls();
+    setupVinylScratchInteractions();
+    setupTonearmDragInteractions();
+    setupRecessedPitchFader();
+
+    const firstTrack = getCurrentTrack();
+    if (firstTrack) {
+      audio.loadTrack(firstTrack.previewUrl, false, 0);
+    }
+
+    startTurntablePhysicsLoop();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();
+
+</script>
+</body>
+</html>
